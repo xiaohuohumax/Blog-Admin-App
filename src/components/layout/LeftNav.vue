@@ -1,0 +1,152 @@
+<template>
+<div class="left-nav d-flex flex-column h-100 text-center shadow-sm">
+    <div class="flex-shrink-0 pt-5 px-5 pb-4 h4 left-nav-drag">
+        <span class="left-nav-no-drag">XAIOHUOHU</span>
+    </div>
+    <div class="flex-shark-0 pb-3 px-5">
+        <img src="../../assets/userIcon.jpg" class="left-nav-icon mx-auto rounded-circle mb-2" />
+
+        <div class="my-1">xaiohuohu</div>
+        <Button type="success" ghost icon="md-exit" to="/login">注销</Button>
+    </div>
+    <div class="home-nav-body flex-grow-1 mb-2">
+        <Menu :open-names="['0']" class="w-100 text-left">
+            <Submenu :name="listIndex" v-for="(list, listIndex) in nav" :key="listIndex">
+                <template slot="title">
+                    <Icon :type="list.icon" />
+                    {{ list.name }}
+                </template>
+                <MenuItem :name="`${listIndex}-${index}`" v-for="(item, index) in list.items" :key="index" :to="item.path">{{ item.name }}</MenuItem>
+            </Submenu>
+        </Menu>
+    </div>
+</div>
+</template>
+
+<script>
+export default {
+    data() {
+        return {
+            nav: [{
+                    name: "内容管理",
+                    icon: "ios-paper",
+                    items: [{
+                            name: "发布文章",
+                            path: "/FireArticleManager"
+                        },
+                        {
+                            name: "文章管理",
+                            path: "/ArticleManager"
+                        },
+                        {
+                            name: "评论管理",
+                            path: "/CommentManager"
+                        },
+                    ],
+                },
+                {
+                    name: "账号管理",
+                    icon: "ios-people",
+                    items: [{
+                            name: "网站用户",
+                            path: "/WebUserManager"
+                        },
+                        {
+                            name: "管理用户",
+                            path: "/AdminUserManager"
+                        },
+                    ],
+                },
+                {
+                    name: "娱乐影音",
+                    icon: "md-images",
+                    items: [{
+                            name: "视频音乐",
+                            path: "/MusicVideoManager"
+                        },
+                        {
+                            name: "图包分享",
+                            path: "/ImagesManager"
+                        },
+                        {
+                            name: "在线游戏",
+                            path: "/GamesManager"
+                        },
+                        {
+                            name: "在线工具",
+                            path: "/ToolsManager"
+                        },
+                    ],
+                },
+                {
+                    name: "文件管理",
+                    icon: "md-folder-open",
+                    items: [{
+                        name: "虚拟文件",
+                        path: "/VirtualFileManager"
+                    }, ],
+                },
+                {
+                    name: "网站设置",
+                    icon: "ios-cog",
+                    items: [{
+                            name: "样式设置",
+                            path: "/StyleSetManager"
+                        },
+                        {
+                            name: "基础设置",
+                            path: "/BasicSetManager"
+                        },
+                    ],
+                },
+                {
+                    name: "统计分析",
+                    icon: "ios-stats",
+                    items: [{
+                            name: "用户分析",
+                            path: "/UserStatManager"
+                        },
+                        {
+                            name: "网站分析",
+                            path: "/WebStatManager"
+                        },
+                    ],
+                },
+            ],
+        };
+    },
+};
+</script>
+
+<style lang="less">
+.left-nav {
+    min-width: 10rem;
+    background-color: #f0f0f0;
+
+    .left-nav-drag {
+        -webkit-app-region: drag;
+        margin: 3px 0 0 3px;
+    }
+
+    .left-nav-no-drag {
+        -webkit-app-region: no-drag;
+    }
+
+    .left-nav-icon {
+        width: 5rem;
+    }
+
+    .home-nav-body {
+        overflow-y: auto;
+        z-index: 1;
+    }
+
+    .ivu-menu-vertical.ivu-menu-light:after {
+        display: none;
+    }
+
+    .ivu-menu-light {
+        background-color: rgba(0, 0, 0, 0);
+    }
+}
+</style>
