@@ -5,6 +5,7 @@ export default {
     
     ArticleManager: () => import('../components/articleManager/ArticleManager'),
     ArticleItem: () => import('../components/articleManager/ArticleItem'),
+    ArticleMore: () => import('../components/articleManager/ArticleMore'),
     FireArticleManager: () => import('../components/articleManager/FireArticleManager'),
 
     CommentManager: () => import('../components/commentManager/CommentManager'),
@@ -12,29 +13,38 @@ export default {
 
     WebUserManager: () => import('../components/webUserManager/WebUserManager'),
     WebUserItem: () => import('../components/webUserManager/WebUserItem'),
+    WebUserMore: () => import('../components/webUserManager/WebUserMore'),
     
     AdminUserManager: () => import('../components/adminUserManager/AdminUserManager'),
     AdminUserItem: () => import('../components/adminUserManager/AdminUserItem'),
+    AdminUserMore: () => import('../components/adminUserManager/AdminUserMore'),
 
 
+    MessageManager: () => import('../components/messageManager/MessageManager'),
+    NoticeManager: () => import('../components/noticeManager/NoticeManager'),
+
+
+    FireMusicVideoManager: () => import('../components/musicVideoManager/FireMusicVideoManager'),
     MusicVideoManager: () => import('../components/musicVideoManager/MusicVideoManager'),
-    MusicVideoWrite: () => import('../components/musicVideoManager/MusicVideoWrite'),
-    MusicVideoUpdate: () => import('../components/musicVideoManager/MusicVideoUpdate'),
-    MusicVideoUpdateItem: () => import('../components/musicVideoManager/MusicVideoUpdateItem'),
+    MusicVideoItem: () => import('../components/musicVideoManager/MusicVideoItem'),
+    MusicVideoMore: () => import('../components/musicVideoManager/MusicVideoMore'),
 
-    ImagesManager: () => import('../components/imagesManager/ImagesManager'),
-    ImageWrite: () => import('../components/imagesManager/ImageWrite'),
-    ImageUpdate: () => import('../components/imagesManager/ImageUpdate'),
-    ImageUpdateItem: () => import('../components/imagesManager/ImageUpdateItem'),
+    FireImageManager: () => import('../components/imagesManager/FireImageManager'),
+    ImageItem: () => import('../components/imagesManager/ImageItem'),
+    ImageManager: () => import('../components/imagesManager/ImageManager'),
+    ImageMore: () => import('../components/imagesManager/ImageMore'),
 
-    ToolsManager: () => import('../components/toolsManager/ToolsManager'),
-    ToolsUpdate: () => import('../components/toolsManager/ToolsUpdate'),
-    ToolsUpdateItem: () => import('../components/toolsManager/ToolsUpdateItem'),
+    FireToolManager: () => import('../components/toolManager/FireToolManager'),
+    ToolItem: () => import('../components/toolManager/ToolItem'),
+    ToolManager: () => import('../components/toolManager/ToolManager'),
+    ToolMore: () => import('../components/toolManager/ToolMore'),
 
     VirtualFileManager: () => import('../components/virtualFileManager/VirtualFileManager'),
    
-    AdminStatManager: () => import('../components/statManager/AdminStatManager'),
     WebStatManager: () => import('../components/statManager/WebStatManager'),
+
+
+    AdminStatManager: () => import('../components/statManager/AdminStatManager'),
     UserAgeStat: () => import('../components/statManager/stats/UserAgeStat'),
 
     BasicSetManager: () => import('../components/setManager/BasicSetManager'),
@@ -44,9 +54,10 @@ export default {
     Welcome: () => import('../components/Welcome'),
 
     // 模块
-    TagsList: () => import('../components/mode/TagsList'),
     Editor: () => import('../components/mode/Editor'),
     EnterImage: () => import('../components/mode/EnterImage'),
+    EnterTags: () => import('../components/mode/EnterTags'),
+    EnterVideo: () => import('../components/mode/EnterVideo'),
 
     // 布局
     LeftNav: () => import('../components/layout/LeftNav'),

@@ -6,7 +6,7 @@
         :style="cardIconStyle"
       ></div>
       <div>
-        <router-link to="/ArticleMore">{{ article.title }}</router-link>
+        <router-link to="/ToolMore">{{ article.title }}</router-link>
         <div class="small my-1">{{ article.subTitle }}</div>
         <div class="small mt-2">
           <Icon class="mr-1" type="md-eye" />{{ article.watch }}

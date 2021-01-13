@@ -1,63 +1,58 @@
 <template>
-<div class="home d-flex h-100">
+  <div class="home d-flex h-100">
     <div class="home-nav flex-shrink-0">
-        <LeftNav />
+      <LeftNav />
     </div>
     <div class="home-body flex-grow-1 d-flex flex-column text-left">
-        <Header class="w-100" />
-        <History />
-        <div class="home-main h-100">
-            <router-view />
-        </div>
+      <Header class="w-100 flex-shrink-0" />
+      <History class="flex-shrink-0" />
+      <router-view class="home-main flex-grow-1" />
     </div>
     <div class="tools-body">
-        <Tools />
+      <Tools />
     </div>
-</div>
+  </div>
 </template>
 
 <script>
-let {
-    remote
-} = window.require("electron");
+let { remote } = window.require("electron");
 
 let fs = window.require("fs");
 
 let win = remote.getCurrentWindow();
 export default {
-    data() {
-        return {
-            file: "",
-        };
-    },
-    beforeCreate() {
-        win.setResizable(true);
-        win.setMinimumSize(800, 500);
-        win.setSize(1000, 600);
-        win.center();
-    },
-
+  data() {
+    return {
+      file: "",
+    };
+  },
+  beforeCreate() {
+    win.setResizable(true);
+    win.setMinimumSize(800, 500);
+    win.setSize(1000, 600);
+    win.center();
+  },
 };
 </script>
 
 <style lang="less">
 .home {
-    position: relative;
+  position: relative;
 
-    .home-main {
-        overflow-y: auto;
-        background: #fafafa;
-    }
+  .home-main {
+    // overflow-y: auto;
+    background: #fafafa;
+  }
 
-    .home-body {
-        overflow: hidden;
-    }
+  .home-body {
+    overflow: hidden;
+  }
 
-    .tools-body {
-        position: absolute;
-        overflow: hidden;
-        right: 1rem;
-        bottom: 1rem;
-    }
+  .tools-body {
+    position: absolute;
+    overflow: hidden;
+    right: 1rem;
+    bottom: 1rem;
+  }
 }
 </style>

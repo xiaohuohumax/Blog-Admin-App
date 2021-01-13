@@ -1,5 +1,5 @@
 <template>
-  <div class="">图片标签</div>
+  <div class="">多标签</div>
 </template>
 
 <script>

@@ -1,19 +1,66 @@
 <template>
-<Content>
-    <Tabs value="name1" :animated="false">
-        <TabPane label="分享视频音乐" icon="md-book" name="name1" class="p-2">
-            <MusicVideoWrite />
-        </TabPane>
-        <TabPane label="音视频管理" icon="ios-videocam-outline" name="name2" class="p-2">
-            <MusicVideoUpdate />
-        </TabPane>
-    </Tabs>
-</Content>
+  <Content :loading="loading">
+    <template #head>
+      <Input
+        @keydown.enter.native="selectChange"
+        @on-clear="selectChange"
+        v-model.trim="selectWorld"
+        suffix="ios-search"
+        placeholder="搜索"
+        style="width: 10rem"
+        class="mr-2"
+        clearable
+      />
+      <Button @click="selectChange">搜索</Button>
+    </template>
+    <Page
+      :page-size="pageSteep"
+      :total="contextSum"
+      :current="page"
+      @on-change="pageChange"
+    />
+    <MusicVideoItem v-for="(item, index) in contexts" :key="index" :article="item" />
+  </Content>
 </template>
 
 <script>
-export default {};
+export default {
+  data() {
+    return {
+      contextSum: 0, // 总数
+      contexts: [], // 记录
+      pageSteep: 10, // 每页条数
+      selectWorld: "", // 搜索关键词
+
+      page: 1,
+
+      loading: 1, // 1 加载中 2 成功 3 失败
+    };
+  },
+  mounted() {
+    this.select();
+  },
+  methods: {
+    select() {
+      this.loading = 1;
+      this.$request
+        .articleFindByPage(this.page, this.pageSteep, this.selectWorld)
+        .then((result) => {
+          this.contexts = result.articles;
+          this.contextSum = result.articleSum;
+          this.loading = 2;
+        })
+        .catch((err) => (this.loading = 3));
+    },
+    pageChange(num) {
+      this.page = num;
+      this.select();
+    },
+    selectChange() {
+      this.pageChange(1);
+    },
+  },
+};
 </script>
 
-<style>
-</style>
+<style></style>

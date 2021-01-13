@@ -38,10 +38,6 @@ export default {
                             name: "文章管理",
                             path: "/ArticleManager"
                         },
-                        {
-                            name: "评论管理",
-                            path: "/CommentManager"
-                        },
                     ],
                 },
                 {
@@ -57,24 +53,49 @@ export default {
                         },
                     ],
                 },
+                 {
+                    name: "信息管理",
+                    icon: "ios-paper",
+                    items: [{
+                            name: "站内信息",
+                            path: "/MessageManager"
+                        },
+                        {
+                            name: "发布公告",
+                            path: "/NoticeManager"
+                        },
+                        {
+                            name: "评论管理",
+                            path: "/CommentManager"
+                        },
+                    ],
+                },
                 {
                     name: "娱乐影音",
                     icon: "md-images",
                     items: [{
                             name: "视频音乐",
-                            path: "/MusicVideoManager"
+                            path: "/FireMusicVideoManager"
                         },
                         {
                             name: "图包分享",
-                            path: "/ImagesManager"
-                        },
-                        {
-                            name: "在线游戏",
-                            path: "/GamesManager"
+                            path: "/FireImageManager"
                         },
                         {
                             name: "在线工具",
-                            path: "/ToolsManager"
+                            path: "/FireToolManager"
+                        },
+                        {
+                            name: "视频音乐管理",
+                            path: "/MusicVideoManager"
+                        },
+                        {
+                            name: "图包分享管理",
+                            path: "/ImageManager"
+                        },
+                        {
+                            name: "在线工具管理",
+                            path: "/ToolManager"
                         },
                     ],
                 },
@@ -97,17 +118,21 @@ export default {
                             name: "基础设置",
                             path: "/BasicSetManager"
                         },
+                        {
+                            name: "其他设置",
+                            path: "/OtherSetManager"
+                        },
                     ],
                 },
                 {
                     name: "统计分析",
                     icon: "ios-stats",
                     items: [{
-                            name: "用户分析",
-                            path: "/UserStatManager"
+                            name: "前端统计",
+                            path: "/WebStatManager"
                         },
                         {
-                            name: "网站分析",
+                            name: "网站统计",
                             path: "/WebStatManager"
                         },
                     ],

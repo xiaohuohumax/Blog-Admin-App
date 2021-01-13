@@ -8,19 +8,37 @@ export default {
             url
         })
     },
-    // 文章发表
-    articleInsert: (data) => {
+    articleFindByPage: (page, pageSteep, select) => {
         return https({
             method: "post",
-            url: '/articleinsert',
-            data
+            url: '/admin/api/articleFindByPage',
+            data: {
+                page,
+                pageSteep,
+                select
+            }
         })
     },
-    // 文章查询
-    articleFind: () => {
+    adminUserFindByPage: (page, pageSteep, select) => {
         return https({
             method: "post",
-            url: '/articlefind',
+            url: '/admin/api/adminUserFindByPage',
+            data: {
+                page,
+                pageSteep,
+                select
+            }
         })
-    }
+    },
+    webUserFindByPage: (page, pageSteep, select) => {
+        return https({
+            method: "post",
+            url: '/admin/api/webUserFindByPage',
+            data: {
+                page,
+                pageSteep,
+                select
+            }
+        })
+    },
 }

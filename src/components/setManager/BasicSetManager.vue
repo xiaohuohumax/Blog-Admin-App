@@ -19,7 +19,7 @@
     </div>
     <div class="py-3">
         <p class=" mr-2">设置关键字:</p>
-        <TagsList v-model="bokeKeywords" :tagsMax="10" />
+        <EnterTags />
     </div>
 </Content>
 </template>
