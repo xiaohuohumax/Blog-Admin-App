@@ -3,10 +3,9 @@ export default {
     Login: () => import('../views/Login'),
     Error404: () => import('../views/Error404'),
     
-    FireArticleManager: () => import('../components/fireArticleManager/FireArticleManager'),
-
     ArticleManager: () => import('../components/articleManager/ArticleManager'),
     ArticleItem: () => import('../components/articleManager/ArticleItem'),
+    FireArticleManager: () => import('../components/articleManager/FireArticleManager'),
 
     CommentManager: () => import('../components/commentManager/CommentManager'),
     CommentItem: () => import('../components/commentManager/CommentItem'),
@@ -28,24 +27,19 @@ export default {
     ImageUpdate: () => import('../components/imagesManager/ImageUpdate'),
     ImageUpdateItem: () => import('../components/imagesManager/ImageUpdateItem'),
 
-    GamesManager: () => import('../components/gamesManager/GamesManager'),
-    GameUpload: () => import('../components/gamesManager/GameUpload'),
-    GameUpdate: () => import('../components/gamesManager/GameUpdate'),
-    GameUpdateItem: () => import('../components/gamesManager/GameUpdateItem'),
-
     ToolsManager: () => import('../components/toolsManager/ToolsManager'),
     ToolsUpdate: () => import('../components/toolsManager/ToolsUpdate'),
     ToolsUpdateItem: () => import('../components/toolsManager/ToolsUpdateItem'),
 
-
-
     VirtualFileManager: () => import('../components/virtualFileManager/VirtualFileManager'),
-    StyleSetManager: () => import('../components/styleSetManager/StyleSetManager'),
-    BasicSetManager: () => import('../components/basicSetManager/BasicSetManager'),
-    UserStatManager: () => import('../components/userStatManager/UserStatManager'),
+   
+    AdminStatManager: () => import('../components/statManager/AdminStatManager'),
+    WebStatManager: () => import('../components/statManager/WebStatManager'),
+    UserAgeStat: () => import('../components/statManager/stats/UserAgeStat'),
 
-    WebStatManager: () => import('../components/webStatManager/WebStatManager'),
-    UserAgeStat: () => import('../components/webStatManager/UserAgeStat'),
+    BasicSetManager: () => import('../components/setManager/BasicSetManager'),
+    StyleSetManager: () => import('../components/setManager/StyleSetManager'),
+    OtherSetManager: () => import('../components/setManager/OtherSetManager'),
 
     Welcome: () => import('../components/Welcome'),
 

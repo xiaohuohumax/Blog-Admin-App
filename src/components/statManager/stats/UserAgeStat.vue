@@ -5,9 +5,9 @@
 </template>
 
 <script>
-import chartDatas from "../../script/chartDatas";
+import chartDatas from "@/script/chartDatas";
 
-import enumData from "../../script/enumData";
+import enumData from "@/script/enumData";
 
 let {
     ipcRenderer
