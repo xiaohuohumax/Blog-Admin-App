@@ -1,8 +1,17 @@
 <template>
   <Content :loading="loading">
     <template #head>
-      <Input suffix="" placeholder="搜索" style="width: 10rem" class="mr-2" />
-      <Button icon="ios-search">搜索</Button>
+      <Input
+        @keydown.enter.native="selectChange"
+        @on-clear="selectChange"
+        v-model.trim="selectWorld"
+        suffix="ios-search"
+        placeholder="搜索"
+        style="width: 10rem"
+        class="mr-2"
+        clearable
+      />
+      <Button @click="selectChange">搜索</Button>
     </template>
     <Page
       :page-size="pageSteep"
@@ -10,6 +19,7 @@
       :current="page"
       @on-change="pageChange"
     />
+    <Null v-show="contexts.length == 0" />
     <ArticleItem v-for="(item, index) in contexts" :key="index" :article="item" />
   </Content>
 </template>
@@ -21,7 +31,7 @@ export default {
       contextSum: 0, // 总数
       contexts: [], // 记录
       pageSteep: 10, // 每页条数
-      selectWorld:"",// 搜索关键词
+      selectWorld: "", // 搜索关键词
 
       page: 1,
 
@@ -35,7 +45,7 @@ export default {
     select() {
       this.loading = 1;
       this.$request
-        .articleFindByPage(this.page, this.pageSteep,this.selectWorld)
+        .articleFindByPage(this.page, this.pageSteep, this.selectWorld)
         .then((result) => {
           this.contexts = result.articles;
           this.contextSum = result.articleSum;
@@ -46,6 +56,9 @@ export default {
     pageChange(num) {
       this.page = num;
       this.select();
+    },
+    selectChange() {
+      this.pageChange(1);
     },
   },
 };

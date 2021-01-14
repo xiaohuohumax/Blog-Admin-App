@@ -19,6 +19,7 @@
       :current="page"
       @on-change="pageChange"
     />
+    <Null v-show="contexts.length == 0" />
     <MusicVideoItem v-for="(item, index) in contexts" :key="index" :article="item" />
   </Content>
 </template>
@@ -44,10 +45,10 @@ export default {
     select() {
       this.loading = 1;
       this.$request
-        .articleFindByPage(this.page, this.pageSteep, this.selectWorld)
+        .videomusicFindByPage(this.page, this.pageSteep, this.selectWorld)
         .then((result) => {
-          this.contexts = result.articles;
-          this.contextSum = result.articleSum;
+          this.contexts = result.videoMusics;
+          this.contextSum = result.videoMusicSum;
           this.loading = 2;
         })
         .catch((err) => (this.loading = 3));

@@ -10,6 +10,7 @@ export default {
 
     CommentManager: () => import('../components/commentManager/CommentManager'),
     CommentItem: () => import('../components/commentManager/CommentItem'),
+    CommentMore: () => import('../components/commentManager/CommentMore'),
 
     WebUserManager: () => import('../components/webUserManager/WebUserManager'),
     WebUserItem: () => import('../components/webUserManager/WebUserItem'),
@@ -22,6 +23,8 @@ export default {
 
     MessageManager: () => import('../components/messageManager/MessageManager'),
     NoticeManager: () => import('../components/noticeManager/NoticeManager'),
+    NoticeItem: () => import('../components/noticeManager/NoticeItem'),
+    FireNoticeManager: () => import('../components/noticeManager/FireNoticeManager'),
 
 
     FireMusicVideoManager: () => import('../components/musicVideoManager/FireMusicVideoManager'),
@@ -42,6 +45,11 @@ export default {
     VirtualFileManager: () => import('../components/virtualFileManager/VirtualFileManager'),
    
     WebStatManager: () => import('../components/statManager/WebStatManager'),
+    WebUserLevelStat: () => import('../components/statManager/stats/WebUserLevelStat'),
+    WebUserGenderStat: () => import('../components/statManager/stats/WebUserGenderStat'),
+    WebUserLogonStat: () => import('../components/statManager/stats/WebUserLogonStat'),
+    AdminUserGenderStat: () => import('../components/statManager/stats/AdminUserGenderStat'),
+    AdminUserLevelStat: () => import('../components/statManager/stats/AdminUserLevelStat'),
 
 
     AdminStatManager: () => import('../components/statManager/AdminStatManager'),
@@ -58,6 +66,8 @@ export default {
     EnterImage: () => import('../components/mode/EnterImage'),
     EnterTags: () => import('../components/mode/EnterTags'),
     EnterVideo: () => import('../components/mode/EnterVideo'),
+    StatCard: () => import('../components/mode/StatCard'),
+    Null: () => import('../components/mode/Null'),
 
     // 布局
     LeftNav: () => import('../components/layout/LeftNav'),

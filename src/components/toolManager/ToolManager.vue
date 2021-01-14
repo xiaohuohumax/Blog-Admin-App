@@ -44,10 +44,10 @@ export default {
     select() {
       this.loading = 1;
       this.$request
-        .articleFindByPage(this.page, this.pageSteep, this.selectWorld)
+        .toolFindByPage(this.page, this.pageSteep, this.selectWorld)
         .then((result) => {
-          this.contexts = result.articles;
-          this.contextSum = result.articleSum;
+          this.contexts = result.tools;
+          this.contextSum = result.toolSum;
           this.loading = 2;
         })
         .catch((err) => (this.loading = 3));

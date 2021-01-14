@@ -101,7 +101,7 @@ const routes = [{
         path: 'OtherSetManager',
         name: '其他设置',
         component: allCom.OtherSetManager
-      },{
+      }, {
         path: 'WebStatManager',
         name: '用户统计',
         component: allCom.WebStatManager
@@ -117,6 +117,10 @@ const routes = [{
         path: 'NoticeManager',
         name: '发布公告',
         component: allCom.NoticeManager
+      }, {
+        path: 'CommentMore',
+        name: '评论详细',
+        component: allCom.CommentMore
       },
       {
         path: '/Error404',

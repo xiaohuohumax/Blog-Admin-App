@@ -41,4 +41,98 @@ export default {
             }
         })
     },
+    statsWebUserLevel: () => {
+        return https({
+            method: "post",
+            url: '/admin/api/statsWebUserLevel',
+        })
+
+    },
+    statsWebUserGender: () => {
+        return https({
+            method: "post",
+            url: '/admin/api/statsWebUserGender',
+        })
+    },
+    statsWebUserLogon: () => {
+        return https({
+            method: "post",
+            url: '/admin/api/statsWebUserLogon',
+        })
+    },
+    // === 
+
+    statsAdminUserGender: () => {
+        return https({
+            method: "post",
+            url: '/admin/api/statsAdminUserGender',
+        })
+    },
+    statsAdminUserLevel: () => {
+        return https({
+            method: "post",
+            url: '/admin/api/statsAdminUserLevel',
+        })
+    },
+    commentFindByPageMore: (page,
+        pageSteep,
+        kind,
+        select,
+        selectTime) => {
+        return https({
+            method: "post",
+            url: '/admin/api/commentFindByPageMore',
+            data: {
+                page,
+                pageSteep,
+                kind,
+                select,
+                selectTime
+            }
+        })
+    },
+    videomusicFindByPage: (page, pageSteep, select) => {
+        return https({
+            method: "post",
+            url: '/admin/api/videomusicFindByPage',
+            data: {
+                page,
+                pageSteep,
+                select
+            }
+        })
+    },
+    imageFindPage: (page, pageSteep, select) => {
+        return https({
+            method: "post",
+            url: '/admin/api/imageFindPage',
+            data: {
+                page,
+                pageSteep,
+                select
+            }
+        })
+    },
+    toolFindByPage: (page, pageSteep, select) => {
+        return https({
+            method: "post",
+            url: '/admin/api/toolFindByPage',
+            data: {
+                page,
+                pageSteep,
+                select
+            }
+        })
+    },
+    noticeFindByPage: (page, pageSteep, select) => {
+        return https({
+            method: "post",
+            url: '/admin/api/noticeFindByPage',
+            data: {
+                page,
+                pageSteep,
+                select
+            }
+        })
+    },
 }

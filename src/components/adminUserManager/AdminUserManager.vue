@@ -19,8 +19,8 @@
       :current="page"
       @on-change="pageChange"
     />
-    <AdminUserItem v-for="(item, index) in contexts" :key="index" :user="item" />
     <Null v-show="contexts.length == 0" />
+    <AdminUserItem v-for="(item, index) in contexts" :key="index" :user="item" />
   </Content>
 </template>
 

@@ -27,7 +27,7 @@
       </Card>
     </div>
     <div
-      v-if="loading != 2"
+      v-if="loading == 1 || loading == 3"
       class="content-loading w-100 h-100 d-flex flex-column justify-content-center align-items-center"
     >
       <slot name="loading" v-if="loading == 1">

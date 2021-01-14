@@ -19,8 +19,8 @@
       :current="page"
       @on-change="pageChange"
     />
-    <WebUserItem v-for="(item, index) in contexts" :key="index" :user="item" />
     <Null v-show="contexts.length == 0" />
+    <WebUserItem v-for="(item, index) in contexts" :key="index" :user="item" />
   </Content>
 </template>
 
