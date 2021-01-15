@@ -54,12 +54,15 @@ export default {
   },
   watch: {
     loading() {
-      this.loading == 1 ? this.drawChart() : "";
+      this.loading == 1 ? this.setOption() : "";
     },
+  },
+  mounted() {
+    this.drawChart();
   },
   data() {
     return {
-      chart: {},
+      chart: null,
       chartId: `chartid-${Date.now()}`, // 随机id 防重复
       defineOption: {
         // 默认配置 开启工具栏
@@ -86,7 +89,15 @@ export default {
           },
         },
         color: [
-          "#4c5454","#ff715b","#ffffff","#1ea896","#523f38","#f3a712","#6cae75","#23b5d3","#279af1",
+          "#4c5454",
+          "#ff715b",
+          "#ffffff",
+          "#1ea896",
+          "#523f38",
+          "#f3a712",
+          "#6cae75",
+          "#23b5d3",
+          "#279af1",
         ], // 颜色配置
       },
     };
@@ -96,8 +107,11 @@ export default {
       this.chart = createChart(document.getElementById(this.chartId), this.resultOption);
       // 窗口大小改变
       ipcRenderer.on(enumData.WindowResize, () => {
-        this.chart.resize();
+        this.chart && this.chart.resize();
       });
+    },
+    setOption() {
+      this.chart && this.chart.setOption(this.resultOption, true);
     },
     reload() {
       this.$emit("reload");

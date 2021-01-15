@@ -1,13 +1,98 @@
 <template>
-  <div class="">图片标签</div>
+  <div class="">
+    <div
+      class="d-flex align-items-center justify-content-center"
+      v-if="!isOver"
+      :class="images.length > 0 ? 'mb-3' : ''"
+    >
+      <Input
+        v-model.trim="imageInput"
+        placeholder=""
+        clearable
+        @keydown.enter.native="enterInput"
+        @on-clear="enterInput"
+      />
+      <div v-show="imagemax != 1" class="ml-1 mb-1 h6">
+        ({{ images.length }}/{{ imagemax }})
+      </div>
+    </div>
+    <div class="d-flex flex-wrap">
+      <div class="enter-image-item" v-for="(item, index) in images" :key="index">
+        <Button
+          class="enter-image-icon"
+          size="small"
+          type="error"
+          shape="circle"
+          icon="md-close"
+          @click="removeItem(index)"
+        ></Button>
+        <img :src="item" class="enter-image-img rounded border mr-2 mb-2" />
+      </div>
+    </div>
+  </div>
 </template>
 
 <script>
 export default {
+  props: {
+    value: {
+      type: Array,
+      default: () => [],
+    },
+    imagemax: {
+      type: Number,
+      default: 10,
+    },
+  },
+  data() {
+    return {
+      imageInput: "",
+      images: [],
+    };
+  },
+  created() {
+    this.images = this.value;
+  },
+  computed: {
+    isOver() {
+      return this.images.length >= this.imagemax;
+    },
+  },
+  methods: {
+    enterInput() {
+      if (this.isOver) {
+        return this.$Message.error("数量超出限制!");
+      }
 
-}
+      let newInput = this.imageInput.split(/[ ]+/i).filter((val) => val != "");
+      this.imageInput = "";
+
+      this.images = this.images.concat(newInput);
+      this.$emit("input", this.images);
+    },
+    removeItem(index) {
+      this.images.splice(index, 1);
+      this.$emit("input", this.images);
+    },
+  },
+};
 </script>
 
-<style>
-
+<style lang="less">
+.enter-image-item {
+  position: relative;
+  .enter-image-img {
+    width: 6rem;
+    height: 6rem;
+  }
+  &:hover .enter-image-icon {
+    visibility: visible;
+  }
+  .enter-image-icon {
+    position: absolute;
+    top: 0.25rem;
+    left: 0.25rem;
+    visibility: hidden;
+  }
+}
 </style>

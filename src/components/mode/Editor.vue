@@ -1,7 +1,7 @@
 <template>
-<div class="">
+  <div class="">
     <Editor id="tinymce" v-model="val" :init="editorInit"></Editor>
-</div>
+  </div>
 </template>
 
 <script>
@@ -22,59 +22,59 @@ import "tinymce/plugins/media";
 import "tinymce/plugins/quickbars";
 
 export default {
-    components: {
-        Editor,
-    },
-    props: {
-        value: String,
-    },
+  components: {
+    Editor,
+  },
+  props: {
+    value: String,
+  },
 
-    watch: {
-        value(val) {
-            this.val = val;
-        },
-        val() {
-            this.$emit("input", this.val);
-        },
+  watch: {
+    value(val) {
+      this.val = val;
     },
+    val() {
+      this.$emit("input", this.val);
+    },
+  },
 
-    created() {
-        this.val = this.value;
-    },
+  created() {
+    this.val = this.value;
+  },
 
-    data() {
-        return {
-            val: "",
-            editorInit: {
-                language_url: "/tinymce/zh_CN.js",
-                language: "zh_CN",
-                skin_url: "/tinymce/skins/ui/oxide",
-                // ...config.editor.editorInit
-                menubar: false, // 禁用菜单
-                plugins: [
-                    "link",
-                    "lists",
-                    "image",
-                    "code",
-                    "table",
-                    "wordcount",
-                    "media",
-                ], // 插件
-                toolbar: [
-                    // 界面布局
-                    "bold  italic  underline strikethrough | forecolor backcolor | alignleft  aligncenter  alignright alignjustify | cut copy paste | bullist numlist | outdent indent | blockquote subscript superscript|  undo redo | ",
-                    "formatselect | fontselect | fontsizeselect |  link unlink | image media code |  removeformat | quickbars",
-                ],
-                height: 500,
-                branding: false,
-            },
-        };
-    },
-    mounted() {
-        tinymce.init({});
-    },
+  data() {
+    return {
+      val: "",
+      editorInit: {
+        language_url: "/tinymce/zh_CN.js",
+        language: "zh_CN",
+        skin_url: "/tinymce/skins/ui/oxide",
+        // ...config.editor.editorInit
+        menubar: false, // 禁用菜单
+        plugins: ["link", "lists", "image", "code", "table", "wordcount", "media"], // 插件
+        toolbar: [
+          // 界面布局
+          "bold  italic  underline strikethrough | forecolor backcolor | alignleft  aligncenter  alignright alignjustify | cut copy paste | bullist numlist | outdent indent | blockquote subscript superscript|  undo redo | ",
+          "formatselect | fontselect | fontsizeselect |  link unlink | image media code |  removeformat | quickbars",
+        ],
+        height: 500,
+        branding: false,
+      },
+    };
+  },
+  mounted() {
+    tinymce.init({});
+  },
 };
 </script>
 
 <style>
+.tox-dialog--width-lg {
+  height: auto !important;
+  /* width:  !important; */
+  max-width: 480px !important;
+}
+.tox-dialog-wrap__backdrop {
+  display: none !important;
+}
 </style>

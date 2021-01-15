@@ -5,9 +5,9 @@
     </template>
     <div class="py-3">
         <p class=" mr-2">设置用户头像:</p>
-        <EnterImage />
+        <EnterImage v-model="images" />
     </div>
-    <div class="py-3">
+    <div class="py-3"> 
         <p class=" mr-2">设置网站横幅:</p>
         <EnterImage />
     </div>
@@ -16,7 +16,11 @@
 
 <script>
 export default {
-
+data() {
+    return {
+        images:[]
+    }
+},
 }
 </script>
 

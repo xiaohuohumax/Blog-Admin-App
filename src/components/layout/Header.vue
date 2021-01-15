@@ -65,6 +65,7 @@ export default {
 .header {
   position: relative;
   padding: 3px;
+  z-index: 9999;
   .header-drag {
     position: absolute;
     height: calc(100% - 3px);

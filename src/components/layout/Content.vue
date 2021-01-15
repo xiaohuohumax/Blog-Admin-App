@@ -25,6 +25,9 @@
       <Card class="m-2" v-if="loading == 0 || loading == 2">
         <slot />
       </Card>
+      <div class="content-bottom w-100" v-if="this.$slots.bottom">
+        <slot name="bottom" />
+      </div>
     </div>
     <div
       v-if="loading == 1 || loading == 3"
@@ -99,7 +102,11 @@ export default {
   .filter-blur {
     filter: blur(4px);
   }
-  .content-body {
+  .content-bottom {
+    position: sticky;
+
+    bottom: 0;
+    left: 0;
   }
   .content-head {
     position: relative;

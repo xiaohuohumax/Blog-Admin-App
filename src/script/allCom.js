@@ -22,6 +22,9 @@ export default {
 
 
     MessageManager: () => import('../components/messageManager/MessageManager'),
+    MessageItem: () => import('../components/messageManager/MessageItem'),
+
+
     NoticeManager: () => import('../components/noticeManager/NoticeManager'),
     NoticeItem: () => import('../components/noticeManager/NoticeItem'),
     FireNoticeManager: () => import('../components/noticeManager/FireNoticeManager'),

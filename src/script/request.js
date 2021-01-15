@@ -135,4 +135,25 @@ export default {
             }
         })
     },
+    adminMessageFindByPage: (page, pageSteep, select) => {
+        return https({
+            method: "post",
+            url: '/admin/api/adminMessageFindByPage',
+            data: {
+                page,
+                pageSteep,
+                select
+            }
+        })
+    },
+    adminMessageInsert: (adminId, message) => {
+        return https({
+            method: "post",
+            url: '/admin/api/adminMessageInsert',
+            data: {
+                adminId,
+                message
+            }
+        })
+    },
 }
