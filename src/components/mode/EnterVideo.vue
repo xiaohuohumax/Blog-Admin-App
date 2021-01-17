@@ -3,24 +3,23 @@
     <div class="d-flex align-items-center justify-content-center">
       <Input
         v-model.trim="imageInput"
-        placeholder=""
         clearable
         @keydown.enter.native="enterInput"
         @on-clear="enterInput"
         v-if="!isOver"
+        :placeholder="$attrs.placeholder"
       />
     </div>
-    <div class="enter-image-item" v-if="isOver">
+    <div class="enter-video-item w-50" v-if="isOver">
       <Button
-        class="enter-image-icon"
+        class="enter-video-icon"
         size="small"
         type="error"
         shape="circle"
         icon="md-close"
         @click="removeItem"
       ></Button>
-      <video :src="images" class="enter-image-img rounded border w-50"></video>
-      <img />
+      <video controls :src="images" class="rounded border w-100"></video>
     </div>
   </div>
 </template>
@@ -35,6 +34,11 @@ export default {
     imagemax: {
       type: Number,
       default: 10,
+    },
+  },
+  watch: {
+    value() {
+      this.images = this.value;
     },
   },
   data() {
@@ -68,16 +72,12 @@ export default {
 </script>
 
 <style lang="less">
-.enter-image-item {
+.enter-video-item {
   position: relative;
-  .enter-image-img {
-    width: 6rem;
-    height: 6rem;
-  }
-  &:hover .enter-image-icon {
+  &:hover .enter-video-icon {
     visibility: visible;
   }
-  .enter-image-icon {
+  .enter-video-icon {
     position: absolute;
     top: 0.25rem;
     left: 0.25rem;

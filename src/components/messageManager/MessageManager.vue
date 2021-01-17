@@ -58,7 +58,7 @@ export default {
     this.select();
   },
   computed: {
-    // ...mapState([''])
+    ...mapState(["userInf"]),
   },
   methods: {
     select() {
@@ -86,7 +86,7 @@ export default {
         return this.$Message.error("消息不能为空!");
       }
       this.$request
-        .adminMessageInsert("5f9674cb4a86e6a06c086f10", this.message)
+        .adminMessageInsert(this.userInf._id, this.message)
         .then((result) => {
           this.selectChange();
           this.$Message.success("发送成功!");

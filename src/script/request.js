@@ -156,4 +156,300 @@ export default {
             }
         })
     },
+
+
+    articleinsert: (adminId, title, subTitle, content, icon, tags) => {
+        return https({
+            method: "post",
+            url: '/admin/api/articleinsert',
+            data: {
+                adminId,
+                title,
+                subTitle,
+                content,
+                icon,
+                tags
+            }
+        })
+    },
+
+    articlefindbyid: (id) => {
+        return https({
+            method: "post",
+            url: '/admin/api/articlefindbyid',
+            data: {
+                id
+            }
+        })
+    },
+    articleDeleteById: (id) => {
+        return https({
+            method: "post",
+            url: '/admin/api/articleDeleteById',
+            data: {
+                id
+            }
+        })
+    },
+
+    articleUpdate: (id, newdata) => {
+        return https({
+            method: "post",
+            url: '/admin/api/articleUpdate',
+            data: {
+                id,
+                newdata
+            }
+        })
+    },
+    adminuserlogin: (name, pass) => {
+        return https({
+            method: "post",
+            url: '/admin/adminuserlogin',
+            data: {
+                name,
+                pass
+            }
+        })
+    },
+    noticeInsert: (adminId, notice, icon) => {
+        return https({
+            method: "post",
+            url: '/admin/api/noticeInsert',
+            data: {
+                adminId,
+                notice,
+                icon
+            }
+        })
+    },
+    noticeDeleteById: (id) => {
+        return https({
+            method: "post",
+            url: '/admin/api/noticeDeleteById',
+            data: {
+                id
+            }
+        })
+    },
+    commentFindById: (id) => {
+        return https({
+            method: "post",
+            url: '/admin/api/commentFindById',
+            data: {
+                id
+            }
+        })
+    },
+    commentGetArticleByIdKind: (id, kind) => {
+        return https({
+            method: "post",
+            url: '/admin/api/commentGetArticleByIdKind',
+            data: {
+                id,
+                kind
+            }
+        })
+    },
+    commentDeleteById: (id) => {
+        return https({
+            method: "post",
+            url: '/admin/api/commentDeleteById',
+            data: {
+                id
+            }
+        })
+    },
+
+    videomusicinsert: (adminId, title, subTitle, videoMusicUrl, icon, tags) => {
+        return https({
+            method: "post",
+            url: '/admin/api/videomusicinsert',
+            data: {
+                adminId,
+                title,
+                subTitle,
+                videoMusicUrl,
+                icon,
+                tags
+            }
+        })
+    },
+    videomusicfindbyid: (id) => {
+        return https({
+            method: "post",
+            url: '/admin/api/videomusicfindbyid',
+            data: {
+                id
+            }
+        })
+    },
+    videoMusicDeleteById: (id) => {
+        return https({
+            method: "post",
+            url: '/admin/api/videoMusicDeleteById',
+            data: {
+                id
+            }
+        })
+    },
+    videoMusicUpdate: (id, newdata) => {
+        return https({
+            method: "post",
+            url: '/admin/api/videoMusicUpdate',
+            data: {
+                id,
+                newdata
+            }
+        })
+    },
+
+    adminByNameFindIcon: (name) => {
+        return https({
+            method: "post",
+            url: '/admin/adminByNameFindIcon',
+            data: {
+                name
+            }
+        })
+    },
+
+    webSetUpdate: (params) => {
+        return https({
+            method: "post",
+            url: '/admin/api/webSetUpdate',
+            data: {
+                params
+            }
+        })
+    },
+
+
+    webSetFindOnly: () => {
+        return https({
+            method: "post",
+            url: '/webset/webSetFindOnly',
+        })
+    },
+    toolFindbyid: (id) => {
+        return https({
+            method: "post",
+            url: '/admin/api/toolFindbyid',
+            data: {
+                id
+            }
+        })
+    },
+    toolDeleteById: (id) => {
+        return https({
+            method: "post",
+            url: '/admin/api/toolDeleteById',
+            data: {
+                id
+            }
+        })
+    },
+    imageFindbyid: (id) => {
+        return https({
+            method: "post",
+            url: '/admin/api/imageFindbyid',
+            data: {
+                id
+            }
+        })
+    },
+    imageDeleteById: (id) => {
+        return https({
+            method: "post",
+            url: '/admin/api/imageDeleteById',
+            data: {
+                id
+            }
+        })
+    },
+    imageUpdate: (id, newdata) => {
+        return https({
+            method: "post",
+            url: '/admin/api/imageUpdate',
+            data: {
+                id,
+                newdata
+            }
+        })
+    },
+
+    imageinsert: (adminId, title, subTitle, icons, icon, tags) => {
+        return https({
+            method: "post",
+            url: '/admin/api/imageinsert',
+            data: {
+                adminId,
+                title,
+                subTitle,
+                icons,
+                icon,
+                tags
+            }
+        })
+    },
+    toolFindbyid: (id) => {
+        return https({
+            method: "post",
+            url: '/admin/api/toolFindbyid',
+            data: {
+                id
+            }
+        })
+    },
+    toolDeleteById: (id) => {
+        return https({
+            method: "post",
+            url: '/admin/api/toolDeleteById',
+            data: {
+                id
+            }
+        })
+    },
+
+    uploadTool: (adminId, title, subTitle, icon, tags, file, onUploadProgress = () => {}) => {
+
+        let data = new FormData();
+        data.append("adminId", adminId);
+        data.append("title", title);
+        data.append("subTitle", subTitle);
+        data.append("icon", icon);
+        tags.forEach(val => data.append("tags[]", val));
+        data.append("file", file);
+        return https({
+            method: "post",
+            url: '/admin/api/uploadTool',
+            timeout: 1000 * 60 * 60 * 24,
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded'
+            },
+            onUploadProgress,
+            data
+        })
+    },
+
+    toolUpdate: (id, title, subTitle, icon, tags, file, onUploadProgress = () => {}) => {
+
+        let data = new FormData();
+        data.append("id", id);
+        data.append("title", title);
+        data.append("subTitle", subTitle);
+        data.append("icon", icon);
+        tags.forEach(val => data.append("tags[]", val));
+        file ? data.append("file", file) : "";
+        return https({
+            method: "post",
+            url: '/admin/api/toolUpdate',
+            timeout: 1000 * 60 * 60 * 24,
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded'
+            },
+            onUploadProgress,
+            data
+        })
+    },
 }

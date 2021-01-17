@@ -15,8 +15,8 @@
     </template>
 
     <Timeline>
-      <FireNoticeManager />
-      <NoticeItem v-for="(item, index) in contexts" :key="index" :notice="item" />
+      <FireNoticeManager @change="selectChange"/>
+      <NoticeItem @change="selectChange" v-for="(item, index) in contexts" :key="index" :notice="item" />
     </Timeline>
     <Null v-show="contexts.length == 0" />
     <Page

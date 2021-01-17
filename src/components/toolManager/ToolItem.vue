@@ -6,14 +6,14 @@
         :style="cardIconStyle"
       ></div>
       <div>
-        <router-link to="/ToolMore">{{ article.title }}</router-link>
-        <div class="small my-1">{{ article.subTitle }}</div>
+        <router-link :to="`/ToolMore/${tool._id}`">{{ tool.title }}</router-link>
+        <div class="small my-1">{{ tool.subTitle }}</div>
         <div class="small mt-2">
-          <Icon class="mr-1" type="md-eye" />{{ article.watch }}
-          <Icon class="mr-1" type="md-thumbs-up" />{{ article.nice }}
-          <Icon class="mr-1" type="ios-thermometer-outline" />{{ article.love }}
+          <Icon class="mr-1" type="md-eye" />{{ tool.watch }}
+          <Icon class="mr-1" type="md-thumbs-up" />{{ tool.nice }}
+          <Icon class="mr-1" type="ios-thermometer-outline" />{{ tool.love }}
           <Icon class="mr-1" type="ios-clock-outline" />
-          <Time :time="article.uploadTime" type="datetime" />
+          <Time :time="tool.uploadTime" type="datetime" />
         </div>
       </div>
     </div>
@@ -23,11 +23,11 @@
 <script>
 export default {
   props: {
-    article: Object,
+    tool: Object,
   },
   computed: {
     cardIconStyle() {
-      return `backgrond:url('${this.article.icon}') center / cover;`;
+      return `backgrond:url('${this.tool.icon}') center / cover;`;
     },
   },
 };

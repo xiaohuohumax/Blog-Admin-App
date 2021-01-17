@@ -26,11 +26,16 @@ export default {
       file: "",
     };
   },
-  beforeCreate() {
-    win.setResizable(true);
-    win.setMinimumSize(800, 500);
-    win.setSize(1000, 600);
-    win.center();
+  created() {
+    this.changeSize();
+  },
+  methods: {
+    changeSize() {
+      win.setResizable(true);
+      win.setMinimumSize(800, 500);
+      win.setSize(1000, 600);
+      win.center();
+    },
   },
 };
 </script>

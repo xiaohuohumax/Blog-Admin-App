@@ -10,7 +10,6 @@ export default {
 
     CommentManager: () => import('../components/commentManager/CommentManager'),
     CommentItem: () => import('../components/commentManager/CommentItem'),
-    CommentMore: () => import('../components/commentManager/CommentMore'),
 
     WebUserManager: () => import('../components/webUserManager/WebUserManager'),
     WebUserItem: () => import('../components/webUserManager/WebUserItem'),
@@ -44,6 +43,7 @@ export default {
     ToolItem: () => import('../components/toolManager/ToolItem'),
     ToolManager: () => import('../components/toolManager/ToolManager'),
     ToolMore: () => import('../components/toolManager/ToolMore'),
+    ToolBodyCard: () => import('../components/toolManager/ToolBodyCard'),
 
     VirtualFileManager: () => import('../components/virtualFileManager/VirtualFileManager'),
    
@@ -69,6 +69,8 @@ export default {
     EnterImage: () => import('../components/mode/EnterImage'),
     EnterTags: () => import('../components/mode/EnterTags'),
     EnterVideo: () => import('../components/mode/EnterVideo'),
+    EnterColor: () => import('../components/mode/EnterColor'),
+    EnterTool: () => import('../components/mode/EnterTool'),
     StatCard: () => import('../components/mode/StatCard'),
     Null: () => import('../components/mode/Null'),
 

@@ -1,15 +1,26 @@
 <template>
-  <Card class="mb-3">
+  <Card class="comment-item mb-3">
     <div class="d-flex">
+      <Button
+        class="comment-item-icon"
+        size="small"
+        type="error"
+        shape="circle"
+        icon="md-close"
+        @click="deleteComment"
+      ></Button>
       <div
         class="card-icon rounded-circle mr-2 shadow-sm flex-shrink-0"
         :style="cardIconStyle"
       ></div>
       <div>
         <div>
-          <router-link to="/CommentMore">{{ comment.user.name }}</router-link>
-          <span class="ml-2 small">lv{{ comment.user.level }}</span>
-          <span class="ml-2 small">{{ comment.user.genger }}</span>
+          <router-link class="mr-1 small" :to="articlePath">
+            #{{ article.title }}
+          </router-link>
+          <router-link :to="articlePath">
+            {{ comment.user.name }}
+          </router-link>
         </div>
         <div class="small my-1">{{ comment.message }}</div>
         <div class="small mt-2">
@@ -23,21 +34,72 @@
 </template>
 
 <script>
+import articleEnum from "../../script/articleEnum";
 export default {
   props: {
     comment: Object,
   },
+  data() {
+    return {
+      article: {},
+    };
+  },
+  mounted() {
+    this.select();
+  },
+  methods: {
+    select() {
+      this.$request
+        .commentGetArticleByIdKind(this.comment.articleId, this.comment.kind)
+        .then((result) => {
+          this.article = result[0];
+        })
+        .catch((err) => {});
+    },
+    deleteComment() {
+      this.$request
+        .commentDeleteById(this.comment._id)
+        .then((result) => {
+          this.$Message.success("删除成功!");
+          this.$emit("change");
+        })
+        .catch((err) => this.$Message.error("删除失败!"));
+    },
+  },
   computed: {
     cardIconStyle() {
-      return `backgrond:url('${this.comment.user.icon}') center / cover;`;
+      return `backgrond:url('${
+        this.comment.user && this.comment.user.icon
+      }') center / cover;`;
+    },
+    articlePath() {
+      if (this.comment.kind == articleEnum.article) {
+        return `/ArticleMore/${this.comment.articleId}`;
+      } else if (this.comment.kind == articleEnum.image) {
+        return `/ImageMore/${this.comment.articleId}`;
+      } else if (this.comment.kind == articleEnum.video) {
+        return `/MusicVideoMore/${this.comment.articleId}`;
+      }
     },
   },
 };
 </script>
 
-<style>
+<style lang="less">
 .card-icon {
   width: 4.5rem;
   height: 4.5rem;
+}
+.comment-item {
+  position: relative;
+  .comment-item-icon {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    visibility: hidden;
+  }
+  &:hover .comment-item-icon {
+    visibility: visible;
+  }
 }
 </style>

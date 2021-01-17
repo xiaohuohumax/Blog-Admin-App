@@ -4,7 +4,7 @@
   >
     <div class="text-center">
       <div class="display-4 text-success mb-4">404 NOT FOUND</div>
-      <Button type="primary" to="/">Home</Button>
+      <Button type="primary" to="/Welcome">Home</Button>
     </div>
   </div>
 </template>

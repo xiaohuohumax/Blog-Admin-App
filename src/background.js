@@ -32,10 +32,10 @@ protocol.registerSchemesAsPrivileged([{
 
 function createWindow() {
   win = new BrowserWindow({
-    width: 1000,
-    height: 600,
-    minWidth: 800,
-    minHeight: 500,
+    width: 300,
+    height: 360,
+    minWidth: 300,
+    minHeight: 360,
     center: true,
     frame: false,
     webPreferences: {
@@ -65,7 +65,7 @@ function createWindow() {
     }, 500);
   })
   // 获取app 路径
-  ipcMain.on(enumData.AppPath,function(event,arg){
+  ipcMain.on(enumData.AppPath, function (event, arg) {
     event.returnValue = path.dirname(app.getPath('exe'))
   })
 

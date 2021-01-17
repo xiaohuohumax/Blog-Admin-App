@@ -20,7 +20,7 @@
       @on-change="pageChange"
     />
     <Null v-show="contexts.length == 0" />
-    <ImageItem v-for="(item, index) in contexts" :key="index" :article="item" />
+    <ImageItem v-for="(item, index) in contexts" :key="index" :image="item" />
   </Content>
 </template>
 

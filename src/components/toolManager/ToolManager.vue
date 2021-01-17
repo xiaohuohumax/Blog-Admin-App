@@ -19,7 +19,7 @@
       :current="page"
       @on-change="pageChange"
     />
-    <ToolItem v-for="(item, index) in contexts" :key="index" :article="item" />
+    <ToolItem v-for="(item, index) in contexts" :key="index" :tool="item" />
   </Content>
 </template>
 

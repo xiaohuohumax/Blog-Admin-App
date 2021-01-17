@@ -1,15 +1,71 @@
 <template>
-  <Content>
+  <Content :loading="loading">
     <template #head>
-      <Input suffix="" placeholder="搜索" style="width: 10rem" class="mr-2" />
-      <Button icon="ios-search">搜索</Button>
+      <Button type="success" ghost class="mr-2" to="/ToolManager">返回列表</Button>
+      <Button type="primary" ghost class="mr-2" :to="`/FireToolManager?id=${$route.params.id}`">修改工具</Button>
+      <Button type="error" ghost class="mr-2" @click="remove">删除工具</Button>
     </template>
-    <div class="">在线工具详细</div>
+    <div class="text-center my-3">
+      <div class="h4">{{ content.title }}</div>
+      <div class="small my-2">
+        {{ content.subTitle }}
+      </div>
+      <div class="flex-center">
+        <Icon type="md-eye" class="mr-1" /> {{ content.watch }}
+        <Icon type="md-happy" class="ml-2 mr-1" /> {{ content.nice }}
+        <Icon type="md-heart" class="ml-2 mr-1" /> {{ content.love }}
+      </div>
+      <div class="mt-2">
+        <Tag
+          type="border"
+          color="success"
+          v-for="(item, index) in content.tags"
+          :key="index"
+        >
+          {{ item }}
+        </Tag>
+      </div>
+    </div>
+    {{content}}
+    <ToolBodyCard :toolUrl="content.toolUrl" />
   </Content>
 </template>
 
 <script>
-export default {};
+export default {
+  data() {
+    return {
+      loading: 1,
+
+      content: {},
+    };
+  },
+  mounted() {
+    this.select();
+  },
+  methods: {
+    select() {
+      this.loading = 1;
+      this.$request
+        .toolFindbyid(this.$route.params.id)
+        .then((result) => {
+          this.loading = 2;
+          this.content = result[0];
+        })
+        .catch((err) => (this.loading = 3));
+    },
+    remove() {
+      this.$request
+        .toolDeleteById(this.$route.params.id)
+        .then((result) => {
+          this.$Message.success("删除成功!");
+          this.$router.push("/ToolManager");
+        })
+        .catch((err) => this.$Message.error("删除失败!"));
+    },
+  },
+};
 </script>
 
 <style></style>
+

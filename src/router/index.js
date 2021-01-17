@@ -11,9 +11,16 @@ Vue.use(VueRouter)
 
 const routes = [{
     path: '/',
+    name: '登录',
+    component: allCom.Login,
+    meta: {
+      unHistory: true, // 不添加历史记录
+    }
+  }, {
+    path: '/',
     component: allCom.Home,
     children: [{
-        path: '/',
+        path: 'Welcome',
         name: '欢迎',
         component: allCom.Welcome
       }, {
@@ -25,7 +32,7 @@ const routes = [{
         name: '文章管理',
         component: allCom.ArticleManager
       }, {
-        path: 'ArticleMore',
+        path: 'ArticleMore/:id',
         name: '文章详细',
         component: allCom.ArticleMore
       }, {
@@ -48,8 +55,7 @@ const routes = [{
         path: 'AdminUserMore',
         name: '管理用户详细',
         component: allCom.AdminUserMore
-      },
-      {
+      }, {
         path: 'FireMusicVideoManager',
         name: '视频音乐',
         component: allCom.FireMusicVideoManager
@@ -66,7 +72,7 @@ const routes = [{
         name: '视频音乐管理',
         component: allCom.MusicVideoManager
       }, {
-        path: 'MusicVideoMore',
+        path: 'MusicVideoMore/:id',
         name: '视频音乐详细',
         component: allCom.MusicVideoMore
       }, {
@@ -74,7 +80,7 @@ const routes = [{
         name: '图包分享管理',
         component: allCom.ImageManager
       }, {
-        path: 'ImageMore',
+        path: 'ImageMore/:id',
         name: '图包分享详细',
         component: allCom.ImageMore
       }, {
@@ -82,7 +88,7 @@ const routes = [{
         name: '在线工具管理',
         component: allCom.ToolManager
       }, {
-        path: 'ToolMore',
+        path: 'ToolMore/:id',
         name: '在线工具详细',
         component: allCom.ToolMore
       }, {
@@ -118,11 +124,6 @@ const routes = [{
         name: '发布公告',
         component: allCom.NoticeManager
       }, {
-        path: 'CommentMore',
-        name: '评论详细',
-        component: allCom.CommentMore
-      },
-      {
         path: '/Error404',
         name: '错误 404',
         component: allCom.Error404,
@@ -132,14 +133,7 @@ const routes = [{
       }
     ]
   },
-  {
-    path: '/Login',
-    name: '登录',
-    component: allCom.Login,
-    meta: {
-      unHistory: true, // 不添加历史记录
-    }
-  },
+
   {
     path: '*',
     redirect: "/Error404",

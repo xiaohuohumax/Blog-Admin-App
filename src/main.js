@@ -34,6 +34,12 @@ import request from './script/request';
 Vue.prototype.$request = request;
 
 router.beforeEach((to, from, next) => {
+  // if (to.path != "/") {
+  //   let userLogined = store.state.userLogined;
+  //   if (!userLogined) {
+  //     return next("/");
+  //   }
+  // };
   !to.meta.unHistory ? store.commit('addHistory', to) : "";
   next();
 })

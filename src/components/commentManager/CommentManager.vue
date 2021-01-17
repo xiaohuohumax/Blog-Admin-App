@@ -29,7 +29,7 @@
       @on-change="pageChange"
     />
     <Null v-show="contexts.length == 0" />
-    <CommentItem v-for="(item, index) in contexts" :key="index" :comment="item" />
+    <CommentItem @change="selectChange" v-for="(item, index) in contexts" :key="index" :comment="item" />
   </Content>
 </template>
 

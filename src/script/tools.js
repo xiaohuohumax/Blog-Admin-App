@@ -1,22 +1,22 @@
 // 通用辅助工具类
 
 export default {
-    pFunction: function (probably, callback) {// 概率调用函数 0-100% callback
+    pFunction: function (probably, callback) { // 概率调用函数 0-100% callback
         this.randomNumber(0, 100) < probably ? callback() : "";
     },
-    randomNumber: function (start, end) {// 获取范围内随机整数
+    randomNumber: function (start, end) { // 获取范围内随机整数
         return Math.floor(Math.random() * (end - start + 1)) + start;
     },
-    randomColor: function (opacity = 0.5) {// 获取随机颜色
+    randomColor: function (opacity = 0.5) { // 获取随机颜色
         return `rgba(${this.randomNumber(0, 255)},${this.randomNumber(0, 255)},${this.randomNumber(0, 255)},${opacity})`;
     },
-    stringToCode: function (str) {// 字母转ASCII码(忽略大小写,键盘码)
+    stringToCode: function (str) { // 字母转ASCII码(忽略大小写,键盘码)
         return (str.toUpperCase()).charCodeAt();
     },
-    codeToString: function (num) {// ASCII码转字母
+    codeToString: function (num) { // ASCII码转字母
         return String.fromCharCode(num);
     },
-    byDegGetXY(deg) {// 单位圆度数坐标
+    byDegGetXY(deg) { // 单位圆度数坐标
         return [Math.cos(deg * Math.PI / 180).toFixed(3), Math.sin(deg * Math.PI / 180).toFixed(3)];
     },
     // 获取时间戳
@@ -87,7 +87,13 @@ export default {
         return `RGB(${parseInt(r * 255)},${parseInt(g * 255)},${parseInt(b * 255)})`;
     },
     // HSV 列表
-    colorHSVList({ start = 0, end = 240, S = 1, V = 1, sum = 10 }) {
+    colorHSVList({
+        start = 0,
+        end = 240,
+        S = 1,
+        V = 1,
+        sum = 10
+    }) {
         let res = [];
         let lMr = start < end; // 起始是否大于结束
 
@@ -98,5 +104,19 @@ export default {
             res.push(rgb);
         }
         return res;
+    },
+    byteFormat(size) {
+        if (!size)
+            return "";
+        var num = 1024.00; //byte
+        if (size < num)
+            return size + "B";
+        if (size < Math.pow(num, 2))
+            return (size / num).toFixed(2) + "K"; //kb
+        if (size < Math.pow(num, 3))
+            return (size / Math.pow(num, 2)).toFixed(2) + "M"; //M
+        if (size < Math.pow(num, 4))
+            return (size / Math.pow(num, 3)).toFixed(2) + "G"; //G
+        return (size / Math.pow(num, 4)).toFixed(2) + "T"; //T
     }
 }

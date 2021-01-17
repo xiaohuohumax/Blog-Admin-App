@@ -7,7 +7,7 @@
     >
       <Input
         v-model.trim="imageInput"
-        placeholder=""
+        :placeholder="$attrs.placeholder"
         clearable
         @keydown.enter.native="enterInput"
         @on-clear="enterInput"
@@ -42,6 +42,11 @@ export default {
     imagemax: {
       type: Number,
       default: 10,
+    },
+  },
+  watch: {
+    value() {
+      this.images = this.value;
     },
   },
   data() {

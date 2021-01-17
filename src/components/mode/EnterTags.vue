@@ -16,13 +16,14 @@
         <Input
           v-if="!isOver"
           v-model.trim="tagInput"
+          :placeholder="$attrs.placeholder"
           clearable
           @keydown.enter.native="enterInput"
           @on-clear="enterInput"
           style="width: 7rem"
         />
-        <div v-show="imagemax != 1" class="ml-1 mb-1 h6">
-          ({{ tags.length }}/{{ imagemax }})
+        <div v-show="tagmax != 1" class="ml-1 mb-1 h6">
+          ({{ tags.length }}/{{ tagmax }})
         </div>
       </div>
     </div>
@@ -36,9 +37,14 @@ export default {
       type: Array,
       default: () => [],
     },
-    imagemax: {
+    tagmax: {
       type: Number,
       default: 10,
+    },
+  },
+   watch: {
+    value() {
+      this.tags = this.value;
     },
   },
   data() {
@@ -52,7 +58,7 @@ export default {
   },
   computed: {
     isOver() {
-      return this.tags.length >= this.imagemax;
+      return this.tags.length >= this.tagmax;
     },
   },
   methods: {
@@ -76,11 +82,4 @@ export default {
 </script>
 
 <style lang="less">
-.enter-image-item {
-  position: relative;
-  .enter-image-img {
-    width: 6rem;
-    height: 6rem;
-  }
-}
 </style>

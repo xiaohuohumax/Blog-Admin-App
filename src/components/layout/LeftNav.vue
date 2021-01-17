@@ -4,13 +4,11 @@
       <span class="left-nav-no-drag left-nav-top-name">后台管理</span>
     </div>
     <div class="flex-shark-0 pb-2 px-5">
-      <img
-        src="../../assets/userIcon.jpg"
-        class="left-nav-icon mx-auto rounded-circle mb-2"
-      />
-
-      <div class="mb-1">xaiohuohu</div>
-      <Button size="small" type="success" ghost icon="md-exit" to="/login">注销</Button>
+      <div class="left-nav-icon shadow mx-auto rounded-circle mb-2" :style="cardIconStyle"></div>
+      <div class="mb-1">{{ userInf.name }}</div>
+      <Button size="small" type="success" @click="logout" ghost icon="md-exit">
+        注销
+      </Button>
     </div>
     <div class="home-nav-body flex-grow-1 mb-2">
       <Menu :open-names="['0']" class="w-100 text-left">
@@ -33,6 +31,7 @@
 </template>
 
 <script>
+import { mapState, mapMutations } from "vuex";
 export default {
   data() {
     return {
@@ -158,6 +157,19 @@ export default {
       ],
     };
   },
+  computed: {
+    ...mapState(["userInf"]),
+    cardIconStyle() {
+      return `backgrond:url('${this.userInf.icon}') center / cover;`;
+    },
+  },
+  methods: {
+    ...mapMutations(["userLogout"]),
+    logout() {
+      this.userLogout();
+      this.$router.push("/");
+    },
+  },
 };
 </script>
 
@@ -183,6 +195,7 @@ export default {
   }
   .left-nav-icon {
     width: 5rem;
+    height: 5rem;
   }
 
   .home-nav-body {
