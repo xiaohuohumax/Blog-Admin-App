@@ -1,17 +1,92 @@
 <template>
-  <Content>
+  <Content :loading="loading">
     <template #head>
-      <Input suffix="ios-search" placeholder="搜索" style="width: 10rem" class="mr-2" clearable />
-      <Button type="success" ghost class="mr-2">返回列表</Button>
-      <Button type="primary" ghost class="mr-2">修改文章</Button>
-      <Button type="error" ghost class="mr-2">删除文章</Button>
+      <Button type="success" ghost class="mr-2" to="/ArticleManager">返回列表</Button>
+      <Button
+        type="primary"
+        ghost
+        class="mr-2"
+        :to="`/FireArticleManager?id=${$route.params.id}`"
+        >修改文章</Button
+      >
+      <Button type="error" ghost class="mr-2" @click="remove">删除文章</Button>
     </template>
-    <div class="">管理用户详细</div>
+    <div class="d-flex">
+      <div
+        class="card-icon rounded-circle mr-2 shadow-sm flex-shrink-0"
+        :style="cardIconStyle"
+      ></div>
+      <div class="flex-grow-1">
+        <router-link to="/AdminUserMore" class="h6 font-weight-bold">
+          {{ content.name }}
+        </router-link>
+        <span class="ml-2 small font-weight-bold">
+          lv{{ content.level }} {{ content.genger }}
+        </span>
+        <div class="small my-1">{{ content.signature }}</div>
+      </div>
+    </div>
+    <div class="small mt-2">
+      <Row>
+        <Col class="mb-1" :xs="{ span: 12 }" :lg="{ span: 6 }"
+          >登录IP:{{ content.loginIp }}</Col
+        >
+        <Col class="mb-1" :xs="{ span: 12 }" :lg="{ span: 6 }">
+          登录时间:<Time :time="content.loginTime" type="datetime" />
+        </Col>
+        <Col class="mb-1" :xs="{ span: 12 }" :lg="{ span: 6 }">
+          允许登录: <i-switch :value="content.allowLogin" disabled size="small" />
+        </Col>
+        <Col class="mb-1" :xs="{ span: 12 }" :lg="{ span: 6 }">
+          允许评论: <i-switch :value="content.allowTalk" disabled size="small"
+        /></Col>
+      </Row>
+      {{content}}
+    </div>
   </Content>
 </template>
 
 <script>
-export default {};
+export default {
+  data() {
+    return {
+      loading: 1,
+
+      content: {},
+    };
+  },
+  mounted() {
+    this.select();
+  },
+  computed: {
+    cardIconStyle() {
+      return `backgrond:url('${this.content.icon}') center / cover;`;
+    },
+  },
+  methods: {
+    select() {
+      this.loading = 1;
+      this.$request
+        .adminUserFindbyid(this.$route.params.id)
+        .then((result) => {
+          this.loading = 2;
+          this.content = result[0];
+        })
+        .catch((err) => (this.loading = 3));
+    },
+    remove() {
+      this.$request
+        .articleDeleteById(this.$route.params.id)
+        .then((result) => {
+          this.$Message.success("删除成功!");
+          this.$router.push("/ArticleManager");
+        })
+        .catch((err) => this.$Message.error("删除失败!"));
+    },
+  },
+};
 </script>
+
+<style></style>
 
 <style></style>

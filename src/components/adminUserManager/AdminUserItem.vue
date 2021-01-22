@@ -7,7 +7,7 @@
       ></div>
       <div class="flex-grow-1">
         <div>
-          <router-link to="/AdminUserMore" class="h6 font-weight-bold">
+          <router-link :to="`/AdminUserMore/${user._id}`" class="h6 font-weight-bold">
             {{ user.name }}
           </router-link>
           <span class="ml-2 small font-weight-bold">

@@ -102,6 +102,7 @@ export default {
   methods: {
     ...mapMutations(["userLogin"]),
     changeSize() {
+      win.setResizable(true);
       win.setMinimumSize(300, 360);
       win.setSize(300, 360);
       win.center();

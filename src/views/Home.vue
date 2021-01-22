@@ -55,7 +55,6 @@ export default {
 
   .tools-body {
     position: absolute;
-    overflow: hidden;
     right: 1rem;
     bottom: 1rem;
   }

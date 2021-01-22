@@ -18,7 +18,7 @@
           <router-link class="mr-1 small" :to="articlePath">
             #{{ article.title }}
           </router-link>
-          <router-link :to="articlePath">
+          <router-link :to="`/WebUserMore/${comment.user._id}`">
             {{ comment.user.name }}
           </router-link>
         </div>

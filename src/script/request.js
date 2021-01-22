@@ -410,6 +410,16 @@ export default {
             }
         })
     },
+    adminUserFindbyid: (id) => {
+        return https({
+            method: "post",
+            url: '/admin/api/adminUserFindbyid',
+            data: {
+                id
+            }
+        })
+    },
+
 
     uploadTool: (adminId, title, subTitle, icon, tags, file, onUploadProgress = () => {}) => {
 
@@ -452,4 +462,74 @@ export default {
             data
         })
     },
+
+    // virtualFileFind: (parentId) => {
+    //     return https({
+    //         method: "post",
+    //         url: '/admin/api/virtualFileFind',
+    //         data: {
+    //             parentId
+    //         }
+    //     })
+    // },
+    virtualFileFindByPage: (page, pageSteep, parentId) => {
+        return https({
+            method: "post",
+            url: '/admin/api/virtualFileFindByPage',
+            data: {
+                page,
+                pageSteep,
+                parentId
+            }
+        })
+    },
+    virtualFileInsertDir: (name, parentId) => {
+        return https({
+            method: "post",
+            url: '/admin/api/virtualFileInsertDir',
+            data: {
+                name,
+                parentId
+            }
+        })
+    },
+    virtualFileUpdateName: (id, name) => {
+        return https({
+            method: "post",
+            url: '/admin/api/virtualFileUpdateName',
+            data: {
+                id,
+                name
+            }
+        })
+    },
+
+    virtualFileDeleteById: (id) => {
+        return https({
+            method: "post",
+            url: '/admin/api/virtualFileDeleteById',
+            data: {
+                id
+            }
+        })
+    },
+
+    virtualFileInsert: (adminId, parentId, file, onUploadProgress = () => {}) => {
+
+        let data = new FormData();
+        data.append("adminId", adminId);
+        data.append("parentId", parentId);
+        data.append("file", file);
+        return https({
+            method: "post",
+            url: '/admin/api/virtualFileInsert',
+            timeout: 1000 * 60 * 60 * 24,
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded'
+            },
+            onUploadProgress,
+            data
+        })
+    },
+
 }

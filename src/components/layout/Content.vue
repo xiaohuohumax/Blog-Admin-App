@@ -1,6 +1,10 @@
 <template>
-  <div class="content">
-    <div :class="filterClass">
+  <div class="content d-flex flex-column">
+    <div
+      :class="filterClass"
+      ref="contentBody"
+      class="content-body flex-grow-1 d-flex flex-column"
+    >
       <div class="sticky-top py-1" v-show="this.$slots.head">
         <div class="content-head">
           <div
@@ -22,7 +26,10 @@
           </div>
         </div>
       </div>
-      <Card class="m-2" v-if="loading == 0 || loading == 2">
+      <Card
+        class="m-2 flex-grow-1 d-flex flex-column"
+        v-if="loading == 0 || loading == 2"
+      >
         <slot />
       </Card>
       <div class="content-bottom w-100" v-if="this.$slots.bottom">
@@ -64,8 +71,8 @@ export default {
       headOpen: true,
     };
   },
-  created() {
-    console.log();
+  mounted() {
+    this.scrollEndListener();
   },
   computed: {
     filterClass() {
@@ -76,6 +83,20 @@ export default {
     HeadOpenChange() {
       this.headOpen = !this.headOpen;
     },
+    scrollEndListener() {
+      let contentBody = this.$refs.contentBody;
+      contentBody.addEventListener("scroll", () => {
+        let height = contentBody.offsetHeight;
+        let scrollTop = contentBody.scrollTop;
+        let scrollHeight = contentBody.scrollHeight;
+        if (height + scrollTop >= scrollHeight) {
+          this.$emit("scrollend");
+        }
+        if (scrollTop == 0) {
+          this.$emit("scrollstart");
+        }
+      });
+    },
   },
 };
 </script>
@@ -83,7 +104,14 @@ export default {
 <style lang="less">
 .content {
   position: relative;
-  overflow-y: auto;
+  .content-body {
+    height: 0;
+    max-height: 100%;
+    overflow-y: scroll;
+    .ivu-card-body {
+      height: 100% !important;
+    }
+  }
   .demo-spin-icon-load {
     animation: ani-demo-spin 1s linear infinite;
   }

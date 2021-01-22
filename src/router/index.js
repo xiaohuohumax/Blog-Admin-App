@@ -44,7 +44,7 @@ const routes = [{
         name: '网站用户',
         component: allCom.WebUserManager
       }, {
-        path: 'WebUserMore',
+        path: 'WebUserMore/:id',
         name: '网站用户详细',
         component: allCom.WebUserMore
       }, {
@@ -52,7 +52,7 @@ const routes = [{
         name: '管理用户',
         component: allCom.AdminUserManager
       }, {
-        path: 'AdminUserMore',
+        path: 'AdminUserMore/:id',
         name: '管理用户详细',
         component: allCom.AdminUserMore
       }, {
