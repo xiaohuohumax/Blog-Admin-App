@@ -472,14 +472,15 @@ export default {
     //         }
     //     })
     // },
-    virtualFileFindByPage: (page, pageSteep, parentId) => {
+    virtualFileFindByPage: (page, pageSteep, parentId, selectWord) => {
         return https({
             method: "post",
             url: '/admin/api/virtualFileFindByPage',
             data: {
                 page,
                 pageSteep,
-                parentId
+                parentId,
+                selectWord
             }
         })
     },
@@ -529,6 +530,27 @@ export default {
             },
             onUploadProgress,
             data
+        })
+    },
+
+    // virtualFileFindByName: (name) => {
+    //     return https({
+    //         method: "post",
+    //         url: '/admin/api/virtualFileFindByName',
+    //         data: {
+    //             name
+    //         }
+    //     })
+    // },
+
+    virtualFileRemove: (ids, parentId) => {
+        return https({
+            method: "post",
+            url: '/admin/api/virtualFileRemove',
+            data: {
+                ids,
+                parentId
+            }
         })
     },
 

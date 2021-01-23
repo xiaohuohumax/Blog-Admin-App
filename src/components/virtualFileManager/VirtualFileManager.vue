@@ -1,10 +1,10 @@
 <template>
-  <Content @scrollend="scrollend">
+  <Content @scrollend="scrollend" :centeropen="true">
     <div class="virtual-file-head sticky-top bg-white">
       <!-- 操作 -->
-      <div class="flex-shrink-0 d-flex justify-content-between">
+      <div class="flex-shrink-0 d-flex justify-content-between align-items-center">
         <div class="d-flex">
-          <label>
+          <label class="mb-0">
             <div class="btn btn-primary btn-sm">上传文件</div>
             <input
               class="d-none"
@@ -14,20 +14,45 @@
               @input="uploadFile()"
             />
           </label>
-          <ButtonGroup class="ml-2">
+          <ButtonGroup class="ml-2 mb-0">
             <Button type="warning" ghost @click="createNewDirToggle">新建文件夹</Button>
-            <Button v-show="chooseList.length == 1" type="primary" ghost>重命名</Button>
-            <Button v-show="chooseList.length > 0" type="success" @click="copyUrl" ghost
-              >复制路径</Button
+            <Button
+              v-show="model == 1 && chooseList.length > 0"
+              type="primary"
+              ghost
+              @click="removeButton"
+              >移动</Button
+            >
+            <Button
+              v-show="model == 1 && chooseList.length > 0"
+              type="success"
+              @click="copyUrl"
+              ghost
+              >复制链接</Button
             >
             <Button type="success" ghost @click="refSelectDirFiles">刷新</Button>
           </ButtonGroup>
-          <Button class="ml-2" v-show="chooseList.length > 0" type="error" ghost>
+          <ButtonGroup class="ml-2 mb-0" v-show="model == 2">
+            <Button type="success" ghost @click="removeSure">确定</Button>
+            <Button type="primary" ghost @click="removeFail">取消</Button>
+          </ButtonGroup>
+          <Button
+            @click="deleteFiles"
+            class="ml-2"
+            v-show="chooseList.length > 0"
+            type="error"
+            ghost
+          >
             删除
           </Button>
         </div>
         <div class="d-flex align-items-center">
-          <Input closeable placeholder="搜索"></Input>
+          <Input
+            v-model="selectWorld"
+            clearable
+            placeholder="搜索"
+            @keydown.enter.native="refSelectDirFiles"
+          ></Input>
           <Icon
             class="ml-2 cursor-pointer"
             title="切换视图"
@@ -66,7 +91,7 @@
         class="mt-2 pb-2 flex-shrink-0 d-flex align-items-center small font-weight-bold"
       >
         <div class="d-flex align-items-center virtual-file-name">
-          <Checkbox v-model="chooseAllInput"></Checkbox>
+          <Checkbox :disabled="checkCanChange" v-model="chooseAllInput"></Checkbox>
           <div class="mr-2 px-3 d-inline-block"></div>
           文件/文件夹
           <span v-show="chooseList.length > 0"
@@ -90,7 +115,8 @@
         @intodir="intoDir"
         @deletesuccess="deleteSuccess"
         @choosechange="chooseChange"
-        :chooselist="chooseList"
+        :checkcanchange="checkCanChange"
+        :chooselist="model == 1 ? chooseList : removecachesList"
         v-for="(item, index) in fileSort"
         :viewmodel="viewmodel"
         :key="index"
@@ -101,6 +127,8 @@
     <VirtualFileLoading v-if="selectMore" />
     <!-- 全部查完了 -->
     <VirtualFileSelectOver v-if="selectOver" />
+    <!-- 选择新路径 -->
+    <!-- <template #center> <VirtualFileNewPath /></template> -->
   </Content>
 </template>
 
@@ -113,7 +141,7 @@ export default {
 
       contextSum: 0, // 总数
       contexts: [], // 记录
-      pageSteep: 40, // 每页条数
+      pageSteep: 20, // 每页条数
       selectWorld: "", // 搜索关键词
 
       selectMore: false, // 是否在查询更多
@@ -128,6 +156,11 @@ export default {
       chooseAllInput: false, // 选择总开关
 
       chooseList: [],
+      selectWorld: "", // 搜索关键字
+
+      model: 1, // 1 普通文件夹 2 移动文件
+      removecachesList: [], // 移动文件缓存列表
+      removeBasePathId: "", // 移动时 path id
     };
   },
 
@@ -175,9 +208,105 @@ export default {
     fileSort() {
       return this.contexts.sort((a, b) => a.kind.length - b.kind.length);
     },
+    // 能否点击checkbox
+    checkCanChange() {
+      return this.model != 1;
+    },
+    // 判读是否移动未知
+    isRemoved() {
+      return this.removeBasePathId != this.nowDirId;
+    },
   },
   methods: {
     ...mapMutations(["addUploadFile", "clearUploadFile"]),
+
+    // 确认移动
+    removeSure() {
+      if (!this.isRemoved) {
+        return this.$Message.warning("未移动,请选择新目录!");
+      }
+      let ids = this.removecachesList.map((val) => val._id);
+
+      this.$request
+        .virtualFileRemove(ids, this.nowDirId)
+        .then((result) => {
+          this.$Message.success("移动成功!");
+          this.refSelectDirFiles();
+        })
+        .catch((error) => {
+          this.$Message.error("移动失败!");
+        })
+        .finally(() => {
+          this.model = 1;
+          this.chooseAllInput = false;
+        });
+    },
+    // 取消移动
+    removeFail() {
+      this.model = 1;
+    },
+    // 移动文件
+    removeButton() {
+      this.model = 2;
+      this.$Message.success("请选择新目录!");
+      this.removeBasePathId = this.nowDirId;
+      this.removecachesList = [...this.chooseList];
+    },
+    // 删除文件Promise
+    virtualFileDeleteById(id) {
+      return this.$request.virtualFileDeleteById(id);
+    },
+    // 异步删除池 限制 limit 并发数
+    deleteFileLimit(asyncFunc, ids, limit) {
+      let urls = [...ids];
+
+      let rs = new Map();
+      let _that = this;
+
+      // 递归的去取url进行请求
+      function run() {
+        if (urls.length > 0) {
+          const url = urls.shift();
+          return _that[asyncFunc](url).then((res) => {
+            rs.set(url, res);
+            return run();
+          });
+        }
+      }
+      const promiseList = Array(Math.min(limit, ids.length))
+        .fill(Promise.resolve())
+        .map((promise) => promise.then(run));
+      return Promise.all(promiseList).then(() => ids.map((item) => rs.get(item)));
+    },
+
+    // 删除多个文件
+    deleteFiles() {
+      if (this.chooseList.length == 0) {
+        return;
+      }
+      let fileIdList = this.chooseList.map((val) => {
+        return val._id;
+      });
+
+      let successSum = 0;
+      let failSum = 0;
+      this.deleteFileLimit("virtualFileDeleteById", fileIdList, 3)
+        .then((result) => {
+          console.log(result);
+          result.forEach((val) => {
+            val.flag ? (successSum += val.sum) : failSum++;
+          });
+        })
+        .catch((error) => {
+          console.log(error);
+          this.$Message.error("发生错误!");
+        })
+        .finally(() => {
+          this.refSelectDirFiles();
+          this.$Message.success(`删除成功${successSum}个文件,失败:${failSum}`);
+          this.chooseAllInput = false;
+        });
+    },
     // 复制路径
     copyUrl() {
       let text = this.chooseList
@@ -185,16 +314,17 @@ export default {
         .map((val) => val.virtualUrl)
         .join(" ")
         .trim();
-      this.$Message.success(text);
       this.copyText(text);
     },
     // 复制文字
     copyText(text) {
       let input = document.createElement("input");
+      document.body.prepend(input);
       input.value = text;
       input.select();
-      alert(document.execCommand("copy"));
+      document.execCommand("copy");
       this.$Message.success("复制成功!");
+      document.body.removeChild(input);
     },
     // 选择更改
     chooseChange(file) {
@@ -231,7 +361,6 @@ export default {
       this.createNewDirOpen = false;
       this.refSelectDirFiles();
     },
-
     // 创建文件夹失败
     createDirFail() {
       this.createNewDirOpen = false;
@@ -252,7 +381,7 @@ export default {
     // 查询当前文件夹内容
     selectDirFiles() {
       this.$request
-        .virtualFileFindByPage(this.page, this.pageSteep, this.nowDirId)
+        .virtualFileFindByPage(this.page, this.pageSteep, this.nowDirId, this.selectWorld)
         .then((result) => {
           this.contextSum = result.fileSum;
 
@@ -283,18 +412,29 @@ export default {
     },
     // 点击进入文件夹
     intoDir(file) {
+      if (
+        this.model == 2 &&
+        this.removecachesList.map((val) => val._id).includes(file._id)
+      ) {
+        return this.$Message.error("不能移动到已选文件夹的子目录中!");
+      }
+
       this.filePath.push(file);
+      this.selectWorld = "";
       this.refSelectDirFiles();
     },
     // 去某个文件夹
     gotoDir(file) {
       let index = this.filePath.lastIndexOf(file) + 1;
       this.filePath.splice(index);
+      this.selectWorld = "";
+
       this.refSelectDirFiles();
     },
     // 返回根目录
     gotoRoot() {
       this.filePath.splice(1);
+      this.selectWorld = "";
       this.refSelectDirFiles();
     },
     // 返回上一级
@@ -302,6 +442,8 @@ export default {
       let index = this.filePath.length - 1;
       index = index > 1 ? index : 1;
       this.filePath.splice(index);
+      this.selectWorld = "";
+
       this.refSelectDirFiles();
     },
   },

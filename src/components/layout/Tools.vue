@@ -4,6 +4,7 @@
     <!-- <Button icon="md-cog" shape="circle" size="large" v-show="!isShow"></Button> -->
     <!-- <div class="border border-danger" v-show="isShow"></div> -->
     <toolUploadList />
+    <toolUploadFileMini />
   </div>
 </template>
 <script>

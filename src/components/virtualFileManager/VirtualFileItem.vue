@@ -8,6 +8,7 @@
       <Checkbox
         :value="isChoose"
         @input="chooseChange"
+        :disabled="checkcanchange"
         class="virtual-file-check"
       ></Checkbox>
       <div
@@ -46,6 +47,7 @@
         class="cursor-pointer mr-1 text-success"
         size="20"
         title="复制链接"
+        @click="copyText(file.virtualUrl)"
       />
       <Icon
         type="ios-trash"
@@ -82,6 +84,10 @@ export default {
       default: false, // false 列表 true 方块
     },
     chooselist: { type: Array, default: () => [] },
+    checkcanchange:{//能否点击checkbox
+      type: Boolean,
+      default: true, 
+    },
   },
   data() {
     return {
@@ -139,6 +145,16 @@ export default {
     this.renameName = this.file.name;
   },
   methods: {
+    // 复制文字
+    copyText(text) {
+      let input = document.createElement("input");
+      document.body.prepend(input);
+      input.value = text;
+      input.select();
+      document.execCommand("copy");
+      this.$Message.success("复制成功!");
+      document.body.removeChild(input);
+    },
     // 选择改变
     chooseChange() {
       this.$emit("choosechange", this.file);
@@ -213,7 +229,7 @@ export default {
   computed: {
     // 是否被选中
     isChoose() {
-      return this.chooselist.includes(this.file);
+      return this.chooselist.map(val=>val._id).includes(this.file._id);
     },
     iconStyle() {
       return `background:url('${this.getFileIcon(

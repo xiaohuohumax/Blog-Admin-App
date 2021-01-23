@@ -5,7 +5,7 @@
       ref="contentBody"
       class="content-body flex-grow-1 d-flex flex-column"
     >
-      <div class="sticky-top py-1" v-show="this.$slots.head">
+      <div class="sticky-top py-1" v-show="$slots.head">
         <div class="content-head">
           <div
             :class="headOpen ? '' : 'content-head-body-close'"
@@ -32,7 +32,7 @@
       >
         <slot />
       </Card>
-      <div class="content-bottom w-100" v-if="this.$slots.bottom">
+      <div class="content-bottom w-100" v-if="$slots.bottom">
         <slot name="bottom" />
       </div>
     </div>
@@ -54,6 +54,13 @@
         <div class="font-weight-bold small">加载失败</div>
       </slot>
     </div>
+    <div
+      class="content-center w-100 h-100 d-flex justify-content-center align-items-center"
+      v-if="$slots.center && centeropen"
+    >
+      <div class="content-center-bg filter-blur w-100 h-100"></div>
+      <slot name="center" />
+    </div>
   </div>
 </template>
 
@@ -64,6 +71,10 @@ export default {
       // 0 未开始 1 加载中 2 加载成功 3 加载失败
       type: Number,
       default: 0,
+    },
+    centeropen:{ // 是否开启中间
+      type: Boolean,
+      default: false,
     },
   },
   data() {
@@ -111,6 +122,17 @@ export default {
     .ivu-card-body {
       height: 100% !important;
     }
+  }
+
+  .content-center,
+  .content-center-bg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: -1;
+  }
+  .content-center {
+    z-index: 2000;
   }
   .demo-spin-icon-load {
     animation: ani-demo-spin 1s linear infinite;

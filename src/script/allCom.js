@@ -50,6 +50,7 @@ export default {
     VirtualFileLoading: () => import('../components/virtualFileManager/VirtualFileLoading'),
     VirtualFileAddDir: () => import('../components/virtualFileManager/VirtualFileAddDir'),
     VirtualFileSelectOver: () => import('../components/virtualFileManager/VirtualFileSelectOver'),
+    // VirtualFileNewPath: () => import('../components/virtualFileManager/VirtualFileNewPath'),
    
     WebStatManager: () => import('../components/statManager/WebStatManager'),
     WebUserLevelStat: () => import('../components/statManager/stats/WebUserLevelStat'),
@@ -70,8 +71,8 @@ export default {
 
     toolItemModel: () => import('../components/toolItem/toolItemModel'),
     toolUploadList: () => import('../components/toolItem/toolUploadList'),
-
-
+    toolUploadFileMini: () => import('../components/toolItem/toolUploadFileMini'),
+    
 
     // 模块
     Editor: () => import('../components/mode/Editor'),
