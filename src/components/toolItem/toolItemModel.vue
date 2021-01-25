@@ -1,7 +1,7 @@
 <template>
-  <Poptip trigger="click" placement="left-end">
-    <Button class="mt-1" :icon="icon" shape="circle" size="large"></Button>
-    <slot slot="content"></slot>
+  <Poptip trigger="hover" placement="left-end">
+    <Button class="mt-1" :icon="icon" shape="circle"></Button>
+    <div style="overflow-y:auto" slot="content" ref="toolItemModelBody"><slot></slot></div>
   </Poptip>
 </template>
 
@@ -11,6 +11,22 @@ export default {
     icon: {
       type: String,
       default: "",
+    },
+  },
+  mounted() {
+    this.scrollEndListener();
+  },
+  methods: {
+    scrollEndListener() {
+      let toolItemModelBody = this.$refs.toolItemModelBody;
+      toolItemModelBody.addEventListener("scroll", () => {
+        let height = toolItemModelBody.offsetHeight;
+        let scrollTop = toolItemModelBody.scrollTop;
+        let scrollHeight = toolItemModelBody.scrollHeight;
+        if (height + scrollTop >= scrollHeight) {
+          this.$emit("scrollend");
+        }
+      });
     },
   },
 };

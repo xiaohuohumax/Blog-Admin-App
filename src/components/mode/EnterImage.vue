@@ -26,7 +26,10 @@
           icon="md-close"
           @click="removeItem(index)"
         ></Button>
-        <img :src="item" class="enter-image-img rounded border mr-2 mb-2" />
+        <div
+          class="enter-image-img rounded border mr-2 mb-2"
+          :style="imgStyle(item)"
+        ></div>
       </div>
     </div>
   </div>
@@ -64,6 +67,9 @@ export default {
     },
   },
   methods: {
+    imgStyle(item) {
+      return `background:url('${item}') center / cover;`;
+    },
     enterInput() {
       if (this.isOver) {
         return this.$Message.error("数量超出限制!");

@@ -1,5 +1,5 @@
 <template>
-  <Content @scrollend="scrollend" :centeropen="true">
+  <Content @scrollend="scrollend" class="virtual-file">
     <div class="virtual-file-head sticky-top bg-white">
       <!-- 操作 -->
       <div class="flex-shrink-0 d-flex justify-content-between align-items-center">
@@ -451,45 +451,47 @@ export default {
 </script>
 
 <style lang="less">
-.virtual-file-path {
-  &::after {
-    display: inline;
-    content: ">";
+.virtual-file {
+  .virtual-file-path {
+    &::after {
+      display: inline;
+      content: ">";
+    }
+    &:last-child::after {
+      display: none;
+    }
   }
-  &:last-child::after {
-    display: none;
+  .virtual-file-name {
+    vertical-align: middle;
+    width: 40%;
+    .ivu-checkbox-wrapper {
+      margin-bottom: 0 !important;
+    }
   }
-}
-.virtual-file-name {
-  vertical-align: middle;
-  width: 40%;
-  .ivu-checkbox-wrapper {
-    margin-bottom: 0 !important;
+  .virtual-file-name,
+  .virtual-file-tool,
+  .virtual-file-size,
+  .virtual-file-time,
+  .virtual-file-head {
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
-}
-.virtual-file-name,
-.virtual-file-tool,
-.virtual-file-size,
-.virtual-file-time,
-.virtual-file-head {
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-.virtual-file-tool {
-  width: 20%;
-}
-.virtual-file-size {
-  width: 10%;
-}
-.virtual-file-time {
-  width: 30%;
-}
+  .virtual-file-tool {
+    width: 20%;
+  }
+  .virtual-file-size {
+    width: 10%;
+  }
+  .virtual-file-time {
+    width: 30%;
+  }
 
-.virtual-file-head {
-  top: 0.1rem;
-  z-index: 1000;
-}
-.virtual-file-body {
-  overflow-y: auto;
+  .virtual-file-head {
+    top: 0.1rem;
+    z-index: 1000;
+  }
+  .virtual-file-body {
+    overflow-y: auto;
+  }
 }
 </style>
