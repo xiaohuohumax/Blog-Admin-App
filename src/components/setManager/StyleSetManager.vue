@@ -10,15 +10,7 @@
 
     <div class="pt-3">
       <div class="mb-2">网站主题:</div>
-      <RadioGroup v-model="content.webTheme">
-        <Radio
-          :label="item.theme"
-          v-for="(item, index) in content.webThemeList"
-          :key="index"
-        >
-          {{ item.name }}
-        </Radio>
-      </RadioGroup>
+      <EnterStyle v-model="content" />
     </div>
   </Content>
 </template>
@@ -29,6 +21,28 @@ export default {
     return {
       loading: 1,
       content: {},
+      webThemeList: [
+        {
+          name: "明亮",
+          theme: "light",
+          url: "",
+        },
+        {
+          name: "明亮",
+          theme: "light",
+          url: "",
+        },
+        {
+          name: "明亮",
+          theme: "light",
+          url: "",
+        },
+        {
+          name: "明亮",
+          theme: "light",
+          url: "",
+        },
+      ],
     };
   },
   mounted() {

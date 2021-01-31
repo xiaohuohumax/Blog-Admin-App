@@ -1,7 +1,7 @@
 <template>
   <div class="">
     <div
-      class="d-flex align-items-center justify-content-center"
+      class="d-flex align-items-center"
       v-if="!isOver"
       :class="images.length > 0 ? 'mb-3' : ''"
     >

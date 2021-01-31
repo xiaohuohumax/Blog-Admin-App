@@ -38,21 +38,4 @@ export default {
 </script>
 
 <style lang="less">
-.enter-video-item {
-  position: relative;
-  .enter-video-img {
-    width: 6rem;
-    height: 6rem;
-  }
-  &:hover .enter-video-icon {
-    visibility: visible;
-  }
-  .enter-video-icon {
-    position: absolute;
-    top: 0.25rem;
-    left: 0.25rem;
-    visibility: hidden;
-    z-index: 10;
-  }
-}
 </style>

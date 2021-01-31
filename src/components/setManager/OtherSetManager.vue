@@ -8,7 +8,6 @@
       <div class="mb-2">用户头像:</div>
       <EnterImage v-model="content.userDefIcon" :imagemax="imageIconMax" />
     </div>
-
     <div class="pt-3">
       <div class="mb-2">网站横幅:</div>
       <EnterImage v-model="content.bannerIcon" :imagemax="imageBannerMax" />

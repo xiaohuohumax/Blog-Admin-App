@@ -7,6 +7,8 @@ import store from '../store/index'
 axios.defaults.timeout = 5000;
 // 基础路径
 axios.defaults.baseURL = 'http://localhost:8888';
+
+axios.defaults.withCredentials = true; 
 // 附加请求头 
 let headerAdd = {}
 
@@ -19,7 +21,7 @@ const http = options => {
     };
     // 添加附加请求头
     newOptions.headers = {
-      "Content-Type": "application/json",
+      // "Content-Type": "application/json",
       ...headerAdd,
       ...newOptions.headers,
     };
