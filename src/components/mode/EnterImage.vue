@@ -3,7 +3,7 @@
     <div
       class="d-flex align-items-center"
       v-if="!isOver"
-      :class="images.length > 0 ? 'mb-3' : ''"
+      :class="{ 'mb-3': images.length > 0 }"
     >
       <Input
         v-model.trim="imageInput"
@@ -78,7 +78,8 @@ export default {
       let newInput = this.imageInput.split(/[ ]+/i).filter((val) => val != "");
       this.imageInput = "";
 
-      this.images = this.images.concat(newInput);
+      // 限制数量
+      this.images = this.images.concat(newInput).splice(0, this.imagemax);
       this.$emit("input", this.images);
     },
     removeItem(index) {
