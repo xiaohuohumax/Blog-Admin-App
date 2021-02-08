@@ -50,7 +50,7 @@ export default {
   },
   computed: {
     ...mapState(["fileRefsh"]),
-   
+
     // 当前文件夹id
     nowDirId() {
       return this.nowDir._id;
@@ -67,19 +67,21 @@ export default {
   },
   methods: {
     ...mapMutations(["addUploadFile", "clearUploadFile"]),
-   
+
     // 查询当前文件夹内容
     selectDirFiles() {
       this.$request
         .virtualFileFindByPage(this.page, this.pageSteep, this.nowDirId, "")
         .then((result) => {
-          this.contextSum = result.fileSum;
+          if (result.flag) {
+            this.contextSum = result.data.fileSum;
 
-          result.files.forEach((val) => {
-            this.addFile(val);
-          });
-          this.selectMore = false;
-          this.selectOver = this.contexts.length == this.contextSum;
+            result.data.files.forEach((val) => {
+              this.addFile(val);
+            });
+            this.selectMore = false;
+            this.selectOver = this.contexts.length == this.contextSum;
+          }
         })
         .catch((err) => {
           this.selectMore = false;

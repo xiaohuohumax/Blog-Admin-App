@@ -46,8 +46,12 @@ export default {
       this.$request
         .virtualFileInsertDir(this.dirName, this.nowdirid)
         .then((result) => {
-          this.$emit("success");
-          this.$Message.success(`[${result.name}]创建成功`);
+          if (result.flag) {
+            this.$emit("success");
+            this.$Message.success(`[${result.name}]创建成功`);
+          } else {
+            this.$Message.error(result.msg);
+          }
         })
         .catch((err) => {
           this.$emit("fail");

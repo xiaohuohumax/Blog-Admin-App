@@ -29,7 +29,12 @@
       @on-change="pageChange"
     />
     <Null v-show="contexts.length == 0" />
-    <CommentItem @change="selectChange" v-for="(item, index) in contexts" :key="index" :comment="item" />
+    <CommentItem
+      @change="selectChange"
+      v-for="(item, index) in contexts"
+      :key="index"
+      :comment="item"
+    />
   </Content>
 </template>
 
@@ -63,9 +68,13 @@ export default {
           this.selectTime
         )
         .then((result) => {
-          this.contexts = result.comments;
-          this.contextSum = result.commentSum;
-          this.loading = 2;
+          if (result.flag) {
+            this.contexts = result.data.comments;
+            this.contextSum = result.data.commentSum;
+            this.loading = 2;
+          } else {
+            this.loading = 3;
+          }
         })
         .catch((err) => (this.loading = 3));
     },

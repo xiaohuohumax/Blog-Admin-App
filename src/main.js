@@ -12,10 +12,10 @@ Vue.use(ViewUI);
 import '@fortawesome/fontawesome-free/css/all.css'
 
 // bootstrap-24
-import './mode/bootstrap-24-4.4.1-dist/css/bootstrap.css'
+import './assets/bootstrap-24-4.4.1-dist/css/bootstrap.css'
 
 // 全局样式
-import './style/allStyle.less'
+import './assets/style/allStyle.less'
 
 // 组件注册
 import allCom from './script/allCom'

@@ -15,8 +15,13 @@
     </template>
 
     <Timeline>
-      <FireNoticeManager @change="selectChange"/>
-      <NoticeItem @change="selectChange" v-for="(item, index) in contexts" :key="index" :notice="item" />
+      <FireNoticeManager @change="selectChange" />
+      <NoticeItem
+        @change="selectChange"
+        v-for="(item, index) in contexts"
+        :key="index"
+        :notice="item"
+      />
     </Timeline>
     <Null v-show="contexts.length == 0" />
     <Page
@@ -51,9 +56,13 @@ export default {
       this.$request
         .noticeFindByPage(this.page, this.pageSteep, this.selectWorld)
         .then((result) => {
-          this.contexts = result.notices;
-          this.contextSum = result.noticeSum;
-          this.loading = 2;
+          if (result.flag) {
+            this.contexts = result.data.notices;
+            this.contextSum = result.data.noticeSum;
+            this.loading = 2;
+          } else {
+            this.loading = 3;
+          }
         })
         .catch((err) => (this.loading = 3));
     },

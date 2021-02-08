@@ -41,7 +41,7 @@
           允许评论: <i-switch :value="content.allowTalk" disabled size="small"
         /></Col>
       </Row>
-      {{content}}
+      {{ content }}
     </div>
   </Content>
 </template>
@@ -69,8 +69,12 @@ export default {
       this.$request
         .adminUserFindbyid(this.$route.params.id)
         .then((result) => {
-          this.loading = 2;
-          this.content = result[0];
+          if (result.flag) {
+            this.loading = 2;
+            this.content = result.data[0];
+          } else {
+            this.loading = 3;
+          }
         })
         .catch((err) => (this.loading = 3));
     },
@@ -78,8 +82,12 @@ export default {
       this.$request
         .articleDeleteById(this.$route.params.id)
         .then((result) => {
-          this.$Message.success("删除成功!");
-          this.$router.push("/ArticleManager");
+          if (result.flag) {
+            this.$Message.success("删除成功!");
+            this.$router.push("/ArticleManager");
+          } else {
+            this.$Message.error(flag.msg);
+          }
         })
         .catch((err) => this.$Message.error("删除失败!"));
     },

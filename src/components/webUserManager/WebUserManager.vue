@@ -47,9 +47,13 @@ export default {
       this.$request
         .webUserFindByPage(this.page, this.pageSteep, this.selectWorld)
         .then((result) => {
-          this.contexts = result.webUsers;
-          this.contextSum = result.webUserSum;
-          this.loading = 2;
+          if (result.flag) {
+            this.contexts = result.data.webUsers;
+            this.contextSum = result.data.webUserSum;
+            this.loading = 2;
+          } else {
+            this.loading = 3;
+          }
         })
         .catch((err) => (this.loading = 3));
     },

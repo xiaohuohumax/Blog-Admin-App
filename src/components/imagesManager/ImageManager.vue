@@ -47,9 +47,13 @@ export default {
       this.$request
         .imageFindPage(this.page, this.pageSteep, this.selectWorld)
         .then((result) => {
-          this.contexts = result.images;
-          this.contextSum = result.imageSum;
-          this.loading = 2;
+          if (result.flag) {
+            this.contexts = result.data.images;
+            this.contextSum = result.data.imageSum;
+            this.loading = 2;
+          } else {
+            this.loading = 3;
+          }
         })
         .catch((err) => (this.loading = 3));
     },

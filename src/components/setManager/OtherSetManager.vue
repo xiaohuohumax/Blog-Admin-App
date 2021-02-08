@@ -45,8 +45,12 @@ export default {
       this.$request
         .webSetFindOnly()
         .then((result) => {
-          this.loading = 2;
-          this.content = result;
+          if (result.flag) {
+            this.loading = 2;
+            this.content = result.data;
+          } else {
+            this.loading = 3;
+          }
         })
         .catch((err) => (this.loading = 3));
     },

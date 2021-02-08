@@ -47,9 +47,13 @@ export default {
       this.$request
         .adminUserFindByPage(this.page, this.pageSteep, this.selectWorld)
         .then((result) => {
-          this.contexts = result.adminUsers;
-          this.contextSum = result.adminUserSum;
-          this.loading = 2;
+          if (result.flag) {
+            this.contexts = result.data.adminUsers;
+            this.contextSum = result.data.adminUserSum;
+            this.loading = 2;
+          } else {
+            this.loading = 3;
+          }
         })
         .catch((err) => (this.loading = 3));
     },

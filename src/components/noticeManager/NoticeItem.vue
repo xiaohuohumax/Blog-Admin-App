@@ -37,8 +37,12 @@ export default {
       this.$request
         .noticeDeleteById(this.notice._id)
         .then((result) => {
-          this.$Message.success("删除成功!");
-          this.$emit("change");
+          if (result.flag) {
+            this.$Message.success("删除成功!");
+            this.$emit("change");
+          } else {
+            this.$Message.error(result.msg);
+          }
         })
         .catch((err) => this.$Message.error("删除失败!"));
     },

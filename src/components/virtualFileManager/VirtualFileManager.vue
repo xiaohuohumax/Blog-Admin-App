@@ -230,8 +230,12 @@ export default {
       this.$request
         .virtualFileRemove(ids, this.nowDirId)
         .then((result) => {
-          this.$Message.success("移动成功!");
-          this.refSelectDirFiles();
+          if (result.flag) {
+            this.$Message.success("移动成功!");
+            this.refSelectDirFiles();
+          } else {
+            this.$Message.error(result.msg);
+          }
         })
         .catch((error) => {
           this.$Message.error("移动失败!");
@@ -292,10 +296,11 @@ export default {
       let failSum = 0;
       this.deleteFileLimit("virtualFileDeleteById", fileIdList, 3)
         .then((result) => {
-          console.log(result);
-          result.forEach((val) => {
-            val.flag ? (successSum += val.sum) : failSum++;
-          });
+          if (result.flag) {
+            result.data.forEach((val) => {
+              val.flag ? (successSum += val.sum) : failSum++;
+            });
+          }
         })
         .catch((error) => {
           console.log(error);
@@ -383,13 +388,15 @@ export default {
       this.$request
         .virtualFileFindByPage(this.page, this.pageSteep, this.nowDirId, this.selectWorld)
         .then((result) => {
-          this.contextSum = result.fileSum;
+          if (result.flag) {
+            this.contextSum = result.data.fileSum;
 
-          result.files.forEach((val) => {
-            this.addFile(val);
-          });
-          this.selectMore = false;
-          this.selectOver = this.contexts.length == this.contextSum;
+            result.data.files.forEach((val) => {
+              this.addFile(val);
+            });
+            this.selectMore = false;
+            this.selectOver = this.contexts.length == this.contextSum;
+          }
         })
         .catch((err) => {
           this.selectMore = false;

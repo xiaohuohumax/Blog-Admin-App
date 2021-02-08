@@ -224,8 +224,12 @@ export default {
       this.$request
         .virtualFileRemove(ids, this.nowDirId)
         .then((result) => {
-          this.$Message.success("移动成功!");
-          this.refSelectDirFiles();
+          if (result.flag) {
+            this.$Message.success("移动成功!");
+            this.refSelectDirFiles();
+          } else {
+            this.$Message.error(result.msg);
+          }
         })
         .catch((error) => {
           this.$Message.error("移动失败!");

@@ -19,25 +19,29 @@ export default {
       this.$request
         .statsWebUserLogon()
         .then((result) => {
-          this.option = {
-            title: {
-              text: "前端用户注册时间统计",
-            },
-            xAxis: {
-              type: "category",
-              data: result.map((val) => val._id),
-            },
-            yAxis: {
-              type: "value",
-            },
-            series: [
-              {
-                data: result.map((val) => val.count),
-                type: "line",
+          if (result.flag) {
+            this.option = {
+              title: {
+                text: "前端用户注册时间统计",
               },
-            ],
-          };
-          this.loading = 1;
+              xAxis: {
+                type: "category",
+                data: result.data.map((val) => val._id),
+              },
+              yAxis: {
+                type: "value",
+              },
+              series: [
+                {
+                  data: result.data.map((val) => val.count),
+                  type: "line",
+                },
+              ],
+            };
+            this.loading = 1;
+          } else {
+            this.loading = 2;
+          }
         })
         .catch((err) => (this.loading = 2));
     },

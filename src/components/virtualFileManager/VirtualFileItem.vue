@@ -84,9 +84,10 @@ export default {
       default: false, // false 列表 true 方块
     },
     chooselist: { type: Array, default: () => [] },
-    checkcanchange:{//能否点击checkbox
+    checkcanchange: {
+      //能否点击checkbox
       type: Boolean,
-      default: true, 
+      default: true,
     },
   },
   data() {
@@ -205,8 +206,12 @@ export default {
       this.$request
         .virtualFileUpdateName(this.file._id, this.renameName)
         .then((result) => {
-          this.$Message.success("文件夹改名成功!");
-          this.file.name = this.renameName;
+          if (result.flag) {
+            this.$Message.success("文件夹改名成功!");
+            this.file.name = this.renameName;
+          } else {
+            this.$Message.error(result.mag);
+          }
           this.renameOpen = false;
         })
         .catch((err) => {
@@ -218,8 +223,12 @@ export default {
       this.$request
         .virtualFileDeleteById(this.file._id)
         .then((result) => {
-          this.$Message.success("文件夹删除成功!");
-          this.$emit("deletesuccess", this.file);
+          if (result.flag) {
+            this.$Message.success("文件夹删除成功!");
+            this.$emit("deletesuccess", this.file);
+          } else {
+            this.$Message.error(result.msg);
+          }
         })
         .catch((err) => {
           this.$Message.error("文件夹删除失败!");
@@ -229,7 +238,7 @@ export default {
   computed: {
     // 是否被选中
     isChoose() {
-      return this.chooselist.map(val=>val._id).includes(this.file._id);
+      return this.chooselist.map((val) => val._id).includes(this.file._id);
     },
     iconStyle() {
       return `background:url('${this.getFileIcon(

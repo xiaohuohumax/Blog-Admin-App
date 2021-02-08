@@ -86,13 +86,17 @@ export default {
           this.icon[0],
           this.tags
         )
-        .then((res) => {
-          this.$Message.success("图包已发表!");
-          this.tags = [];
-          this.title = "";
-          this.subTitle = "";
-          this.icons = [];
-          this.icon = [];
+        .then((result) => {
+          if (result.flag) {
+            this.$Message.success("图包已发表!");
+            this.tags = [];
+            this.title = "";
+            this.subTitle = "";
+            this.icons = [];
+            this.icon = [];
+          } else {
+            this.$Message.error(result.msg);
+          }
         })
         .catch((err) => console.log(err));
     },
@@ -101,14 +105,18 @@ export default {
       this.$request
         .imageFindbyid(this.$route.query.id)
         .then((result) => {
-          this.loading = 2;
-          let content = result[0];
+          if (result.flag) {
+            this.loading = 2;
+            let content = result.data[0];
 
-          this.tags = content.tags;
-          this.title = content.title;
-          this.subTitle = content.subTitle;
-          this.icons = content.icons;
-          this.icon = [content.icon];
+            this.tags = content.tags;
+            this.title = content.title;
+            this.subTitle = content.subTitle;
+            this.icons = content.icons;
+            this.icon = [content.icon];
+          } else {
+            this.loading = 3;
+          }
         })
         .catch((err) => (this.loading = 3));
     },
@@ -116,8 +124,12 @@ export default {
       this.$request
         .imageDeleteById(this.$route.query.id)
         .then((result) => {
-          this.$Message.success("删除成功!");
-          this.$router.push("/ImageManager");
+          if (result.flag) {
+            this.$Message.success("删除成功!");
+            this.$router.push("/ImageManager");
+          } else {
+            this.$Message.error(result.msg);
+          }
         })
         .catch((err) => this.$Message.error("删除失败!"));
     },
@@ -133,9 +145,13 @@ export default {
           icon: this.icon[0],
           tags: this.tags,
         })
-        .then((res) => {
-          this.$Message.success("图包已修改!");
-          this.select();
+        .then((result) => {
+          if (result.flag) {
+            this.$Message.success("图包已修改!");
+            this.select();
+          } else {
+            this.$Message.error(result.msg);
+          }
         })
         .catch((err) => console.log(err));
     },

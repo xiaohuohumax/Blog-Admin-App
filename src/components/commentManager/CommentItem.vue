@@ -52,7 +52,9 @@ export default {
       this.$request
         .commentGetArticleByIdKind(this.comment.articleId, this.comment.kind)
         .then((result) => {
-          this.article = result[0];
+          if (result.flag) {
+            this.article = result.data[0];
+          }
         })
         .catch((err) => {});
     },
@@ -60,8 +62,12 @@ export default {
       this.$request
         .commentDeleteById(this.comment._id)
         .then((result) => {
-          this.$Message.success("删除成功!");
-          this.$emit("change");
+          if (result.flag) {
+            this.$Message.success("删除成功!");
+            this.$emit("change");
+          } else {
+            this.$Message.success(result.msg);
+          }
         })
         .catch((err) => this.$Message.error("删除失败!"));
     },

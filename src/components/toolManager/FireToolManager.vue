@@ -127,13 +127,17 @@ export default {
       this.$request
         .toolFindbyid(this.$route.query.id)
         .then((result) => {
-          this.loading = 2;
-          let content = result[0];
+          if (result.flag) {
+            this.loading = 2;
+            let content = result.data[0];
 
-          this.tags = content.tags;
-          this.title = content.title;
-          this.subTitle = content.subTitle;
-          this.icon = [content.icon];
+            this.tags = content.tags;
+            this.title = content.title;
+            this.subTitle = content.subTitle;
+            this.icon = [content.icon];
+          } else {
+            this.loading = 3;
+          }
         })
         .catch((err) => (this.loading = 3));
     },
@@ -141,8 +145,12 @@ export default {
       this.$request
         .toolDeleteById(this.$route.query.id)
         .then((result) => {
-          this.$Message.success("删除成功!");
-          this.$router.push("/ToolManager");
+          if (result.flag) {
+            this.$Message.success("删除成功!");
+            this.$router.push("/ToolManager");
+          } else {
+            this.$Message.error(result.msg);
+          }
         })
         .catch((err) => this.$Message.error("删除失败!"));
     },
@@ -162,12 +170,12 @@ export default {
             this.time = ((progressEvent.loaded / progressEvent.total) * 100) | 0;
           }
         )
-        .then((res) => {
-          if (res.flag) {
+        .then((result) => {
+          if (result.flag) {
             this.select();
             this.$Message.success("工具更新成功!");
           } else {
-            this.$Message.error(res.msg);
+            this.$Message.error(result.msg);
           }
         })
         .catch((err) => this.$Message.error("工具更新失败!"));

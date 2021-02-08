@@ -75,8 +75,12 @@ export default {
       this.$request
         .webSetFindOnly()
         .then((result) => {
-          this.loading = 2;
-          this.content = result;
+          if (result.flag) {
+            this.loading = 2;
+            this.content = result.data;
+          } else {
+            this.loading = 3;
+          }
         })
         .catch((err) => (this.loading = 3));
     },
@@ -87,8 +91,12 @@ export default {
       this.$request
         .webSetUpdate(this.content)
         .then((result) => {
-          this.$Message.success("修改成功!");
-          this.select();
+          if (result.flag) {
+            this.$Message.success("修改成功!");
+            this.select();
+          } else {
+            this.$Message.error(result.msg);
+          }
         })
         .catch((err) => this.$Message.error("修改失败!"));
     },

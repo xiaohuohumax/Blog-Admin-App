@@ -61,7 +61,6 @@ export default {
     uploadFile() {
       setInterval(() => {
         if (this.unUploadFileList.length != 0 && this.uploadMax > this.uploadConent) {
-          
           this.upload(this.unUploadFileList[0]);
         }
       }, 100);
@@ -79,11 +78,15 @@ export default {
           }
         )
         .then((result) => {
-          item.stat = 2;
-          this.uploadConent--;
-          if (this.unUploadFileList.length == 0&&this.uploadConent==0) {
-            this.$Message.success("上传完成!");
-            this.addFileRefsh();
+          if (result.flag) {
+            item.stat = 2;
+            this.uploadConent--;
+            if (this.unUploadFileList.length == 0 && this.uploadConent == 0) {
+              this.$Message.success("上传完成!");
+              this.addFileRefsh();
+            }
+          } else {
+            this.$Message.error(result.msg);
           }
         })
         .catch((err) => {

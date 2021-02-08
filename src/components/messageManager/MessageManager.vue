@@ -66,8 +66,10 @@ export default {
       this.$request
         .adminMessageFindByPage(this.page, this.pageSteep, this.selectTime)
         .then((result) => {
-          this.contexts = result.webMessages.reverse();
-          this.contextSum = result.webMessageSum;
+          if (result.flag) {
+            this.contexts = result.data.webMessages.reverse();
+            this.contextSum = result.data.webMessageSum;
+          }
           // this.loading = 2;
         })
         .catch((err) => {
@@ -88,9 +90,13 @@ export default {
       this.$request
         .adminMessageInsert(this.userInf._id, this.message)
         .then((result) => {
-          this.selectChange();
-          this.$Message.success("发送成功!");
-          this.message = "";
+          if (result.flag) {
+            this.selectChange();
+            this.$Message.success("发送成功!");
+            this.message = "";
+          } else {
+            this.$Message.success(result.msg);
+          }
         })
         .catch((err) => {
           this.$Message.error("发送失败!");

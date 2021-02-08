@@ -120,11 +120,11 @@ export default {
         .then((result) => {
           if (result.flag) {
             // 登录成功
-            this.userLogin(result); // 添加信息
+            this.userLogin(result.data); // 添加信息
             this.$router.push("/Welcome");
-            this.$Message.success(`[${result.inf.name}]欢迎回来!`);
+            this.$Message.success(`[${result.data.inf.name}]欢迎回来!`);
           } else {
-            this.$Message.error(result.inf);
+            this.$Message.error(result.msg);
           }
         })
         .catch((err) => this.$Message.error("登录失败!"));
@@ -141,7 +141,7 @@ export default {
         .adminByNameFindIcon(this.formInline.user)
         .then((result) => {
           if (result.flag) {
-            this.icon = result.icon;
+            this.icon = result.data;
           } else {
             this.icon = this.defineIcon;
           }

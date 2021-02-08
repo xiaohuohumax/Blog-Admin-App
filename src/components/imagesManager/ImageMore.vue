@@ -2,7 +2,13 @@
   <Content :loading="loading">
     <template #head>
       <Button type="success" ghost class="mr-2" to="/ImageManager">返回列表</Button>
-      <Button type="primary" ghost class="mr-2" :to="`/FireImageManager?id=${$route.params.id}`">修改图包</Button>
+      <Button
+        type="primary"
+        ghost
+        class="mr-2"
+        :to="`/FireImageManager?id=${$route.params.id}`"
+        >修改图包</Button
+      >
       <Button type="error" ghost class="mr-2" @click="remove">删除图包</Button>
     </template>
     <div class="text-center my-3">
@@ -28,8 +34,12 @@
     </div>
 
     <div class="text-center">
-      
-      <img class="w-75 rounded mt-3" :src="item" v-for="(item, index) in content.icons" :key="index">
+      <img
+        class="w-75 rounded mt-3"
+        :src="item"
+        v-for="(item, index) in content.icons"
+        :key="index"
+      />
     </div>
   </Content>
 </template>
@@ -52,8 +62,12 @@ export default {
       this.$request
         .imageFindbyid(this.$route.params.id)
         .then((result) => {
-          this.loading = 2;
-          this.content = result[0];
+          if (result.flag) {
+            this.loading = 2;
+            this.content = result.data[0];
+          } else {
+            this.loading = 3;
+          }
         })
         .catch((err) => (this.loading = 3));
     },
@@ -61,8 +75,12 @@ export default {
       this.$request
         .imageDeleteById(this.$route.params.id)
         .then((result) => {
-          this.$Message.success("删除成功!");
-          this.$router.push("/ImageManager");
+          if (result.flag) {
+            this.$Message.success("删除成功!");
+            this.$router.push("/ImageManager");
+          } else {
+            this.$Message.error(result.msg);
+          }
         })
         .catch((err) => this.$Message.error("删除失败!"));
     },

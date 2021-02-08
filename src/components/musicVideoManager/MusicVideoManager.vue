@@ -47,9 +47,13 @@ export default {
       this.$request
         .videomusicFindByPage(this.page, this.pageSteep, this.selectWorld)
         .then((result) => {
-          this.contexts = result.videoMusics;
-          this.contextSum = result.videoMusicSum;
-          this.loading = 2;
+          if (result.flag) {
+            this.contexts = result.data.videoMusics;
+            this.contextSum = result.data.videoMusicSum;
+            this.loading = 2;
+          } else {
+            this.loading = 3;
+          }
         })
         .catch((err) => (this.loading = 3));
     },

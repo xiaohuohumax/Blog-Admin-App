@@ -46,9 +46,13 @@ export default {
       this.$request
         .toolFindByPage(this.page, this.pageSteep, this.selectWorld)
         .then((result) => {
-          this.contexts = result.tools;
-          this.contextSum = result.toolSum;
-          this.loading = 2;
+          if (result.flag) {
+            this.contexts = result.data.tools;
+            this.contextSum = result.data.toolSum;
+            this.loading = 2;
+          } else {
+            this.loading = 3;
+          }
         })
         .catch((err) => (this.loading = 3));
     },

@@ -19,24 +19,28 @@ export default {
       this.$request
         .statsAdminUserLevel()
         .then((result) => {
-          this.option = {
-            title: {
-              text: "管理用户等级统计",
-            },
-            tooltip: {},
-            xAxis: {
-              data: result.map((val) => val._id),
-            },
-            yAxis: {},
-            series: [
-              {
-                name: "等级",
-                type: "bar",
-                data: result.map((val) => val.count),
+          if (result.flag) {
+            this.option = {
+              title: {
+                text: "管理用户等级统计",
               },
-            ],
-          };
-          this.loading = 1;
+              tooltip: {},
+              xAxis: {
+                data: result.data.map((val) => val._id),
+              },
+              yAxis: {},
+              series: [
+                {
+                  name: "等级",
+                  type: "bar",
+                  data: result.data.map((val) => val.count),
+                },
+              ],
+            };
+            this.loading = 1;
+          } else {
+            this.loading = 2;
+          }
         })
         .catch((err) => (this.loading = 2));
     },
