@@ -40,7 +40,9 @@
         </FormItem>
         <div class="mb-2 d-flex justify-content-between">
           <Checkbox v-model="formInline.remember">记住密码</Checkbox>
-          <Checkbox v-model="formInline.autoLogin">自动登录</Checkbox>
+          <Checkbox v-model="formInline.autoLogin">
+            自动登录<span v-if="autoIsShow"> {{ autoLogioWaitTime }}s </span>
+          </Checkbox>
         </div>
         <Button type="success" long @click="handleSubmit('formInline')">登录</Button>
       </Form>
@@ -49,8 +51,12 @@
 </template>
 
 <script>
-let { remote } = window.require("electron");
+let { remote, ipcRenderer } = window.require("electron");
+let path = window.require("path");
 let win = remote.getCurrentWindow();
+let fs = window.require("fs");
+
+import enumData from "../script/enumData";
 
 import { mapMutations } from "vuex";
 export default {
@@ -86,15 +92,54 @@ export default {
           },
         ],
       },
+
+      savePath: path.join(ipcRenderer.sendSync(enumData.AppPath), "remember.json"),
+
+      autoLogioTimeOut: null,
+      autoLogioWaitTime: 5, // 等待时间
+      autoIsShow: false, // 是否显示倒计时
     };
   },
   watch: {
     "formInline.user"() {
       this.getIcon();
     },
+    "formInline.user": "saveUserInf",
+    "formInline.password": "saveUserInf",
+    "formInline.remember"() {
+      if (!this.formInline.remember && this.formInline.autoLogin) {
+        this.formInline.autoLogin = false;
+      }
+      this.saveUserInf();
+    },
+    "formInline.autoLogin"() {
+      if (!this.formInline.remember && this.formInline.autoLogin) {
+        this.formInline.remember = true;
+      }
+      this.saveUserInf();
+    },
   },
   mounted() {
     this.icon = this.defineIcon;
+    let userInf = this.readUserInf();
+    clearTimeout(this.autoLogioTimeOut);
+
+    // 记住我
+    if (userInf.remember) {
+      this.formInline = { ...this.formInline, ...userInf };
+    }
+    // 自动登录
+    if (userInf.autoLogin) {
+      this.formInline = { ...this.formInline, ...userInf };
+      this.autoIsShow = true;
+      this.autoLogioTimeOut = setInterval(() => {
+        if (this.autoLogioWaitTime-- <= 0) {
+          this.login();
+          clearInterval(this.autoLogioTimeOut);
+          this.autoIsShow = false;
+        }
+      }, 1000);
+    }
   },
   created() {
     this.changeSize();
@@ -147,6 +192,23 @@ export default {
           }
         })
         .catch((err) => (this.icon = this.defineIcon));
+    },
+    // 存储用户账号
+    saveUserInf() {
+      if (!this.formInline.autoLogin) {
+        clearInterval(this.autoLogioTimeOut);
+        this.autoIsShow = false;
+      }
+
+      // 清除自动登录
+      fs.writeFileSync(this.savePath, JSON.stringify(this.formInline), "utf-8");
+    },
+    // 读取用户账号
+    readUserInf() {
+      if (!fs.existsSync(this.savePath)) {
+        this.saveUserInf(this.formInline);
+      }
+      return JSON.parse(fs.readFileSync(this.savePath, "utf-8"));
     },
   },
 };

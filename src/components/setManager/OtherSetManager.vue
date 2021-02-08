@@ -61,8 +61,12 @@ export default {
       this.$request
         .webSetUpdate(this.content)
         .then((result) => {
-          this.$Message.success("修改成功!");
-          this.select();
+          if (result.flag) {
+            this.$Message.success("修改成功!");
+            this.select();
+          } else {
+            this.$Meserrorerror(result.msg);
+          }
         })
         .catch((err) => this.$Message.error("修改失败!"));
     },
