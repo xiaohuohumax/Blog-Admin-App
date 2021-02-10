@@ -160,6 +160,7 @@ export default {
       win.close();
     },
     login() {
+       clearInterval(this.autoLogioTimeOut);
       this.$request
         .adminuserlogin(this.formInline.user, this.formInline.password)
         .then((result) => {

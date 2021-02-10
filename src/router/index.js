@@ -124,6 +124,18 @@ const routes = [{
         name: '发布公告',
         component: allCom.NoticeManager
       }, {
+        path: 'AuthorityManager',
+        name: '用户授权',
+        component: allCom.AuthorityManager
+      }, {
+        path: 'RoleManager',
+        name: '角色管理',
+        component: allCom.RoleManager
+      },  {
+        path: 'ResourceManager',
+        name: '资源管理',
+        component: allCom.ResourceManager
+      }, {
         path: '/Error404',
         name: '错误 404',
         component: allCom.Error404,

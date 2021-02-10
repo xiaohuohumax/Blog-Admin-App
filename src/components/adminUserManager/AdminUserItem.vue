@@ -1,10 +1,7 @@
 <template>
   <Card class="mb-3">
     <div class="d-flex">
-      <div
-        class="card-icon rounded-circle mr-2 shadow-sm flex-shrink-0"
-        :style="cardIconStyle"
-      ></div>
+      <img :src="user.icon" class="card-icon rounded-circle mr-2 shadow-sm flex-shrink-0" />
       <div class="flex-grow-1">
         <div>
           <router-link :to="`/AdminUserMore/${user._id}`" class="h6 font-weight-bold">
@@ -41,16 +38,12 @@ export default {
   props: {
     user: Object,
   },
-  computed: {
-    cardIconStyle() {
-      return `backgrond:url('${this.user.icon}') center / cover;`;
-    },
-  },
 };
 </script>
 
 <style>
 .card-icon {
+  object-fit: cover;
   width: 4.5rem;
   height: 4.5rem;
 }

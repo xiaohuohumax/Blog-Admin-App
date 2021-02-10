@@ -1,10 +1,10 @@
 <template>
   <Card class="mb-3">
     <div class="d-flex">
-      <div
+       <img
+        :src="image.icon"
         class="card-icon rounded-circle mr-2 shadow-sm flex-shrink-0"
-        :style="cardIconStyle"
-      ></div>
+      />
       <div>
         <router-link :to="`/ImageMore/${image._id}`">{{ image.title }}</router-link>
         <div class="small my-1">{{ image.subTitle }}</div>
@@ -25,16 +25,12 @@ export default {
   props: {
     image: Object,
   },
-  computed: {
-    cardIconStyle() {
-      return `backgrond:url('${this.image.icon}') center / cover;`;
-    },
-  },
 };
 </script>
 
 <style>
 .card-icon {
+  object-fit: cover;
   width: 4.5rem;
   height: 4.5rem;
 }

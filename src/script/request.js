@@ -419,6 +419,26 @@ export default {
             }
         })
     },
+    adminUserDeleteById: (id) => {
+        return https({
+            method: "post",
+            url: '/admin/api/adminUserDeleteById',
+            data: {
+                id
+            }
+        })
+    },
+    adminUserUpdate: (id, params) => {
+        return https({
+            method: "post",
+            url: '/admin/api/adminUserUpdate',
+            data: {
+                id,
+                params
+            }
+        })
+    },
+
 
 
     uploadTool: (adminId, title, subTitle, icon, tags, file, onUploadProgress = () => {}) => {
@@ -554,4 +574,33 @@ export default {
         })
     },
 
+    webUserFindbyid: (id) => {
+        return https({
+            method: "post",
+            url: '/admin/api/webUserFindbyid',
+            data: {
+                id
+            }
+        })
+    },
+
+    webUserDeleteById: (id) => {
+        return https({
+            method: "post",
+            url: '/admin/api/webUserDeleteById',
+            data: {
+                id
+            }
+        })
+    },
+    WebUserUpdateById: (id, params) => {
+        return https({
+            method: "post",
+            url: '/admin/api/WebUserUpdateById',
+            data: {
+                id,
+                params
+            }
+        })
+    },
 }

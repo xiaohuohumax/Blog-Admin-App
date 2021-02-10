@@ -32,7 +32,6 @@
         </Tag>
       </div>
     </div>
-    {{ content }}
     <ToolBodyCard :toolUrl="content.toolUrl" />
   </Content>
 </template>

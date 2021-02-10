@@ -5,11 +5,11 @@
     </template>
     <div class="pt-3">
       <div class="mb-2">博客名称:</div>
-      <Input placeholder="标签" class="w-50" v-model.trim="content.webName" />
+      <Input placeholder="标签" v-model.trim="content.webName" />
     </div>
     <div class="pt-3">
       <div class="mb-2">设置网站说明:</div>
-      <Input placeholder="标签" class="w-50" v-model.trim="content.webDescription" />
+      <Input placeholder="标签" v-model.trim="content.webDescription" />
     </div>
     <div class="pt-3">
       <div class="mb-2">网站状态:</div>
@@ -25,7 +25,7 @@
           :options="options3"
           placeholder="选择时间"
           v-model="content.opentime"
-          class="w-50"
+         
         ></DatePicker>
       </div>
     </div>
@@ -35,7 +35,7 @@
     </div>
     <div class="pt-3">
       <div class="mb-2">版权信息:</div>
-      <Input placeholder="标签" class="w-50" v-model.trim="content.copyRight" />
+      <Input placeholder="标签" v-model.trim="content.copyRight" />
     </div>
   </Content>
 </template>

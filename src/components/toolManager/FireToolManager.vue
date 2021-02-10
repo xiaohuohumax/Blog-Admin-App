@@ -1,8 +1,8 @@
 <template>
   <Content :loading="loading">
     <template #head>
-      <Button class="mr-2" :to="`/ArticleMore/${$route.query.id}`">返回详细</Button>
-      <Button class="mr-2" to="/ArticleManager">返回列表</Button>
+      <Button class="mr-2" :to="`/ToolMore/${$route.query.id}`">返回详细</Button>
+      <Button class="mr-2" to="/ToolManager">返回列表</Button>
       <Button type="success" @click="onSubmit" v-if="kind">发布</Button>
 
       <Button class="mr-2" type="success" @click="update" v-if="!kind">更新</Button>

@@ -72,8 +72,11 @@ export default {
     toolItemModel: () => import('../components/toolItem/toolItemModel'),
     toolUploadList: () => import('../components/toolItem/toolUploadList'),
     toolUploadFileMini: () => import('../components/toolItem/toolUploadFileMini'),
-    
 
+    AuthorityManager: () => import('../components/authorityManager/AuthorityManager'),
+    RoleManager: () => import('../components/authorityManager/RoleManager'),
+    ResourceManager: () => import('../components/authorityManager/ResourceManager'),
+    
     // 模块
     Editor: () => import('../components/mode/Editor'),
     EnterImage: () => import('../components/mode/EnterImage'),
@@ -84,6 +87,8 @@ export default {
     EnterTool: () => import('../components/mode/EnterTool'),
     StatCard: () => import('../components/mode/StatCard'),
     Null: () => import('../components/mode/Null'),
+    AuthorityBlock: () => import('../components/mode/AuthorityBlock'),
+
 
     // 布局
     LeftNav: () => import('../components/layout/LeftNav'),
@@ -91,4 +96,5 @@ export default {
     Content: () => import('../components/layout/Content'),
     Header: () => import('../components/layout/Header'),
     Tools: () => import('../components/layout/Tools'),
+
 }

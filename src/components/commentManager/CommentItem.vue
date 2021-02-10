@@ -9,10 +9,10 @@
         icon="md-close"
         @click="deleteComment"
       ></Button>
-      <div
+       <img
+        :src="comment.user.icon"
         class="card-icon rounded-circle mr-2 shadow-sm flex-shrink-0"
-        :style="cardIconStyle"
-      ></div>
+      />
       <div>
         <div>
           <router-link class="mr-1 small" :to="articlePath">
@@ -73,11 +73,6 @@ export default {
     },
   },
   computed: {
-    cardIconStyle() {
-      return `backgrond:url('${
-        this.comment.user && this.comment.user.icon
-      }') center / cover;`;
-    },
     articlePath() {
       if (this.comment.kind == articleEnum.article) {
         return `/ArticleMore/${this.comment.articleId}`;
@@ -93,6 +88,7 @@ export default {
 
 <style lang="less">
 .card-icon {
+  object-fit: cover;
   width: 4.5rem;
   height: 4.5rem;
 }

@@ -381,13 +381,17 @@ export default {
       this.$request
         .virtualFileFindByPage(this.page, this.pageSteep, this.nowDirId, "")
         .then((result) => {
-          this.contextSum = result.fileSum;
+          if (result.flag) {
+            this.contextSum = result.data.fileSum;
 
-          result.files.forEach((val) => {
-            this.addFile(val);
-          });
-          this.selectMore = false;
-          this.selectOver = this.contexts.length == this.contextSum;
+            result.data.files.forEach((val) => {
+              this.addFile(val);
+            });
+            this.selectMore = false;
+            this.selectOver = this.contexts.length == this.contextSum;
+          } else {
+            this.selectMore = false;
+          }
         })
         .catch((err) => {
           this.selectMore = false;

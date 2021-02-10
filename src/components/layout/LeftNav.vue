@@ -4,7 +4,7 @@
       <span class="left-nav-no-drag left-nav-top-name">后台管理</span>
     </div>
     <div class="flex-shark-0 pb-2 px-5">
-      <div class="left-nav-icon shadow mx-auto rounded-circle mb-2" :style="cardIconStyle"></div>
+      <img :src="userInf.icon" class="left-nav-icon shadow mx-auto rounded-circle mb-2" />
       <div class="mb-1">{{ userInf.name }}</div>
       <Button size="small" type="success" @click="logout" ghost icon="md-exit">
         注销
@@ -12,7 +12,7 @@
     </div>
     <div class="home-nav-body flex-grow-1 mb-2">
       <Menu :open-names="['0']" class="w-100 text-left">
-        <Submenu :name="listIndex" v-for="(list, listIndex) in nav" :key="listIndex">
+        <Submenu :name="listIndex" v-for="(list, listIndex) in menu" :key="listIndex">
           <template slot="title">
             <Icon :type="list.icon" />
             {{ list.name }}
@@ -31,137 +31,17 @@
 </template>
 
 <script>
-import { mapState, mapMutations } from "vuex";
+import { mapState, mapMutations, mapGetters } from "vuex";
 export default {
   data() {
     return {
-      nav: [
-        {
-          name: "内容管理",
-          icon: "ios-paper",
-          items: [
-            {
-              name: "发布文章",
-              path: "/FireArticleManager",
-            },
-            {
-              name: "文章管理",
-              path: "/ArticleManager",
-            },
-          ],
-        },
-        {
-          name: "账号管理",
-          icon: "ios-people",
-          items: [
-            {
-              name: "网站用户",
-              path: "/WebUserManager",
-            },
-            {
-              name: "管理用户",
-              path: "/AdminUserManager",
-            },
-          ],
-        },
-        {
-          name: "信息管理",
-          icon: "ios-paper",
-          items: [
-            {
-              name: "站内信息",
-              path: "/MessageManager",
-            },
-            {
-              name: "发布公告",
-              path: "/NoticeManager",
-            },
-            {
-              name: "评论管理",
-              path: "/CommentManager",
-            },
-          ],
-        },
-        {
-          name: "娱乐影音",
-          icon: "md-images",
-          items: [
-            {
-              name: "视频音乐",
-              path: "/FireMusicVideoManager",
-            },
-            {
-              name: "图包分享",
-              path: "/FireImageManager",
-            },
-            {
-              name: "在线工具",
-              path: "/FireToolManager",
-            },
-            {
-              name: "视频音乐管理",
-              path: "/MusicVideoManager",
-            },
-            {
-              name: "图包分享管理",
-              path: "/ImageManager",
-            },
-            {
-              name: "在线工具管理",
-              path: "/ToolManager",
-            },
-          ],
-        },
-        {
-          name: "文件管理",
-          icon: "md-folder-open",
-          items: [
-            {
-              name: "虚拟文件",
-              path: "/VirtualFileManager",
-            },
-          ],
-        },
-        {
-          name: "网站设置",
-          icon: "ios-cog",
-          items: [
-            {
-              name: "样式设置",
-              path: "/StyleSetManager",
-            },
-            {
-              name: "基础设置",
-              path: "/BasicSetManager",
-            },
-            {
-              name: "其他设置",
-              path: "/OtherSetManager",
-            },
-          ],
-        },
-        {
-          name: "统计分析",
-          icon: "ios-stats",
-          items: [
-            {
-              name: "前端统计",
-              path: "/WebStatManager",
-            },
-            {
-              name: "网站统计",
-              path: "/AdminStatManager",
-            },
-          ],
-        },
-      ],
+      // 菜单模板
+      // nav: [{ name: "根目录", icon: "icon", items: [{ name: "子菜单", path: "/url" }] }],
     };
   },
   computed: {
-    ...mapState(["userInf"]),
-    cardIconStyle() {
-      return `backgrond:url('${this.userInf.icon}') center / cover;`;
-    },
+    ...mapState(["userInf", "roles", "resources", "menu"]),
+    ...mapGetters(["getLeftNav"]),
   },
   methods: {
     ...mapMutations(["userLogout"]),
@@ -194,6 +74,7 @@ export default {
     margin-right: 0 !important;
   }
   .left-nav-icon {
+    object-fit: cover;
     width: 5rem;
     height: 5rem;
   }

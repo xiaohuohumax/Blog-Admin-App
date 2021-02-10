@@ -11,7 +11,8 @@
         class="mr-2"
         clearable
       />
-      <Button @click="selectChange">搜索</Button>
+      <Button class="mr-2" @click="selectChange">搜索</Button>
+      <Button type="success" ghost>新建账号</Button>
     </template>
     <Page
       :page-size="pageSteep"
@@ -67,5 +68,3 @@ export default {
   },
 };
 </script>
-
-<style></style>

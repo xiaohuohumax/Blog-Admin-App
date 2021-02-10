@@ -1,15 +1,11 @@
 <template>
-  <div
-    class="header p-2 d-flex justify-content-between align-items-center"
-  >
+  <div class="header p-2 d-flex justify-content-between align-items-center">
     <div class="header-drag"></div>
     <div class="header-path header-no-drag d-flex align-items-center">
       <Icon type="md-paper-plane" class="mr-2" />
-     
+      <!-- <AuthorityBlock :roles="['user_cod']" :resources="['resource_code']">权限</AuthorityBlock> -->
     </div>
-    <div
-      class="header-control header-no-drag d-flex align-items-center text-success"
-    >
+    <div class="header-control header-no-drag d-flex align-items-center text-success">
       <Icon
         @click="controlSmall"
         title="最小化"
@@ -57,7 +53,7 @@ export default {
     },
   },
   computed: {
-    ...mapState(["history"]),
+    ...mapState(["history", "roles", "resources"]),
   },
 };
 </script>

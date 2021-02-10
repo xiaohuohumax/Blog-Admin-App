@@ -5,7 +5,7 @@
     </template>
     <div class="pt-3">
       <div class="mb-2">设置字体:</div>
-      <Input placeholder="标签" class="w-50" v-model.trim="content.webFontFamily" />
+      <Input placeholder="标签" v-model.trim="content.webFontFamily" />
     </div>
 
     <div class="pt-3">

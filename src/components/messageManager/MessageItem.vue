@@ -1,9 +1,9 @@
 <template>
   <div class="d-flex message-card mt-3" :class="cardClass">
-    <div
+    <img
+      :src="message.admin.icon"
       class="card-icon rounded-circle shadow-sm border flex-shrink-0"
-      :style="cardIconStyle"
-    ></div>
+    />
     <Card class="mx-4 message-body flex-grow-1 small font-weight-bold">
       <div class="h6">{{ message.admin.name }}</div>
       <div class="my-1">{{ message.message }}</div>
@@ -22,11 +22,6 @@ export default {
       default: {},
     },
   },
-  data() {
-    return {
-      // yourself: false, //  是否是你自己
-    };
-  },
   computed: {
     ...mapState(["userInf"]),
     yourself() {
@@ -34,11 +29,6 @@ export default {
     },
     cardClass() {
       return this.yourself ? "message-card-right" : "message-card-left";
-    },
-    cardIconStyle() {
-      return `backgrond:url('${
-        this.message.admin && this.message.admin.icon
-      }') center / cover;`;
     },
   },
 };
@@ -48,6 +38,7 @@ export default {
 .message-card {
   .card-icon,
   .card-null {
+    object-fit: cover;
     width: 4rem;
     height: 4rem;
   }

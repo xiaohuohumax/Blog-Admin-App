@@ -6,9 +6,16 @@ Vue.use(Vuex)
 export default new Vuex.Store({
   state: {
     history: [],
-    userKey: "", // token
+
+
     userLogined: false, // 是否登录
+    userKey: "", // token
     userInf: {}, // 用户信息
+    roles: [], // 角色
+    resources: [], // 资源
+
+    menu: [], // 菜单
+
     uploadFileList: [
       //   {
       //   path: {},
@@ -18,6 +25,7 @@ export default new Vuex.Store({
     fileRefsh: 0, // 文件刷新
   },
   mutations: {
+
     // 提示文件刷新
     addFileRefsh(state) {
       state.fileRefsh += 1;
@@ -48,6 +56,9 @@ export default new Vuex.Store({
     userLogin(state, data) {
       state.userKey = data.key;
       state.userInf = data.inf;
+      state.roles = data.roles;
+      state.menu = data.menu;
+      state.resources = data.resources;
       state.userLogined = true;
     },
     // 用户注销
@@ -68,6 +79,11 @@ export default new Vuex.Store({
     }
   },
   getters: {
+    // 获取左侧菜单
+    getLeftNav(state) {
+      let rootMenu = state.resources.filter(val => val.kind);
+      return {}
+    },
     unUploadFileList(state) {
       return state.uploadFileList.filter(val => val.stat == 0)
     }

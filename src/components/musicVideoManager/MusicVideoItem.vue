@@ -1,12 +1,14 @@
 <template>
   <Card class="mb-3">
     <div class="d-flex">
-      <div
+      <img
+        :src="article.icon"
         class="card-icon rounded-circle mr-2 shadow-sm flex-shrink-0"
-        :style="cardIconStyle"
-      ></div>
+      />
       <div>
-        <router-link :to="`/MusicVideoMore/${article._id}`">{{ article.title }}</router-link>
+        <router-link :to="`/MusicVideoMore/${article._id}`">{{
+          article.title
+        }}</router-link>
         <div class="small my-1">{{ article.subTitle }}</div>
         <div class="small mt-2">
           <Icon class="mr-1" type="md-eye" />{{ article.watch }}
@@ -25,16 +27,12 @@ export default {
   props: {
     article: Object,
   },
-  computed: {
-    cardIconStyle() {
-      return `backgrond:url('${this.article.icon}') center / cover;`;
-    },
-  },
 };
 </script>
 
 <style>
 .card-icon {
+  object-fit: cover;
   width: 4.5rem;
   height: 4.5rem;
 }
