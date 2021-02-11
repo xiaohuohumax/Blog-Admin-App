@@ -12,18 +12,18 @@
         clearable
       />
       <Button class="mr-2" @click="selectChange">搜索</Button>
-      <!-- <AuthorityBlock class="d-inline-block" :roles="['role_admin']"> -->
-      <Button type="success" ghost to="/FireAdminUserManager">新建账号</Button>
-      <!-- </AuthorityBlock> -->
+      <Button type="success" ghost to="/FireResourceManager">新建资源</Button>
     </template>
     <Page
       :page-size="pageSteep"
       :total="contextSum"
       :current="page"
       @on-change="pageChange"
+      show-total
+      show-elevator
     />
     <Null v-show="contexts.length == 0" />
-    <AdminUserItem v-for="(item, index) in contexts" :key="index" :user="item" />
+    <ResourceItem v-for="(item, index) in contexts" :key="index" :resource="item" />
   </Content>
 </template>
 
@@ -48,11 +48,11 @@ export default {
     select() {
       this.loading = 1;
       this.$request
-        .adminUserFindByPage(this.page, this.pageSteep, this.selectWorld)
+        .authorityFindRresourceByPage(this.page, this.pageSteep, this.selectWorld)
         .then((result) => {
           if (result.flag) {
-            this.contexts = result.data.adminUsers;
-            this.contextSum = result.data.adminUserSum;
+            this.contexts = result.data.resources;
+            this.contextSum = result.data.resourceSum;
             this.loading = 2;
           } else {
             this.loading = 3;

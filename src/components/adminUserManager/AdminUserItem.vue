@@ -1,10 +1,16 @@
 <template>
   <Card class="mb-3">
     <div class="d-flex">
-      <img :src="user.icon" class="card-icon rounded-circle mr-2 shadow-sm flex-shrink-0" />
+      <img
+        :src="user.icon"
+        class="card-icon rounded-circle mr-2 shadow-sm flex-shrink-0"
+      />
       <div class="flex-grow-1">
         <div>
-          <router-link :to="`/AdminUserMore/${user._id}`" class="h6 font-weight-bold">
+          <router-link
+            :to="`/FireAdminUserManager?id=${user._id}`"
+            class="h6 font-weight-bold"
+          >
             {{ user.name }}
           </router-link>
           <span class="ml-2 small font-weight-bold">

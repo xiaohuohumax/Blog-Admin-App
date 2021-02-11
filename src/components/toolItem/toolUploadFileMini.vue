@@ -222,7 +222,7 @@ export default {
       let ids = this.removecachesList.map((val) => val._id);
 
       this.$request
-        .virtualFileRemove(ids, this.nowDirId)
+        .virtualFileMove(ids, this.nowDirId)
         .then((result) => {
           if (result.flag) {
             this.$Message.success("移动成功!");

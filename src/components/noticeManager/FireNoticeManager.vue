@@ -1,7 +1,7 @@
 <template>
   <TimelineItem :color="color">
     <Card>
-      <Input type="textarea" v-model.trim="notice" placeholder="请输入公告" clearable />
+      <Input type="textarea" :rows="8" v-model.trim="notice" placeholder="请输入公告" clearable />
       <EnterImage placeholder="输入图片" class="mt-3 mb-2" v-model="icon" :imagemax="1" />
 
       <div class="d-flex justify-content-between align-items-center">

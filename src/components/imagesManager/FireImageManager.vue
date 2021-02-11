@@ -9,28 +9,28 @@
       <Button type="error" ghost @click="remove" v-if="!kind">删除</Button>
     </template>
     <input
-      v-model.trim="title"
+      v-model.trim="context.title"
       type="text"
       class="w-100 h3 py-3 border-0"
       placeholder="请输入标题(30字)"
     />
     <input
-      v-model.trim="subTitle"
+      v-model.trim="context.subTitle"
       type="text"
       class="w-100 h5 py-3 border-0"
       placeholder="请输入副标题(100字)"
     />
     <div class="pt-3">
       <div class="mb-2">添加标签:</div>
-      <EnterTags v-model="tags" :tagmax="tagsMax" />
+      <EnterTags v-model="context.tags" :tagmax="tagsMax" />
     </div>
     <div class="pt-3">
       <div class="mb-2">添加图包:</div>
-      <EnterImage v-model="icons" :imagemax="imagemax" />
+      <EnterImage v-model="context.icons" :imagemax="imagemax" />
     </div>
     <div class="pt-3">
       <div class="mb-2">添加封面:</div>
-      <EnterImage v-model="icon" :imagemax="1" />
+      <EnterImage v-model="context.icon" :imagemax="1" />
     </div>
   </Content>
 </template>
@@ -42,12 +42,13 @@ export default {
   components: { EnterTags },
   data() {
     return {
-      tags: [],
-      title: "",
-      subTitle: "",
-      icon: [],
-      icons: [],
-
+      context: {
+        tags: [],
+        title: "",
+        subTitle: "",
+        icon: [],
+        icons: [],
+      },
       tagsMax: 10,
       imagemax: 100,
 
@@ -56,6 +57,7 @@ export default {
     };
   },
   created() {
+    this.imageInit();
     this.kind = this.$route.query.id == "" || this.$route.query.id == undefined;
 
     !this.kind ? this.select() : "";
@@ -64,36 +66,38 @@ export default {
     ...mapState(["userInf"]),
     isRight() {
       return (
-        this.tags.length == 0 ||
-        this.title == "" ||
-        this.subTitle == "" ||
-        this.icons.length == 0 ||
-        this.icon.length == 0
+        this.context.tags.length == 0 ||
+        this.context.title == "" ||
+        this.context.subTitle == "" ||
+        this.context.icons.length == 0 ||
+        this.context.icon.length == 0
       );
     },
   },
   methods: {
+    imageInit() {
+      this.context = {
+        tags: [],
+        title: "",
+        subTitle: "",
+        icon: [],
+        icons: [],
+      };
+    },
     onSubmit() {
       if (this.isRight) {
         return this.$Message.error("图包不完整!");
       }
       this.$request
-        .imageinsert(
-          this.userInf._id,
-          this.title,
-          this.subTitle,
-          this.icons,
-          this.icon[0],
-          this.tags
-        )
+        .imageinsert({
+          adminId: this.userInf._id,
+          ...this.context,
+          icon: this.context.icon[0],
+        })
         .then((result) => {
           if (result.flag) {
             this.$Message.success("图包已发表!");
-            this.tags = [];
-            this.title = "";
-            this.subTitle = "";
-            this.icons = [];
-            this.icon = [];
+            this.imageInit();
           } else {
             this.$Message.error(result.msg);
           }
@@ -106,14 +110,9 @@ export default {
         .imageFindbyid(this.$route.query.id)
         .then((result) => {
           if (result.flag) {
+            this.context = result.data[0];
+            this.context.icon = [this.context.icon];
             this.loading = 2;
-            let content = result.data[0];
-
-            this.tags = content.tags;
-            this.title = content.title;
-            this.subTitle = content.subTitle;
-            this.icons = content.icons;
-            this.icon = [content.icon];
           } else {
             this.loading = 3;
           }
@@ -139,11 +138,8 @@ export default {
       }
       this.$request
         .imageUpdate(this.$route.query.id, {
-          title: this.title,
-          subTitle: this.subTitle,
-          icons: this.icons,
-          icon: this.icon[0],
-          tags: this.tags,
+          ...this.context,
+          icon: this.context.icon[0],
         })
         .then((result) => {
           if (result.flag) {

@@ -10,28 +10,28 @@
     </template>
 
     <input
-      v-model.trim="title"
+      v-model.trim="context.title"
       type="text"
       class="w-100 h3 py-3 border-0"
       placeholder="请输入标题(30字)"
     />
     <input
-      v-model.trim="subTitle"
+      v-model.trim="context.subTitle"
       type="text"
       class="w-100 h5 py-3 border-0"
       placeholder="请输入副标题(100字)"
     />
     <div class="py-3">
       <p class="small mr-2">添加标签<span class="text-success">回车Enter添加</span></p>
-      <EnterTags v-model="tags" :tagmax="tagsMax" />
+      <EnterTags v-model="context.tags" :tagmax="tagsMax" />
     </div>
     <div class="pb-3">
       <p class="small mr-2">添加音视频<span class="text-success">回车Enter添加</span>:</p>
-      <EnterVideo v-model="videoMusicUrl" />
+      <EnterVideo v-model="context.videoMusicUrl" />
     </div>
     <div class="pb-3">
       <p class="small mr-2">添加封面<span class="text-success">回车Enter添加</span></p>
-      <EnterImage v-model="icon" :imagemax="1" />
+      <EnterImage v-model="context.icon" :imagemax="1" />
     </div>
   </Content>
 </template>
@@ -43,18 +43,21 @@ export default {
   components: { EnterTags },
   data() {
     return {
-      tags: [],
       tagsMax: 10,
-      title: "",
-      subTitle: "",
-      icon: [],
-      videoMusicUrl: "",
+      context: {
+        tags: [],
+        title: "",
+        subTitle: "",
+        icon: [],
+        videoMusicUrl: "",
+      },
 
       kind: true, // true 发表文章 false 修改文章
       loading: 0,
     };
   },
   created() {
+    this.videoInit();
     this.kind = this.$route.query.id == "" || this.$route.query.id == undefined;
 
     !this.kind ? this.select() : "";
@@ -63,37 +66,39 @@ export default {
     ...mapState(["userInf"]),
     isRight() {
       return (
-        this.tags.length == 0 ||
-        this.title == "" ||
-        this.subTitle == "" ||
-        this.videoMusicUrl == "" ||
-        this.icon.length == 0
+        this.context.tags.length == 0 ||
+        this.context.title == "" ||
+        this.context.subTitle == "" ||
+        this.context.videoMusicUrl == "" ||
+        this.context.icon.length == 0
       );
     },
   },
   methods: {
+    videoInit() {
+      this.context = {
+        tags: [],
+        title: "",
+        subTitle: "",
+        icon: [],
+        videoMusicUrl: "",
+      };
+    },
     onSubmit() {
       if (this.isRight) {
         return this.$Message.error("文章不完整!");
       }
       // adminId, title, subTitle, videoMusicUrl, icon, tags
       this.$request
-        .videomusicinsert(
-          this.userInf._id,
-          this.title,
-          this.subTitle,
-          this.videoMusicUrl,
-          this.icon[0],
-          this.tags
-        )
+        .videomusicinsert({
+          adminId: this.userInf._id,
+          ...this.context,
+          icon: this.context.icon[0],
+        })
         .then((result) => {
           if (result.flag) {
             this.$Message.success("音视频已发表!");
-            this.tags = [];
-            this.title = "";
-            this.subTitle = "";
-            this.videoMusicUrl = "";
-            this.icon = [];
+            this.videoInit();
           } else {
             this.$Message.error(result.msg);
           }
@@ -106,14 +111,9 @@ export default {
         .videomusicfindbyid(this.$route.query.id)
         .then((result) => {
           if (result.flag) {
+            this.context = result.data[0];
+            this.context.icon = [this.context.icon];
             this.loading = 2;
-            let content = result.data[0];
-
-            this.tags = content.tags;
-            this.title = content.title;
-            this.subTitle = content.subTitle;
-            this.videoMusicUrl = content.videoMusicUrl;
-            this.icon = [content.icon];
           } else {
             this.loading = 3;
           }
@@ -139,11 +139,9 @@ export default {
       }
       this.$request
         .videoMusicUpdate(this.$route.query.id, {
-          title: this.title,
-          subTitle: this.subTitle,
-          videoMusicUrl: this.videoMusicUrl,
-          icon: this.icon[0],
-          tags: this.tags,
+          adminId: this.userInf._id,
+          ...this.context,
+          icon: this.context.icon[0],
         })
         .then((result) => {
           if (result.flag) {

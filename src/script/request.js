@@ -19,6 +19,15 @@ export default {
             }
         })
     },
+    adminUserInsert: (params) => {
+        return https({
+            method: "post",
+            url: '/admin/api/adminUserInsert',
+            data: {
+                params
+            }
+        })
+    },
     adminUserFindByPage: (page, pageSteep, select) => {
         return https({
             method: "post",
@@ -158,17 +167,12 @@ export default {
     },
 
 
-    articleinsert: (adminId, title, subTitle, content, icon, tags) => {
+    articleinsert: (params) => {
         return https({
             method: "post",
             url: '/admin/api/articleinsert',
             data: {
-                adminId,
-                title,
-                subTitle,
-                content,
-                icon,
-                tags
+                params
             }
         })
     },
@@ -261,17 +265,12 @@ export default {
         })
     },
 
-    videomusicinsert: (adminId, title, subTitle, videoMusicUrl, icon, tags) => {
+    videomusicinsert: (params) => {
         return https({
             method: "post",
             url: '/admin/api/videomusicinsert',
             data: {
-                adminId,
-                title,
-                subTitle,
-                videoMusicUrl,
-                icon,
-                tags
+                params
             }
         })
     },
@@ -378,17 +377,12 @@ export default {
         })
     },
 
-    imageinsert: (adminId, title, subTitle, icons, icon, tags) => {
+    imageinsert: (params) => {
         return https({
             method: "post",
             url: '/admin/api/imageinsert',
             data: {
-                adminId,
-                title,
-                subTitle,
-                icons,
-                icon,
-                tags
+                params
             }
         })
     },
@@ -563,10 +557,10 @@ export default {
     //     })
     // },
 
-    virtualFileRemove: (ids, parentId) => {
+    virtualFileMove: (ids, parentId) => {
         return https({
             method: "post",
-            url: '/admin/api/virtualFileRemove',
+            url: '/admin/api/virtualFileMove',
             data: {
                 ids,
                 parentId
@@ -597,6 +591,125 @@ export default {
         return https({
             method: "post",
             url: '/admin/api/WebUserUpdateById',
+            data: {
+                id,
+                params
+            }
+        })
+    },
+
+    authorityFindAllRole: () => {
+        return https({
+            method: "post",
+            url: '/admin/api/authorityFindAllRole',
+        })
+    },
+    authorityFindRoleByPage: (page, pageSteep, select) => {
+        return https({
+            method: "post",
+            url: '/admin/api/authorityFindRoleByPage',
+            data: {
+                page,
+                pageSteep,
+                select
+            }
+        })
+    },
+    authorityFindRoleById: (id) => {
+        return https({
+            method: "post",
+            url: '/admin/api/authorityFindRoleById',
+            data: {
+                id
+            }
+        })
+    },
+    authorityFindRresourceByIds: (ids) => {
+        return https({
+            method: "post",
+            url: '/admin/api/authorityFindRresourceByIds',
+            data: {
+                ids
+            }
+        })
+    },
+    authorityFindRresourceByPage: (page, pageSteep, select) => {
+        return https({
+            method: "post",
+            url: '/admin/api/authorityFindRresourceByPage',
+            data: {
+                page,
+                pageSteep,
+                select
+            }
+        })
+    },
+    authorityRoleUpdateById: (id, params) => {
+        return https({
+            method: "post",
+            url: '/admin/api/authorityRoleUpdateById',
+            data: {
+                id,
+                params
+            }
+        })
+    },
+    authorityRoleInsert: (params) => {
+        return https({
+            method: "post",
+            url: '/admin/api/authorityRoleInsert',
+            data: {
+                params
+            }
+        })
+    },
+    authorityRoleDeleteById: (id) => {
+        return https({
+            method: "post",
+            url: '/admin/api/authorityRoleDeleteById',
+            data: {
+                id
+            }
+        })
+    },
+    authorityFindRresourceById: (id) => {
+        return https({
+            method: "post",
+            url: '/admin/api/authorityFindRresourceById',
+            data: {
+                id
+            }
+        })
+    },
+    authorityFindRootMenu: () => {
+        return https({
+            method: "post",
+            url: '/admin/api/authorityFindRootMenu',
+        })
+    },
+
+    authorityResourceInsert: (params) => {
+        return https({
+            method: "post",
+            url: '/admin/api/authorityResourceInsert',
+            data: {
+                params
+            }
+        })
+    },
+    authorityResourceDeleteById: (id) => {
+        return https({
+            method: "post",
+            url: '/admin/api/authorityResourceDeleteById',
+            data: {
+                id
+            }
+        })
+    },
+    authorityResourceUpdateById: (id, params) => {
+        return https({
+            method: "post",
+            url: '/admin/api/authorityResourceUpdateById',
             data: {
                 id,
                 params

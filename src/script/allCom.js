@@ -17,7 +17,7 @@ export default {
     
     AdminUserManager: () => import('../components/adminUserManager/AdminUserManager'),
     AdminUserItem: () => import('../components/adminUserManager/AdminUserItem'),
-    AdminUserMore: () => import('../components/adminUserManager/AdminUserMore'),
+    FireAdminUserManager: () => import('../components/adminUserManager/FireAdminUserManager'),
 
 
     MessageManager: () => import('../components/messageManager/MessageManager'),
@@ -73,9 +73,15 @@ export default {
     toolUploadList: () => import('../components/toolItem/toolUploadList'),
     toolUploadFileMini: () => import('../components/toolItem/toolUploadFileMini'),
 
-    AuthorityManager: () => import('../components/authorityManager/AuthorityManager'),
-    RoleManager: () => import('../components/authorityManager/RoleManager'),
-    ResourceManager: () => import('../components/authorityManager/ResourceManager'),
+    RoleManager: () => import('../components/roleManager/RoleManager'),
+    RoleItem: () => import('../components/roleManager/RoleItem'),
+    FireRoleItem: () => import('../components/roleManager/FireRoleItem'),
+    FireRoleManager: () => import('../components/roleManager/FireRoleManager'),
+
+    ResourceManager: () => import('../components/resourceManager/ResourceManager'),
+    ResourceItem: () => import('../components/resourceManager/ResourceItem'),
+    FireResourceManager: () => import('../components/resourceManager/FireResourceManager'),
+    
     
     // 模块
     Editor: () => import('../components/mode/Editor'),

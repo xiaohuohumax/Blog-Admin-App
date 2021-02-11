@@ -103,15 +103,15 @@ export default {
             this.time = ((progressEvent.loaded / progressEvent.total) * 100) | 0;
           }
         )
-        .then((res) => {
-          if (res.flag) {
+        .then((result) => {
+          if (result.flag) {
             this.tags = [];
             this.title = "";
             this.subTitle = "";
             this.icon = [];
             this.$Message.success("工具发表成功!");
           } else {
-            this.$Message.error(res.msg);
+            this.$Message.error(result.msg);
           }
           this.clearFile();
           this.loading = 2;

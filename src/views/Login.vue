@@ -101,10 +101,10 @@ export default {
     };
   },
   watch: {
-    "formInline.user"() {
+    "formInline.user"(){
       this.getIcon();
+      this.saveUserInf();
     },
-    "formInline.user": "saveUserInf",
     "formInline.password": "saveUserInf",
     "formInline.remember"() {
       if (!this.formInline.remember && this.formInline.autoLogin) {
@@ -160,7 +160,7 @@ export default {
       win.close();
     },
     login() {
-       clearInterval(this.autoLogioTimeOut);
+      clearInterval(this.autoLogioTimeOut);
       this.$request
         .adminuserlogin(this.formInline.user, this.formInline.password)
         .then((result) => {
@@ -238,6 +238,7 @@ export default {
   .login-icon {
     width: 6rem;
     height: 6rem;
+    object-fit: cover;
   }
 }
 </style>

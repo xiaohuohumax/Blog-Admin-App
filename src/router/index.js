@@ -49,12 +49,12 @@ const routes = [{
         component: allCom.WebUserMore
       }, {
         path: 'AdminUserManager',
-        name: '管理用户',
+        name: '后台用户',
         component: allCom.AdminUserManager
       }, {
-        path: 'AdminUserMore/:id',
-        name: '管理用户详细',
-        component: allCom.AdminUserMore
+        path: 'FireAdminUserManager',
+        name: '新建管理用户',
+        component: allCom.FireAdminUserManager
       }, {
         path: 'FireMusicVideoManager',
         name: '视频音乐',
@@ -124,18 +124,24 @@ const routes = [{
         name: '发布公告',
         component: allCom.NoticeManager
       }, {
-        path: 'AuthorityManager',
-        name: '用户授权',
-        component: allCom.AuthorityManager
-      }, {
         path: 'RoleManager',
         name: '角色管理',
         component: allCom.RoleManager
-      },  {
+      }, {
         path: 'ResourceManager',
         name: '资源管理',
         component: allCom.ResourceManager
+      },
+      {
+        path: 'FireRoleManager',
+        name: '添加/修改角色',
+        component: allCom.FireRoleManager
       }, {
+        path: 'FireResourceManager',
+        name: '创建/管理资源',
+        component: allCom.FireResourceManager
+      }, 
+      {
         path: '/Error404',
         name: '错误 404',
         component: allCom.Error404,
