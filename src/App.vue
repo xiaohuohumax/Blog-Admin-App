@@ -5,9 +5,7 @@
 </template>
 
 <script>
-export default {
- 
-};
+export default {};
 </script>
 
 <style lang="less">
@@ -15,6 +13,5 @@ export default {
   height: 100vh;
   color: #413b3b;
   overflow: hidden;
-  // width: 100vw;
 }
 </style>

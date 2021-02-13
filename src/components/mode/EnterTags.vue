@@ -10,8 +10,9 @@
         closable
         v-for="(item, index) in tags"
         :key="index"
-        >{{ item }}</Tag
       >
+        {{ item }}
+      </Tag>
       <div class="d-flex align-items-center">
         <Input
           v-if="!isOver"
@@ -42,7 +43,7 @@ export default {
       default: 10,
     },
   },
-   watch: {
+  watch: {
     value() {
       this.tags = this.value;
     },
@@ -81,5 +82,4 @@ export default {
 };
 </script>
 
-<style lang="less">
-</style>
+<style lang="less"></style>

@@ -27,11 +27,3 @@ export default {
   },
 };
 </script>
-
-<style>
-.card-icon {
-  object-fit: cover;
-  width: 4.5rem;
-  height: 4.5rem;
-}
-</style>

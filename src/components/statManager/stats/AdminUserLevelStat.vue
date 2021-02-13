@@ -47,9 +47,3 @@ export default {
   },
 };
 </script>
-
-<style>
-.userAgeStat {
-  overflow: hidden;
-}
-</style>

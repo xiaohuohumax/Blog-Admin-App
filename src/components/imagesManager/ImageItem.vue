@@ -1,7 +1,7 @@
 <template>
   <Card class="mb-3">
     <div class="d-flex">
-       <img
+      <img
         :src="image.icon"
         class="card-icon rounded-circle mr-2 shadow-sm flex-shrink-0"
       />
@@ -27,11 +27,3 @@ export default {
   },
 };
 </script>
-
-<style>
-.card-icon {
-  object-fit: cover;
-  width: 4.5rem;
-  height: 4.5rem;
-}
-</style>

@@ -1,5 +1,4 @@
 <template>
-  <!-- virtiual-file-view-block -->
   <div
     class="my-1 py-2 flex-shrink-0 align-items-center small font-weight-bold"
     :class="!viewmodel ? 'd-flex' : 'virtiual-file-view-block'"

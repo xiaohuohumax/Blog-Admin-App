@@ -49,13 +49,13 @@ export default {
         language_url: "/tinymce/zh_CN.js",
         language: "zh_CN",
         skin_url: "/tinymce/skins/ui/oxide",
-        // ...config.editor.editorInit
         menubar: false, // 禁用菜单
         plugins: ["link", "lists", "image", "code", "table", "wordcount", "media"], // 插件
         toolbar: [
           // 界面布局
-          "bold  italic  underline strikethrough | forecolor backcolor | alignleft  aligncenter  alignright alignjustify | cut copy paste | bullist numlist | outdent indent | blockquote subscript superscript|  undo redo | ",
-          "formatselect | fontselect | fontsizeselect |  link unlink | image media code |  removeformat | quickbars",
+          "bold  italic  underline strikethrough | forecolor backcolor | alignleft  aligncenter  alignright alignjustify | cut copy paste",
+          "outdent indent | blockquote subscript superscript|  undo redo |   link unlink | image media |  removeformat | quickbars",
+          "formatselect | fontselect | fontsizeselect  | bullist numlist",
         ],
         height: 500,
         branding: false,
@@ -71,10 +71,12 @@ export default {
 <style>
 .tox-dialog--width-lg {
   height: auto !important;
-  /* width:  !important; */
   max-width: 480px !important;
 }
 .tox-dialog-wrap__backdrop {
   display: none !important;
+}
+.tox {
+  z-index: 100 !important;
 }
 </style>

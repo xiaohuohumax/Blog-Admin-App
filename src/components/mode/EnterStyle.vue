@@ -1,56 +1,58 @@
 <template>
-  <div class="mt-2">
+  <div class="enter-style mt-2">
     <RadioGroup v-model="value.webTheme" vertical class="d-block">
-      <Radio disabled>
-        <span class="enter-style-item">
-          <Input
-            class="d-inline-block"
-            style="width: 5rem"
-            placeholder="主题名"
-            v-model="name"
-          ></Input>
-          <Input
-            class="mx-2"
-            placeholder="样式文件.css"
-            style="width: 15rem"
-            v-model="url"
-            @keydown.enter.native="themePush"
-          ></Input>
-          <Button
-            class="flex-shrink-0"
-            type="success"
-            ghost
-            size="small"
-            shape="circle"
-            icon="md-checkmark"
-            @click="themePush"
-          ></Button>
-        </span>
+      <Radio class="d-flex align-items-center" disabled>
+        <Input
+          class="d-inline-block flex-shrink-0"
+          style="width: 5rem"
+          placeholder="主题名"
+          v-model="name"
+        ></Input>
+        <Button
+          class="flex-shrink-0 mx-2"
+          type="success"
+          ghost
+          size="small"
+          shape="circle"
+          icon="md-checkmark"
+          title="添加"
+          @click="themePush"
+        ></Button>
+        <Input
+          class="flex-grow-1"
+          placeholder="样式文件.css"
+          v-model="url"
+          @keydown.enter.native="themePush"
+        ></Input>
       </Radio>
-      <Radio :label="item.name" v-for="(item, index) in value.webThemeList" :key="index">
-        <span class="enter-style-item">
-          <Input
-            class="d-inline-block"
-            v-model="item.name"
-            style="width: 5rem"
-            placeholder="主题名"
-          ></Input>
-          <Input
-            class="mx-2"
-            style="width: 15rem"
-            v-model="item.url"
-            placeholder="样式文件.css"
-          ></Input>
-          <Button
-            class="flex-shrink-0"
-            type="error"
-            ghost
-            size="small"
-            shape="circle"
-            icon="md-close"
-            @click="removeItem(index)"
-          ></Button>
-        </span>
+      <Radio
+        class="d-flex align-items-center"
+        :label="item.name"
+        v-for="(item, index) in value.webThemeList"
+        :key="index"
+      >
+        <Input
+          class="d-inline-block flex-shrink-0"
+          style="width: 5rem"
+          placeholder="主题名"
+          v-model="item.name"
+        ></Input>
+        <Button
+          class="flex-shrink-0 mx-2"
+          type="error"
+          ghost
+          size="small"
+          shape="circle"
+          icon="md-close"
+          title="删除"
+          @click="removeItem(index)"
+        ></Button>
+        <Input
+          class="flex-grow-1"
+          placeholder="样式文件.css"
+          v-model="item.url"
+          @keydown.enter.native="themePush"
+        ></Input>
       </Radio>
       <Radio disabled v-show="value.webThemeList.length == 0"> 啥主题都没有~~~ </Radio>
     </RadioGroup>
@@ -100,4 +102,11 @@ export default {
 };
 </script>
 
-<style lang="less"></style>
+<style lang="less">
+.enter-style {
+  label {
+    height: auto !important;
+    margin-right: 0 !important;
+  }
+}
+</style>

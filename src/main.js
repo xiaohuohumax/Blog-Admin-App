@@ -33,16 +33,25 @@ import request from './script/request';
 
 Vue.prototype.$request = request;
 
+// 登录检查
 router.beforeEach((to, from, next) => {
-  // if (to.path != "/") {
-  //   let userLogined = store.state.userLogined;
-  //   if (!userLogined) {
-  //     return next("/");
-  //   }
-  // };
+  if (to.path != "/") {
+    let userLogined = store.state.userLogined;
+    if (!userLogined) {
+      return next("/");
+    }
+  };
   !to.meta.unHistory ? store.commit('addHistory', to) : "";
   next();
 })
+
+// 权限检查
+import authority from './script/authority';
+
+for (const key in authority) {
+  Vue.prototype[`$${key}`] = authority[key];
+}
+
 new Vue({
   router,
   store,

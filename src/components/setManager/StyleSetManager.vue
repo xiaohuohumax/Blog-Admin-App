@@ -1,17 +1,24 @@
 <template>
   <Content :loading="loading">
     <template #head>
-      <Button type="success" @click="updated">保存设置</Button>
+      <Button
+        v-show="$authres(['view_stylesetmanager_savebutton'])"
+        type="success"
+        @click="updated"
+      >
+        保存设置
+      </Button>
     </template>
-    <div class="pt-3">
-      <div class="mb-2">设置字体:</div>
+    <FormItemBlock class="mt-0" title="设置字体">
       <Input placeholder="标签" v-model.trim="content.webFontFamily" />
-    </div>
+    </FormItemBlock>
 
-    <div class="pt-3">
-      <div class="mb-2">网站主题:</div>
+    <FormItemBlock title="网站主题">
+      <a slot="help" class="small" href="/webtheme/theme.less" download="主题模板.less">
+        下载主题模板(LESS)
+      </a>
       <EnterStyle v-model="content" />
-    </div>
+    </FormItemBlock>
   </Content>
 </template>
 
@@ -21,28 +28,6 @@ export default {
     return {
       loading: 1,
       content: {},
-      webThemeList: [
-        {
-          name: "明亮",
-          theme: "light",
-          url: "",
-        },
-        {
-          name: "明亮",
-          theme: "light",
-          url: "",
-        },
-        {
-          name: "明亮",
-          theme: "light",
-          url: "",
-        },
-        {
-          name: "明亮",
-          theme: "light",
-          url: "",
-        },
-      ],
     };
   },
   mounted() {
@@ -87,5 +72,3 @@ export default {
   },
 };
 </script>
-
-<style></style>

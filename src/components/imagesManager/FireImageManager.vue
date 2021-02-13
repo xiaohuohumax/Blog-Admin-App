@@ -1,12 +1,44 @@
 <template>
   <Content :loading="loading">
     <template #head>
-      <Button class="mr-2" :to="`/ImageMore/${$route.query.id}`">返回详细</Button>
-      <Button class="mr-2" to="/ImageManager">返回列表</Button>
-      <Button type="success" @click="onSubmit" v-if="kind">发布</Button>
+      <Button
+        v-show="$authres(['view_fireimagemanager_backinf'])"
+        class="mr-2"
+        :to="`/ImageMore/${$route.query.id}`"
+      >
+        返回详细
+      </Button>
 
-      <Button class="mr-2" type="success" @click="update" v-if="!kind">更新</Button>
-      <Button type="error" ghost @click="remove" v-if="!kind">删除</Button>
+      <Button
+        v-show="$authres(['view_fireimagemanager_backlist'])"
+        class="mr-2"
+        to="/ImageManager"
+      >
+        返回列表
+      </Button>
+      <Button
+        v-show="kind && $authres(['view_fireimagemanager_firebutton'])"
+        type="success"
+        @click="onSubmit"
+      >
+        发布
+      </Button>
+      <Button
+        v-show="!kind && $authres(['view_fireimagemanager_updatebutton'])"
+        class="mr-2"
+        type="success"
+        @click="update"
+      >
+        更新
+      </Button>
+      <Button
+        v-show="!kind && $authres(['view_fireimagemanager_deletebutton'])"
+        type="error"
+        ghost
+        @click="remove"
+      >
+        删除
+      </Button>
     </template>
     <input
       v-model.trim="context.title"
@@ -20,18 +52,17 @@
       class="w-100 h5 py-3 border-0"
       placeholder="请输入副标题(100字)"
     />
-    <div class="pt-3">
-      <div class="mb-2">添加标签:</div>
+    <FormItemBlock class="mt-0" title="添加标签">
       <EnterTags v-model="context.tags" :tagmax="tagsMax" />
-    </div>
-    <div class="pt-3">
-      <div class="mb-2">添加图包:</div>
-      <EnterImage v-model="context.icons" :imagemax="imagemax" />
-    </div>
-    <div class="pt-3">
-      <div class="mb-2">添加封面:</div>
+    </FormItemBlock>
+
+    <FormItemBlock title="添加封面">
       <EnterImage v-model="context.icon" :imagemax="1" />
-    </div>
+    </FormItemBlock>
+
+    <FormItemBlock title="添加图包">
+      <EnterImage v-model="context.icons" :imagemax="imagemax" />
+    </FormItemBlock>
   </Content>
 </template>
 
@@ -154,5 +185,3 @@ export default {
   },
 };
 </script>
-
-<style lang="less"></style>

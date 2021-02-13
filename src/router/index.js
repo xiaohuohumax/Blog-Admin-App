@@ -49,11 +49,11 @@ const routes = [{
         component: allCom.WebUserMore
       }, {
         path: 'AdminUserManager',
-        name: '后台用户',
+        name: '管理用户',
         component: allCom.AdminUserManager
       }, {
         path: 'FireAdminUserManager',
-        name: '新建管理用户',
+        name: '新建/修改管理用户',
         component: allCom.FireAdminUserManager
       }, {
         path: 'FireMusicVideoManager',
@@ -131,8 +131,7 @@ const routes = [{
         path: 'ResourceManager',
         name: '资源管理',
         component: allCom.ResourceManager
-      },
-      {
+      }, {
         path: 'FireRoleManager',
         name: '添加/修改角色',
         component: allCom.FireRoleManager
@@ -140,11 +139,24 @@ const routes = [{
         path: 'FireResourceManager',
         name: '创建/管理资源',
         component: allCom.FireResourceManager
-      }, 
-      {
+      }, {
         path: '/Error404',
         name: '错误 404',
         component: allCom.Error404,
+        meta: {
+          unHistory: true,
+        }
+      }, {
+        path: '/Error403',
+        name: '错误 403',
+        component: allCom.Error403,
+        meta: {
+          unHistory: true,
+        }
+      }, {
+        path: '/Error500',
+        name: '错误 500',
+        component: allCom.Error500,
         meta: {
           unHistory: true,
         }

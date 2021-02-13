@@ -2,6 +2,7 @@
   <Content :loading="loading">
     <template #head>
       <Input
+        v-show="$authres(['view_noticemanager_searchgroup'])"
         @keydown.enter.native="selectChange"
         @on-clear="selectChange"
         v-model.trim="selectWorld"
@@ -11,7 +12,9 @@
         class="mr-2"
         clearable
       />
-      <Button @click="selectChange">搜索</Button>
+      <Button v-show="$authres(['view_noticemanager_searchgroup'])" @click="selectChange">
+        搜索
+      </Button>
     </template>
 
     <Timeline>
@@ -29,6 +32,8 @@
       :total="contextSum"
       :current="page"
       @on-change="pageChange"
+      show-total
+      show-elevator
     />
   </Content>
 </template>
@@ -76,5 +81,3 @@ export default {
   },
 };
 </script>
-
-<style></style>

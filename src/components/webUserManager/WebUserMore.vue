@@ -1,9 +1,31 @@
 <template>
   <Content :loading="loading">
     <template #head>
-      <Button class="mr-2" to="/ArticleManager">返回列表</Button>
-      <Button type="success" ghost class="mr-2" @click="update">保存信息</Button>
-      <Button type="error" ghost class="mr-2" @click="remove">删除账号</Button>
+      <Button
+        v-show="$authres(['view_webusermore_backlist'])"
+        class="mr-2"
+        to="/ArticleManager"
+      >
+        返回列表
+      </Button>
+      <Button
+        v-show="$authres(['view_webusermore_modifybutton'])"
+        type="success"
+        ghost
+        class="mr-2"
+        @click="update"
+      >
+        更新
+      </Button>
+      <Button
+        v-show="$authres(['view_webusermore_deletebutton'])"
+        type="error"
+        ghost
+        class="mr-2"
+        @click="remove"
+      >
+        删除
+      </Button>
     </template>
     <div class="d-flex">
       <div
@@ -30,8 +52,8 @@
           允许登录: <i-switch v-model="content.allowLogin" size="small" />
         </Col>
         <Col class="mb-1" :xs="{ span: 12 }" :lg="{ span: 6 }">
-          允许评论: <i-switch v-model="content.allowTalk" size="small"
-        /></Col>
+          允许评论: <i-switch v-model="content.allowTalk" size="small" />
+        </Col>
       </Row>
     </div>
   </Content>
@@ -42,7 +64,6 @@ export default {
   data() {
     return {
       loading: 1,
-
       content: {},
     };
   },
@@ -98,5 +119,3 @@ export default {
   },
 };
 </script>
-
-<style></style>

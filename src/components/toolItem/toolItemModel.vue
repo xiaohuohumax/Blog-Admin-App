@@ -1,7 +1,9 @@
 <template>
   <Poptip trigger="hover" placement="left-end">
     <Button class="mt-1" :icon="icon" shape="circle"></Button>
-    <div style="overflow-y:auto" slot="content" ref="toolItemModelBody"><slot></slot></div>
+    <div style="overflow-y: auto" slot="content" ref="toolItemModelBody">
+      <slot></slot>
+    </div>
   </Poptip>
 </template>
 
@@ -31,5 +33,3 @@ export default {
   },
 };
 </script>
-
-<style></style>

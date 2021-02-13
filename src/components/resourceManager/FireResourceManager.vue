@@ -1,55 +1,74 @@
 <template>
   <Content :loading="loading">
     <template #head>
-      <Button class="mr-2" to="/ResourceManager">返回列表</Button>
+      <Button
+        v-show="$authres(['view_fireresourcemanager_searchgroup'])"
+        class="mr-2"
+        to="/ResourceManager"
+      >
+        返回列表
+      </Button>
 
-      <Button type="success" @click="onSubmit" v-if="kind">创建</Button>
-
-      <Button class="mr-2" type="success" @click="update" v-if="!kind">更新</Button>
-      <Button type="error" ghost @click="remove" v-if="!kind">删除</Button>
+      <Button
+        v-show="kind && $authres(['view_fireresourcemanager_firebutton'])"
+        type="success"
+        @click="onSubmit"
+      >
+        创建
+      </Button>
+      <Button
+        v-show="!kind && $authres(['view_fireresourcemanager_updatebutton'])"
+        class="mr-2"
+        type="success"
+        @click="update"
+      >
+        更新
+      </Button>
+      <Button
+        v-show="!kind && $authres(['view_fireresourcemanager_deletebutton'])"
+        type="error"
+        ghost
+        @click="remove"
+      >
+        删除
+      </Button>
     </template>
-    <div>
-      <div class="mb-2">资源名称:</div>
+    <FormItemBlock class="mt-0" title="资源名称">
       <Input v-model.trim="resource.name" />
-    </div>
-    <div class="pt-3">
-      <div class="mb-2">资源授权码:</div>
-      <Input v-model.trim="resource.code" />
-    </div>
+    </FormItemBlock>
 
-    <div class="pt-3">
-      <div class="mb-2">路径:</div>
+    <FormItemBlock title="资源授权码">
+      <Input v-model.trim="resource.code" />
+    </FormItemBlock>
+
+    <FormItemBlock title="路径">
       <Input v-model.trim="resource.path" />
-    </div>
-    <div class="pt-3">
-      <div class="mb-2">资源类型:</div>
+    </FormItemBlock>
+
+    <FormItemBlock title="资源类型">
       <Select v-model="resource.kind">
         <Option v-for="(item, index) in kindArray" :key="index" :value="item.code">
-          {{ item.name }}
+          {{ item.name }}[{{ item.help }}]
         </Option>
       </Select>
-    </div>
-    <div class="pt-3">
-      <div class="mb-2">菜单父节点:</div>
+    </FormItemBlock>
+
+    <FormItemBlock title="菜单父节点">
       <Select v-model="resource.parentId">
         <Option value="-1">根目录</Option>
         <Option v-for="(item, index) in rootMenu" :key="index" :value="item._id">
           {{ item.name }}| {{ item.code }}
         </Option>
       </Select>
-    </div>
+    </FormItemBlock>
 
-    <div class="pt-3">
-      <div class="mb-2">图标:</div>
+    <FormItemBlock title="图标">
       <Input :prefix="resource.icon" v-model.trim="resource.icon" />
-    </div>
+    </FormItemBlock>
 
-    <div class="pt-3">
-      <div class="mb-2">
-        菜单顺序 <span class="small text-success">数值越小菜单越靠前</span>:
-      </div>
+    <FormItemBlock title="菜单顺序" subtitle="数值越小菜单越靠前">
       <Input v-model.trim="resource.index" />
-    </div>
+    </FormItemBlock>
   </Content>
 </template>
 
@@ -99,13 +118,13 @@ export default {
   methods: {
     resourceInit() {
       this.resource = {
-        parentId: "-1",
+        parentId: "",
         index: "",
         name: "",
         code: "",
         icon: "",
         path: "",
-        kind: authorityEnum.other.code,
+        kind: authorityEnum.api.code,
       };
     },
     findRootMenu() {
@@ -138,7 +157,7 @@ export default {
     select() {
       this.loading = 1;
       this.$request
-        .authorityFindRresourceById(this.$route.query.id)
+        .authorityFindResourceById(this.$route.query.id)
         .then((result) => {
           if (result.flag) {
             this.loading = 2;
@@ -178,5 +197,3 @@ export default {
   },
 };
 </script>
-
-<style></style>

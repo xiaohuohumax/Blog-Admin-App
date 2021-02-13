@@ -1,25 +1,48 @@
 <template>
   <Content :loading="loading">
     <template #head>
-      <Button class="mr-2" to="/RoleManager">返回列表</Button>
-
-      <Button type="success" @click="onSubmit" v-if="kind">创建</Button>
-
-      <Button class="mr-2" type="success" @click="update" v-if="!kind">更新</Button>
-      <Button type="error" ghost @click="remove" v-if="!kind">删除</Button>
+      <Button
+        v-show="$authres(['view_firerolemanager_searchgroup'])"
+        class="mr-2"
+        to="/RoleManager"
+      >
+        返回列表
+      </Button>
+      <Button
+        v-show="kind && $authres(['view_firerolemanager_firebutton'])"
+        type="success"
+        @click="onSubmit"
+      >
+        创建
+      </Button>
+      <Button
+        v-show="!kind && $authres(['view_fireadminusermanager_updatebutton'])"
+        class="mr-2"
+        type="success"
+        @click="update"
+      >
+        更新
+      </Button>
+      <Button
+        v-show="!kind && $authres(['view_fireadminusermanager_deletebutton'])"
+        type="error"
+        ghost
+        @click="remove"
+      >
+        删除
+      </Button>
     </template>
-    <div>
-      <div class="mb-2">角色名称:</div>
+    <FormItemBlock title="角色名称">
       <Input placeholder="标签" v-model.trim="role.name" />
-    </div>
-    <div class="pt-3">
-      <div class="mb-2">角色授权码:</div>
+    </FormItemBlock>
+
+    <FormItemBlock title="角色授权码">
       <Input placeholder="标签" v-model.trim="role.code" />
-    </div>
-    <div class="pt-3">
-      <div class="mb-2">角色拥有资源({{ role.resources.length }}):</div>
+    </FormItemBlock>
+
+    <FormItemBlock :title="`拥有资源(${role.resources.length})`">
       <FireRoleItem :role="role" />
-    </div>
+    </FormItemBlock>
   </Content>
 </template>
 
@@ -113,5 +136,3 @@ export default {
   },
 };
 </script>
-
-<style></style>

@@ -2,6 +2,7 @@
   <Content :loading="loading">
     <template #head>
       <Input
+        v-show="$authres(['view_resourcesmanager_searchgroup'])"
         @keydown.enter.native="selectChange"
         @on-clear="selectChange"
         v-model.trim="selectWorld"
@@ -11,8 +12,22 @@
         class="mr-2"
         clearable
       />
-      <Button class="mr-2" @click="selectChange">搜索</Button>
-      <Button type="success" ghost to="/FireResourceManager">新建资源</Button>
+      <Button
+        v-show="$authres(['view_resourcesmanager_searchgroup'])"
+        class="mr-2"
+        @click="selectChange"
+      >
+        搜索
+      </Button>
+
+      <Button
+        v-show="$authres(['view_resourcemanager_firebutton'])"
+        type="success"
+        ghost
+        to="/FireResourceManager"
+      >
+        新建资源
+      </Button>
     </template>
     <Page
       :page-size="pageSteep"
@@ -37,7 +52,6 @@ export default {
       selectWorld: "", // 搜索关键词
 
       page: 1,
-
       loading: 1, // 1 加载中 2 成功 3 失败
     };
   },
@@ -48,7 +62,7 @@ export default {
     select() {
       this.loading = 1;
       this.$request
-        .authorityFindRresourceByPage(this.page, this.pageSteep, this.selectWorld)
+        .authorityFindResourceByPage(this.page, this.pageSteep, this.selectWorld)
         .then((result) => {
           if (result.flag) {
             this.contexts = result.data.resources;

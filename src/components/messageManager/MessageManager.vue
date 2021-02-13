@@ -2,6 +2,7 @@
   <Content>
     <template #head>
       <DatePicker
+        v-show="$authres(['view_messagemanager_searchgroup'])"
         clearable
         class="mr-2"
         @on-clear="selectChange"
@@ -11,13 +12,17 @@
         placeholder="日期"
         style="width: 10rem"
       ></DatePicker>
-      <Button @click="selectChange">搜索</Button>
+      <Button v-show="$authres(['view_messagemanager_searchgroup'])" @click="selectChange">
+        搜索
+      </Button>
     </template>
     <Page
       :page-size="pageSteep"
       :total="contextSum"
       :current="page"
       @on-change="pageChange"
+      show-total
+      show-elevator
     />
     <Null v-show="contexts.length == 0" />
     <MessageItem v-for="(item, index) in contexts" :key="index" :message="item" />
@@ -25,13 +30,22 @@
     <template #bottom>
       <div class="text-center shadow-lg p-3 bg-white">
         <Input
+          v-show="$authres(['view_messagemanager_firebutton'])"
           class="w-50 mr-2 shadow-sm"
           placeholder="说点啥..."
           clearable
           v-model.trim="message"
           @keydown.enter.native="fireMessage"
         />
-        <Button type="success" class="shadow-sm" ghost @click="fireMessage">提交</Button>
+        <Button
+          v-show="$authres(['view_messagemanager_firebutton'])"
+          type="success"
+          class="shadow-sm"
+          ghost
+          @click="fireMessage"
+        >
+          发送
+        </Button>
       </div>
     </template>
   </Content>
@@ -49,8 +63,6 @@ export default {
 
       page: 1,
 
-      // loading: 1, // 1 加载中 2 成功 3 失败
-
       message: "", // 发送的消息
     };
   },
@@ -62,7 +74,6 @@ export default {
   },
   methods: {
     select() {
-      // this.loading = 1;
       this.$request
         .adminMessageFindByPage(this.page, this.pageSteep, this.selectTime)
         .then((result) => {
@@ -70,11 +81,8 @@ export default {
             this.contexts = result.data.webMessages.reverse();
             this.contextSum = result.data.webMessageSum;
           }
-          // this.loading = 2;
         })
-        .catch((err) => {
-          /*(this.loading = 3)*/
-        });
+        .catch((err) => {});
     },
     pageChange(num) {
       this.page = num;
@@ -105,10 +113,3 @@ export default {
   },
 };
 </script>
-
-<style>
-.card-icon {
-  width: 4.5rem;
-  height: 4.5rem;
-}
-</style>

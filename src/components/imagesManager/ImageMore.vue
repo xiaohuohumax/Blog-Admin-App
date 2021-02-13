@@ -1,15 +1,33 @@
 <template>
   <Content :loading="loading">
     <template #head>
-      <Button type="success" ghost class="mr-2" to="/ImageManager">返回列表</Button>
       <Button
+        v-show="$authres(['view_imagemore_backlist'])"
+        type="success"
+        ghost
+        class="mr-2"
+        to="/ImageManager"
+      >
+        返回列表
+      </Button>
+      <Button
+        v-show="$authres(['view_imagemore_updatebutton'])"
         type="primary"
         ghost
         class="mr-2"
         :to="`/FireImageManager?id=${$route.params.id}`"
-        >修改图包</Button
       >
-      <Button type="error" ghost class="mr-2" @click="remove">删除图包</Button>
+        修改图包
+      </Button>
+      <Button
+        v-show="$authres(['view_imagemore_deletebutton'])"
+        type="error"
+        ghost
+        class="mr-2"
+        @click="remove"
+      >
+        删除图包
+      </Button>
     </template>
     <div class="text-center my-3">
       <div class="h4">{{ content.title }}</div>
@@ -87,5 +105,3 @@ export default {
   },
 };
 </script>
-
-<style></style>

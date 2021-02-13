@@ -1,15 +1,33 @@
 <template>
   <Content :loading="loading">
     <template #head>
-      <Button type="success" ghost class="mr-2" to="/ArticleManager">返回列表</Button>
       <Button
+        v-show="$authres(['view_articlemore_backlist'])"
+        type="success"
+        ghost
+        class="mr-2"
+        to="/ArticleManager"
+      >
+        返回列表
+      </Button>
+      <Button
+        v-show="$authres(['view_articlemore_modifybutton'])"
         type="primary"
         ghost
         class="mr-2"
         :to="`/FireArticleManager?id=${$route.params.id}`"
-        >修改文章</Button
       >
-      <Button type="error" ghost class="mr-2" @click="remove">删除文章</Button>
+        修改文章
+      </Button>
+      <Button
+        v-show="$authres(['view_articlemore_deletebutton'])"
+        type="error"
+        ghost
+        class="mr-2"
+        @click="remove"
+      >
+        删除文章
+      </Button>
     </template>
     <div class="text-center my-3">
       <div class="h4">{{ content.title }}</div>
@@ -80,5 +98,3 @@ export default {
   },
 };
 </script>
-
-<style></style>

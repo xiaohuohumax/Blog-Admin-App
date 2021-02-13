@@ -4,13 +4,22 @@
       <span class="left-nav-no-drag left-nav-top-name">后台管理</span>
     </div>
     <div class="flex-shark-0 pb-2 px-5">
-      <img :src="userInf.icon" class="left-nav-icon shadow mx-auto rounded-circle mb-2" />
+      <router-link
+        :to="`/FireAdminUserManager?id=${userInf._id}`"
+        class="h6 font-weight-bold"
+      >
+        <img
+          :src="userInf.icon"
+          class="left-nav-icon shadow mx-auto rounded-circle mb-2"
+        />
+      </router-link>
       <div class="mb-1">{{ userInf.name }}</div>
       <Button size="small" type="success" @click="logout" ghost icon="md-exit">
         注销
       </Button>
     </div>
     <div class="home-nav-body flex-grow-1 mb-2">
+      <div class="small" v-if="menu.length == 0">没有菜单╮(╯▽╰)╭</div>
       <Menu :open-names="['0']" class="w-100 text-left">
         <Submenu :name="listIndex" v-for="(list, listIndex) in menu" :key="listIndex">
           <template slot="title">
@@ -22,8 +31,9 @@
             v-for="(item, index) in list.items"
             :key="index"
             :to="item.path"
-            >{{ item.name }}</MenuItem
           >
+            {{ item.name }}
+          </MenuItem>
         </Submenu>
       </Menu>
     </div>

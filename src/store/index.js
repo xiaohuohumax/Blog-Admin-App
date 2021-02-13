@@ -11,11 +11,16 @@ export default new Vuex.Store({
     userLogined: false, // 是否登录
     userKey: "", // token
     userInf: {}, // 用户信息
+
+
+
     roles: [], // 角色
     resources: [], // 资源
 
-    menu: [], // 菜单
+    rolesChecked: [], // 角色已经验证过
+    resourcessChecked: [], // 资源已经验证过
 
+    menu: [], // 菜单
     uploadFileList: [
       //   {
       //   path: {},
@@ -25,7 +30,14 @@ export default new Vuex.Store({
     fileRefsh: 0, // 文件刷新
   },
   mutations: {
-
+    // 添加角色已校验队列
+    addRolesChecked(state, item) {
+      state.rolesChecked.push(item);
+    },
+    // 添加资源已校验队列
+    addResourcesChecked(state, item) {
+      state.resourcessChecked.push(item);
+    },
     // 提示文件刷新
     addFileRefsh(state) {
       state.fileRefsh += 1;
@@ -64,14 +76,24 @@ export default new Vuex.Store({
     // 用户注销
     userLogout(state) {
       state.userLogined = false;
+      state.rolesChecked = []; // 清除已检验队列
+      state.resourcessChecked = []; // 清除已检验队列
+      state.history = []; // 清除历史记录
     },
     // 添加路由记录
-    addHistory(state, data) {
-      !state.history.some(val => {
-        return val.path == data.path && val.name == data.name;
-      }) ? state.history.push({
-        ...data
-      }) : "";
+    addHistory(state, item) {
+      // 不加入历史记录
+      if (item.meta && item.meta.unHistory) return;
+
+      let nameArray = state.history.map(val => val.name);
+      let index = nameArray.lastIndexOf(item.name);
+
+      if (index == -1) { // 首次浏览
+        state.history.unshift(item)
+      } else { // 再次浏览
+        state.history.splice(index, 1)
+        state.history.unshift(item)
+      }
     },
     // 删除记录
     removeHistory(state, index) {
@@ -86,6 +108,14 @@ export default new Vuex.Store({
     },
     unUploadFileList(state) {
       return state.uploadFileList.filter(val => val.stat == 0)
+    },
+    // 获取资源授权码
+    resCodes(state) {
+      return state.resources.filter(val => val.code != "").map((val) => val.code.trim());
+    },
+    // 获取角色授权码
+    rolCodes(state) {
+      return state.roles.filter(val => val.code != "").map((val) => val.code.trim());
     }
   },
   actions: {},

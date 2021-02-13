@@ -5,7 +5,6 @@
         <div>文件上传{{ fileSum }}</div>
         <div>
           <span class="pr-2 cursor-pointer" @click="clearUploadFile">清除</span>
-          <!-- <span class="cursor-pointer" @click="clearAllUploadFile">取消</span> -->
         </div>
       </div>
       <div class="flex-shrink-0 small font-weight-bold d-flex my-1 border-bottom pb-1">

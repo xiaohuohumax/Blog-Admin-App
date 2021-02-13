@@ -35,7 +35,6 @@ export default {
       page: 1,
 
       createNewDirOpen: false, // 是否新建文件夹
-
       viewmodel: false, // false 列表 true 方块
     };
   },

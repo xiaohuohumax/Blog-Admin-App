@@ -1,14 +1,42 @@
 <template>
   <Content :loading="loading">
     <template #head>
-      <Button class="mr-2" :to="`/ArticleMore/${$route.query.id}`">返回详细</Button>
-      <Button class="mr-2" to="/ArticleManager">返回列表</Button>
-      <Button type="success" @click="onSubmit" v-if="kind">发布</Button>
-
-      <Button class="mr-2" type="success" @click="update" v-if="!kind">更新</Button>
-      <Button type="error" ghost @click="remove" v-if="!kind">删除</Button>
+      <Button
+        type="success"
+        v-show="kind && $authres(['view_firearticlemanager_firebutton'])"
+        @click="onSubmit"
+      >
+        发布
+      </Button>
+      <Button
+        v-show="!kind && $authres(['view_firearticlemanager_backinf'])"
+        class="mr-2"
+        :to="`/ArticleMore/${$route.query.id}`"
+      >
+        返回详细
+      </Button>
+      <Button
+        v-show="!kind && $authres(['view_firearticlemanager_backlist'])"
+        class="mr-2"
+        to="/ArticleManager"
+        >返回列表</Button
+      >
+      <Button
+        v-show="!kind && $authres(['view_firearticlemanager_updatebutton'])"
+        class="mr-2"
+        type="success"
+        @click="update"
+      >
+        更新
+      </Button>
+      <Button
+        v-show="!kind && $authres(['view_firearticlemanager_deletebutton'])"
+        type="error"
+        @click="remove"
+      >
+        删除
+      </Button>
     </template>
-
     <input
       v-model.trim="context.title"
       type="text"
@@ -21,15 +49,17 @@
       class="w-100 h5 py-3 border-0"
       placeholder="请输入副标题(100字)"
     />
-    <Editor v-model.trim="context.content" />
-    <div class="py-3">
-      <p class="small mr-2">添加标签<span class="text-success">回车Enter添加</span></p>
+    <FormItemBlock class="mt-0" title="添加标签">
       <EnterTags v-model="context.tags" :tagmax="tagsMax" />
-    </div>
-    <div class="pb-3">
-      <p class="small mr-2">添加封面<span class="text-success">回车Enter添加</span></p>
+    </FormItemBlock>
+
+    <FormItemBlock title="添加封面">
       <EnterImage v-model="context.icon" :imagemax="1" />
-    </div>
+    </FormItemBlock>
+
+    <FormItemBlock title="添加正文">
+      <Editor v-model.trim="context.content" />
+    </FormItemBlock>
   </Content>
 </template>
 
@@ -151,5 +181,3 @@ export default {
   },
 };
 </script>
-
-<style lang="less"></style>

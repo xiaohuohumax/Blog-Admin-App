@@ -5,7 +5,6 @@
     <div class="d-flex align-items-center virtual-file-name">
       <Checkbox></Checkbox>
       <div class="mr-2 p-3 border rounded d-inline-block"></div>
-
       <div class="d-flex align-items-center flex-grow-1">
         <Input
           v-model.trim="dirName"

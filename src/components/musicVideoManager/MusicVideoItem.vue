@@ -6,9 +6,9 @@
         class="card-icon rounded-circle mr-2 shadow-sm flex-shrink-0"
       />
       <div>
-        <router-link :to="`/MusicVideoMore/${article._id}`">{{
-          article.title
-        }}</router-link>
+        <router-link :to="`/MusicVideoMore/${article._id}`">
+          {{ article.title }}
+        </router-link>
         <div class="small my-1">{{ article.subTitle }}</div>
         <div class="small mt-2">
           <Icon class="mr-1" type="md-eye" />{{ article.watch }}
@@ -29,11 +29,3 @@ export default {
   },
 };
 </script>
-
-<style>
-.card-icon {
-  object-fit: cover;
-  width: 4.5rem;
-  height: 4.5rem;
-}
-</style>

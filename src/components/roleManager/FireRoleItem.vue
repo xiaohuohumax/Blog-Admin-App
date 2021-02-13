@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="d-flex">
+    <div class="fire-role-item d-flex align-items-center mb-2">
       <Input
         @keydown.enter.native="selectChange"
         @on-clear="selectChange"
@@ -12,16 +12,16 @@
         clearable
       />
       <Button class="mr-2" @click="selectChange">搜索</Button>
-      <Page
-        :page-size="pageSteep"
-        :total="contextSum"
-        :current="page"
-        @on-change="pageChange"
-        show-total
-      />
+      <Checkbox class="mb-0" v-model="selectYourself">只搜索已选资源</Checkbox>
     </div>
 
-    <Null v-show="contexts.length == 0" />
+    <Page
+      :page-size="pageSteep"
+      :total="contextSum"
+      :current="page"
+      @on-change="pageChange"
+      show-total
+    />
 
     <div class="role-table d-flex font-weight-bold pb-2">
       <div class="role-table-checkbox">
@@ -31,6 +31,7 @@
       <div class="role-table-name">名称</div>
       <div class="role-table-code">授权码</div>
       <div class="role-table-kind">类型</div>
+      <div class="role-table-index">菜单顺序</div>
       <div class="role-table-path">路径</div>
     </div>
 
@@ -50,11 +51,18 @@
       <div class="role-table-icon">
         <Icon size="20" :type="item.icon" v-if="item.icon" />
       </div>
-      <div class="role-table-name" :title="item.name">{{ item.name }}</div>
+      <div class="role-table-name" :title="item.name">
+        <router-link :to="`FireResourceManager?id=${item._id}`">
+          {{ item.name }}
+        </router-link>
+      </div>
       <div class="role-table-code" :title="item.code">{{ item.code }}</div>
       <div class="role-table-kind">{{ getKind(item.kind) }}</div>
-      <div class="role-table-path">{{ item.path }}</div>
+      <div class="role-table-index">{{ item.index }}</div>
+      <div class="role-table-path" :title="item.path">{{ item.path }}</div>
     </div>
+
+    <Null v-show="contexts.length == 0" />
   </div>
 </template>
 
@@ -73,10 +81,13 @@ export default {
       selectWorld: "", // 搜索关键词
       page: 1,
       authorityEnum,
+
+      selectYourself: false, // 只查看自己的资源
     };
   },
   watch: {
     checkAll: "checkAllChange",
+    selectYourself: "selectChange",
     contexts() {
       this.checkAll = this.isAllInRoleResources;
     },
@@ -127,7 +138,23 @@ export default {
     },
     selectResourceByPage() {
       this.$request
-        .authorityFindRresourceByPage(this.page, this.pageSteep, this.selectWorld)
+        .authorityFindResourceByPage(this.page, this.pageSteep, this.selectWorld)
+        .then((result) => {
+          if (result.flag) {
+            this.contexts = result.data.resources;
+            this.contextSum = result.data.resourceSum;
+          }
+        })
+        .catch((err) => {});
+    },
+    selectResourceByPageAndIds() {
+      this.$request
+        .authorityFindResourceByPageAndIds(
+          this.page,
+          this.pageSteep,
+          this.selectWorld,
+          this.role.resources
+        )
         .then((result) => {
           if (result.flag) {
             this.contexts = result.data.resources;
@@ -138,7 +165,9 @@ export default {
     },
     pageChange(num) {
       this.page = num;
-      this.selectResourceByPage();
+      this.selectYourself
+        ? this.selectResourceByPageAndIds()
+        : this.selectResourceByPage();
     },
     selectChange() {
       this.pageChange(1);
@@ -158,9 +187,12 @@ export default {
     width: 5%;
   }
   .role-table-code {
-    width: 35%;
+    width: 25%;
   }
   .role-table-kind {
+    width: 10%;
+  }
+  .role-table-index {
     width: 10%;
   }
   .role-table-path {

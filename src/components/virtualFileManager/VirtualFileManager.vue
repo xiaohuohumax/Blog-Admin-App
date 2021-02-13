@@ -127,8 +127,6 @@
     <VirtualFileLoading v-if="selectMore" />
     <!-- 全部查完了 -->
     <VirtualFileSelectOver v-if="selectOver" />
-    <!-- 选择新路径 -->
-    <!-- <template #center> <VirtualFileNewPath /></template> -->
   </Content>
 </template>
 

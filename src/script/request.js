@@ -69,8 +69,6 @@ export default {
             url: '/admin/api/statsWebUserLogon',
         })
     },
-    // === 
-
     statsAdminUserGender: () => {
         return https({
             method: "post",
@@ -165,8 +163,6 @@ export default {
             }
         })
     },
-
-
     articleinsert: (params) => {
         return https({
             method: "post",
@@ -176,7 +172,6 @@ export default {
             }
         })
     },
-
     articlefindbyid: (id) => {
         return https({
             method: "post",
@@ -195,7 +190,6 @@ export default {
             }
         })
     },
-
     articleUpdate: (id, newdata) => {
         return https({
             method: "post",
@@ -264,7 +258,6 @@ export default {
             }
         })
     },
-
     videomusicinsert: (params) => {
         return https({
             method: "post",
@@ -302,7 +295,6 @@ export default {
             }
         })
     },
-
     adminByNameFindIcon: (name) => {
         return https({
             method: "post",
@@ -312,7 +304,6 @@ export default {
             }
         })
     },
-
     webSetUpdate: (params) => {
         return https({
             method: "post",
@@ -322,8 +313,6 @@ export default {
             }
         })
     },
-
-
     webSetFindOnly: () => {
         return https({
             method: "post",
@@ -376,7 +365,6 @@ export default {
             }
         })
     },
-
     imageinsert: (params) => {
         return https({
             method: "post",
@@ -432,9 +420,6 @@ export default {
             }
         })
     },
-
-
-
     uploadTool: (adminId, title, subTitle, icon, tags, file, onUploadProgress = () => {}) => {
 
         let data = new FormData();
@@ -455,9 +440,7 @@ export default {
             data
         })
     },
-
     toolUpdate: (id, title, subTitle, icon, tags, file, onUploadProgress = () => {}) => {
-
         let data = new FormData();
         data.append("id", id);
         data.append("title", title);
@@ -476,16 +459,6 @@ export default {
             data
         })
     },
-
-    // virtualFileFind: (parentId) => {
-    //     return https({
-    //         method: "post",
-    //         url: '/admin/api/virtualFileFind',
-    //         data: {
-    //             parentId
-    //         }
-    //     })
-    // },
     virtualFileFindByPage: (page, pageSteep, parentId, selectWord) => {
         return https({
             method: "post",
@@ -518,7 +491,6 @@ export default {
             }
         })
     },
-
     virtualFileDeleteById: (id) => {
         return https({
             method: "post",
@@ -528,9 +500,7 @@ export default {
             }
         })
     },
-
     virtualFileInsert: (adminId, parentId, file, onUploadProgress = () => {}) => {
-
         let data = new FormData();
         data.append("adminId", adminId);
         data.append("parentId", parentId);
@@ -546,17 +516,6 @@ export default {
             data
         })
     },
-
-    // virtualFileFindByName: (name) => {
-    //     return https({
-    //         method: "post",
-    //         url: '/admin/api/virtualFileFindByName',
-    //         data: {
-    //             name
-    //         }
-    //     })
-    // },
-
     virtualFileMove: (ids, parentId) => {
         return https({
             method: "post",
@@ -567,7 +526,6 @@ export default {
             }
         })
     },
-
     webUserFindbyid: (id) => {
         return https({
             method: "post",
@@ -577,7 +535,6 @@ export default {
             }
         })
     },
-
     webUserDeleteById: (id) => {
         return https({
             method: "post",
@@ -597,7 +554,6 @@ export default {
             }
         })
     },
-
     authorityFindAllRole: () => {
         return https({
             method: "post",
@@ -624,23 +580,35 @@ export default {
             }
         })
     },
-    authorityFindRresourceByIds: (ids) => {
+    authorityFindResourceByIds: (ids) => {
         return https({
             method: "post",
-            url: '/admin/api/authorityFindRresourceByIds',
+            url: '/admin/api/authorityFindResourceByIds',
             data: {
                 ids
             }
         })
     },
-    authorityFindRresourceByPage: (page, pageSteep, select) => {
+    authorityFindResourceByPage: (page, pageSteep, select) => {
         return https({
             method: "post",
-            url: '/admin/api/authorityFindRresourceByPage',
+            url: '/admin/api/authorityFindResourceByPage',
             data: {
                 page,
                 pageSteep,
                 select
+            }
+        })
+    },
+    authorityFindResourceByPageAndIds: (page, pageSteep, select, ids) => {
+        return https({
+            method: "post",
+            url: '/admin/api/authorityFindResourceByPageAndIds',
+            data: {
+                page,
+                pageSteep,
+                select,
+                ids
             }
         })
     },
@@ -672,10 +640,10 @@ export default {
             }
         })
     },
-    authorityFindRresourceById: (id) => {
+    authorityFindResourceById: (id) => {
         return https({
             method: "post",
-            url: '/admin/api/authorityFindRresourceById',
+            url: '/admin/api/authorityFindResourceById',
             data: {
                 id
             }
@@ -687,7 +655,6 @@ export default {
             url: '/admin/api/authorityFindRootMenu',
         })
     },
-
     authorityResourceInsert: (params) => {
         return https({
             method: "post",

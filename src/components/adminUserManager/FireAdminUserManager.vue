@@ -1,65 +1,106 @@
 <template>
   <Content :loading="loading">
     <template #head>
-      <Button class="mr-2" to="/AdminUserManager">返回列表</Button>
-
-      <Button type="success" @click="onSubmit" v-if="kind">创建</Button>
-
-      <Button class="mr-2" type="success" @click="update" v-if="!kind">更新</Button>
-      <Button type="error" ghost @click="remove" v-if="!kind">删除</Button>
+      <Button
+        v-show="$authres(['view_fireadminusermanager_backlistbutton'])"
+        class="mr-2"
+        to="/AdminUserManager"
+      >
+        返回列表
+      </Button>
+      <Button
+        v-show="kind && $authres(['view_fireadminusermanager_firebutton'])"
+        type="success"
+        @click="onSubmit"
+      >
+        创建
+      </Button>
+      <Button
+        v-show="!kind && $authres(['view_fireadminusermanager_updatebutton'])"
+        class="mr-2"
+        type="success"
+        @click="update"
+      >
+        更新
+      </Button>
+      <Button
+        v-show="!kind && $authres(['view_fireadminusermanager_deletebutton'])"
+        type="error"
+        ghost
+        @click="remove"
+      >
+        删除
+      </Button>
     </template>
-    <div class="pt-3">
-      <div class="mb-2">昵称:</div>
+    <FormItemBlock class="mt-0" title="昵称">
       <Input v-model="content.name" />
-    </div>
-    <div class="pt-3">
-      <div class="mb-2">密码:</div>
-      <Input v-model="content.pass" />
-    </div>
-    <div class="pt-3">
-      <div class="mb-2">角色:</div>
+    </FormItemBlock>
+
+    <FormItemBlock title="密码">
+      <Input type="password" password v-model="content.pass" />
+    </FormItemBlock>
+
+    <FormItemBlock title="角色">
       <CheckboxGroup v-model="content.roles">
-        <Checkbox :label="item._id" v-for="(item, index) in allRoles" :key="index">
-          {{ item.name }}
+        <Checkbox
+          :disabled="!$authres(['form_fireresourcemanager_roleundisabled'])"
+          :label="item._id"
+          v-for="(item, index) in allRoles"
+          :key="index"
+        >
+          {{ item.name }}[{{ item.resources.length }}]
         </Checkbox>
       </CheckboxGroup>
-    </div>
-    <div class="pt-3">
-      <div class="mb-2">等级:</div>
+    </FormItemBlock>
+
+    <FormItemBlock title="等级">
       <RadioGroup v-model="content.level">
-        <Radio :label="item" v-for="(item, index) in level" :key="index"></Radio>
+        <Radio
+          :disabled="!$authres(['form_fireresourcemanager_levelundisabled'])"
+          :label="item"
+          v-for="(item, index) in level"
+          :key="index"
+        ></Radio>
       </RadioGroup>
-    </div>
-    <div class="pt-3">
-      <div class="mb-2">头像:</div>
+    </FormItemBlock>
+
+    <FormItemBlock title="头像">
       <EnterImage v-model="content.icon" :imagemax="1" />
-    </div>
-    <div class="pt-3">
-      <div class="mb-2">个性签名:</div>
+    </FormItemBlock>
+
+    <FormItemBlock title="个性签名">
       <Input v-model="content.signature" />
-    </div>
-    <div class="pt-3">
-      <div class="mb-2">允许登录:</div>
-      <i-switch v-model="content.allowLogin" size="large">
+    </FormItemBlock>
+
+    <FormItemBlock title="允许登陆">
+      <i-switch
+        :disabled="!$authres(['form_fireresourcemanager_allowloginundisabled'])"
+        v-model="content.allowLogin"
+        size="large"
+      >
         <span slot="open">允许</span>
         <span slot="close">禁止</span>
       </i-switch>
-    </div>
-    <div class="pt-3">
-      <div class="mb-2">允许评论:</div>
-      <i-switch v-model="content.allowTalk" size="large">
+    </FormItemBlock>
+
+    <FormItemBlock title="允许评论">
+      <i-switch
+        :disabled="!$authres(['form_fireresourcemanager_allowtalkundisabled'])"
+        v-model="content.allowTalk"
+        size="large"
+      >
         <span slot="open">允许</span>
         <span slot="close">禁止</span>
       </i-switch>
-    </div>
-    <div class="pt-3">
-      <div class="mb-2">性别:</div>
+    </FormItemBlock>
+
+    <FormItemBlock title="性别">
       <RadioGroup v-model="content.genger">
         <Radio label="男"></Radio>
         <Radio label="女"></Radio>
         <Radio label="其他"></Radio>
       </RadioGroup>
-    </div>
+    </FormItemBlock>
   </Content>
 </template>
 
@@ -190,5 +231,3 @@ export default {
   },
 };
 </script>
-
-<style></style>

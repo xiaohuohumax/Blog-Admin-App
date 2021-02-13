@@ -1,7 +1,10 @@
 <template>
   <Card class="mb-3">
     <div class="d-flex">
-      <img :src="article.icon" class="card-icon rounded-circle mr-2 shadow-sm flex-shrink-0" />
+      <img
+        :src="article.icon"
+        class="card-icon rounded-circle mr-2 shadow-sm flex-shrink-0"
+      />
       <div>
         <router-link :to="`/ArticleMore/${article._id}`">{{ article.title }}</router-link>
         <div class="small my-1">{{ article.subTitle }}</div>
@@ -24,11 +27,3 @@ export default {
   },
 };
 </script>
-
-<style>
-.card-icon {
-  object-fit: cover;
-  width: 4.5rem;
-  height: 4.5rem;
-}
-</style>

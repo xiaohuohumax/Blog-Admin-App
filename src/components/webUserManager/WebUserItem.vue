@@ -17,9 +17,9 @@
         <div class="small my-1">{{ user.signature }}</div>
         <div class="small mt-2">
           <Row>
-            <Col class="mb-1" :xs="{ span: 12 }" :lg="{ span: 6 }"
-              >登录IP:{{ user.loginIp }}</Col
-            >
+            <Col class="mb-1" :xs="{ span: 12 }" :lg="{ span: 6 }">
+              登录IP:{{ user.loginIp }}
+            </Col>
             <Col class="mb-1" :xs="{ span: 12 }" :lg="{ span: 6 }">
               登录时间:<Time :time="user.loginTime" type="datetime" />
             </Col>
@@ -27,8 +27,8 @@
               允许登录: <i-switch :value="user.allowLogin" disabled size="small" />
             </Col>
             <Col class="mb-1" :xs="{ span: 12 }" :lg="{ span: 6 }">
-              允许评论: <i-switch :value="user.allowTalk" disabled size="small"
-            /></Col>
+              允许评论: <i-switch :value="user.allowTalk" disabled size="small" />
+            </Col>
           </Row>
         </div>
       </div>
@@ -43,11 +43,3 @@ export default {
   },
 };
 </script>
-
-<style>
-.card-icon {
-  object-fit: cover;
-  width: 4.5rem;
-  height: 4.5rem;
-}
-</style>

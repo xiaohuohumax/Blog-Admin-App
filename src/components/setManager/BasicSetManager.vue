@@ -1,42 +1,44 @@
 <template>
   <Content :loading="loading">
     <template #head>
-      <Button type="success" @click="updated">保存设置</Button>
+      <Button
+        v-show="$authres(['view_basesetmanager_savebutton'])"
+        type="success"
+        @click="updated"
+      >
+        保存设置
+      </Button>
     </template>
-    <div class="pt-3">
-      <div class="mb-2">博客名称:</div>
+    <FormItemBlock class="mt-0" title="博客名称">
       <Input placeholder="标签" v-model.trim="content.webName" />
-    </div>
-    <div class="pt-3">
-      <div class="mb-2">设置网站说明:</div>
-      <Input placeholder="标签" v-model.trim="content.webDescription" />
-    </div>
-    <div class="pt-3">
-      <div class="mb-2">网站状态:</div>
+    </FormItemBlock>
 
+    <FormItemBlock title="设置网站说明">
+      <Input placeholder="标签" v-model.trim="content.webDescription" />
+    </FormItemBlock>
+
+    <FormItemBlock title="设置关键字">
+      <EnterTags v-model="content.webKeyWords" :tagmax="tagsMax" />
+    </FormItemBlock>
+
+    <FormItemBlock title="网站状态">
       <i-switch v-model="content.webState" size="large">
         <span slot="open">开启</span>
         <span slot="close">维修</span>
       </i-switch>
+      <DatePicker
+        class="d-block mt-3"
+        v-if="!content.webState"
+        type="datetime"
+        :options="options3"
+        placeholder="选择时间"
+        v-model="content.opentime"
+      ></DatePicker>
+    </FormItemBlock>
 
-      <div class="mt-2" v-if="!content.webState">
-        <DatePicker
-          type="datetime"
-          :options="options3"
-          placeholder="选择时间"
-          v-model="content.opentime"
-         
-        ></DatePicker>
-      </div>
-    </div>
-    <div class="pt-3">
-      <div class="mb-2">设置关键字:</div>
-      <EnterTags v-model="content.webKeyWords" :tagmax="tagsMax" />
-    </div>
-    <div class="pt-3">
-      <div class="mb-2">版权信息:</div>
+    <FormItemBlock title="版权信息">
       <Input placeholder="标签" v-model.trim="content.copyRight" />
-    </div>
+    </FormItemBlock>
   </Content>
 </template>
 
@@ -103,5 +105,3 @@ export default {
   },
 };
 </script>
-
-<style></style>

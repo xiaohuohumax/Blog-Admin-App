@@ -1,15 +1,33 @@
 <template>
   <Content :loading="loading">
     <template #head>
-      <Button type="success" ghost class="mr-2" to="/ToolManager">返回列表</Button>
       <Button
+        v-show="$authres(['view_toolmanager_backlist'])"
+        type="success"
+        ghost
+        class="mr-2"
+        to="/ToolManager"
+      >
+        返回列表
+      </Button>
+      <Button
+        v-show="$authres(['view_toolmanager_updatebutton'])"
         type="primary"
         ghost
         class="mr-2"
         :to="`/FireToolManager?id=${$route.params.id}`"
-        >修改工具</Button
       >
-      <Button type="error" ghost class="mr-2" @click="remove">删除工具</Button>
+        修改工具
+      </Button>
+      <Button
+        v-show="$authres(['view_toolmanager_deletebutton'])"
+        type="error"
+        ghost
+        class="mr-2"
+        @click="remove"
+      >
+        删除工具
+      </Button>
     </template>
     <div class="text-center my-3">
       <div class="h4">{{ content.title }}</div>
@@ -41,7 +59,6 @@ export default {
   data() {
     return {
       loading: 1,
-
       content: {},
     };
   },
@@ -79,5 +96,3 @@ export default {
   },
 };
 </script>
-
-<style></style>

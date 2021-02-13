@@ -17,8 +17,6 @@
 <script>
 let { remote } = window.require("electron");
 
-let fs = window.require("fs");
-
 let win = remote.getCurrentWindow();
 export default {
   data() {
@@ -43,16 +41,12 @@ export default {
 <style lang="less">
 .home {
   position: relative;
-
   .home-main {
-    // overflow-y: auto;
     background: #fafafa;
   }
-
   .home-body {
     overflow: hidden;
   }
-
   .tools-body {
     position: absolute;
     right: 1rem;

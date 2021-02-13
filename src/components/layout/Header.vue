@@ -3,7 +3,6 @@
     <div class="header-drag"></div>
     <div class="header-path header-no-drag d-flex align-items-center">
       <Icon type="md-paper-plane" class="mr-2" />
-      <!-- <AuthorityBlock :roles="['user_cod']" :resources="['resource_code']">权限</AuthorityBlock> -->
     </div>
     <div class="header-control header-no-drag d-flex align-items-center text-success">
       <Icon
@@ -28,7 +27,7 @@
 let { remote } = window.require("electron");
 let win = remote.getCurrentWindow();
 
-import { mapState, mapMutations } from "vuex";
+import { mapState } from "vuex";
 
 export default {
   data() {

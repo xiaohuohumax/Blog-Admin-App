@@ -2,6 +2,7 @@
   <Content :loading="loading">
     <template #head>
       <Input
+        v-show="$authres(['view_commentmanager_searchgroup'])"
         @keydown.enter.native="selectChange"
         @on-clear="selectChange"
         v-model.trim="selectWorld"
@@ -12,6 +13,7 @@
         clearable
       />
       <DatePicker
+        v-show="$authres(['view_commentmanager_searchgroup'])"
         type="daterange"
         v-model="selectTime"
         @on-clear="selectChange"
@@ -20,13 +22,17 @@
         class="mr-2"
         style="width: 10rem"
       ></DatePicker>
-      <Button @click="selectChange">搜索</Button>
+      <Button v-show="$authres(['view_commentmanager_searchgroup'])" @click="selectChange">
+        搜索
+      </Button>
     </template>
     <Page
       :page-size="pageSteep"
       :total="contextSum"
       :current="page"
       @on-change="pageChange"
+      show-total
+      show-elevator
     />
     <Null v-show="contexts.length == 0" />
     <CommentItem
@@ -88,5 +94,3 @@ export default {
   },
 };
 </script>
-
-<style></style>

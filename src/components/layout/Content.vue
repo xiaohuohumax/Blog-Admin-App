@@ -5,7 +5,7 @@
       ref="contentBody"
       class="content-body flex-grow-1 d-flex flex-column"
     >
-      <div class="sticky-top py-1" v-show="$slots.head">
+      <div class="content-head-skicky sticky-top py-1" v-show="$slots.head">
         <div class="content-head">
           <div
             :class="headOpen ? '' : 'content-head-body-close'"
@@ -72,7 +72,8 @@ export default {
       type: Number,
       default: 0,
     },
-    centeropen:{ // 是否开启中间
+    centeropen: {
+      // 是否开启中间
       type: Boolean,
       default: false,
     },
@@ -158,6 +159,9 @@ export default {
     bottom: 0;
     left: 0;
   }
+  .content-head-skicky{
+    z-index: 1000;
+  }
   .content-head {
     position: relative;
     right: 100%;
@@ -188,7 +192,6 @@ export default {
   .content-loading {
     position: absolute;
     z-index: 8888;
-    // background: rgba(0, 0, 0, 0.5);
     top: 0;
     left: 0;
   }

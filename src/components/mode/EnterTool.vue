@@ -37,11 +37,6 @@ export default {
 
   methods: {
     enterInput(that) {
-      // this.toolInput = that.target.files;
-      // if (this.toolInput.length > 0) {
-      //   this.path = this.toolInput.path;
-      //   this.name = this.toolInput.name;
-      // }
       this.changeInput(that.target);
     },
     changeInput(that) {

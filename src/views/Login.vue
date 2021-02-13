@@ -101,7 +101,7 @@ export default {
     };
   },
   watch: {
-    "formInline.user"(){
+    "formInline.user"() {
       this.getIcon();
       this.saveUserInf();
     },

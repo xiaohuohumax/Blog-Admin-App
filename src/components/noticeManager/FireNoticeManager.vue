@@ -1,13 +1,25 @@
 <template>
-  <TimelineItem :color="color">
+  <TimelineItem class="notice-manager" :color="color">
     <Card>
-      <Input type="textarea" :rows="8" v-model.trim="notice" placeholder="请输入公告" clearable />
+      <Input
+        type="textarea"
+        :rows="8"
+        v-model.trim="notice"
+        placeholder="请输入公告"
+        clearable
+      />
       <EnterImage placeholder="输入图片" class="mt-3 mb-2" v-model="icon" :imagemax="1" />
 
       <div class="d-flex justify-content-between align-items-center">
         <EnterColor v-model="color" :definearray="defineArray" />
-
-        <Button type="primary" ghost @click="insert">发送</Button>
+        <Button
+          v-show="$authres(['view_firenoticemanager_firebutton'])"
+          type="primary"
+          ghost
+          @click="insert"
+        >
+          发布
+        </Button>
       </div>
     </Card>
   </TimelineItem>
@@ -56,12 +68,10 @@ export default {
 };
 </script>
 
-<style>
-.card-icon {
-  width: 4.5rem;
-  height: 4.5rem;
-}
-.ivu-radio-group-item {
-  margin-bottom: 0 !important;
+<style lang="less">
+.notice-manager {
+  .ivu-radio-group-item {
+    margin-bottom: 0 !important;
+  }
 }
 </style>

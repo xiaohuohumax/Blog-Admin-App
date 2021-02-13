@@ -1,10 +1,7 @@
 <template>
   <div class="tools d-flex flex-column">
-    <!-- @mouseover="isShow = true" @mouseout="isShow = false" -->
-    <!-- <Button icon="md-cog" shape="circle" size="large" v-show="!isShow"></Button> -->
-    <!-- <div class="border border-danger" v-show="isShow"></div> -->
-    <toolUploadList />
-    <toolUploadFileMini />
+    <toolUploadList v-if="$authres(['view_righttool_uploadlist'])" />
+    <toolUploadFileMini v-if="$authres(['view_righttool_uploadfilemini'])" />
   </div>
 </template>
 <script>
@@ -19,5 +16,6 @@ export default {
 <style lang="less">
 .tools {
   z-index: 9999;
+  position: relative;
 }
 </style>

@@ -5,7 +5,6 @@
       class="userAgeStat w-100 mb-3 rounded"
       :style="{ height: `${height}rem` }"
     ></div>
-
     <div
       v-if="loading != 1"
       class="stat-card-loading w-100 h-100 d-flex justify-content-center align-items-center text-center"

@@ -2,6 +2,7 @@
   <Card class="comment-item mb-3">
     <div class="d-flex">
       <Button
+        v-show="$authres(['view_commentitem_deletebutton'])"
         class="comment-item-icon"
         size="small"
         type="error"
@@ -9,7 +10,7 @@
         icon="md-close"
         @click="deleteComment"
       ></Button>
-       <img
+      <img
         :src="comment.user.icon"
         class="card-icon rounded-circle mr-2 shadow-sm flex-shrink-0"
       />
@@ -87,11 +88,6 @@ export default {
 </script>
 
 <style lang="less">
-.card-icon {
-  object-fit: cover;
-  width: 4.5rem;
-  height: 4.5rem;
-}
 .comment-item {
   position: relative;
   .comment-item-icon {

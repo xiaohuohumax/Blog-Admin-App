@@ -1,14 +1,45 @@
 <template>
   <Content :loading="loading">
     <template #head>
-      <Button class="mr-2" :to="`/ToolMore/${$route.query.id}`">返回详细</Button>
-      <Button class="mr-2" to="/ToolManager">返回列表</Button>
-      <Button type="success" @click="onSubmit" v-if="kind">发布</Button>
+      <Button
+        v-show="$authres(['view_firetoolmanager_backinf'])"
+        class="mr-2"
+        :to="`/ToolMore/${$route.query.id}`"
+      >
+        返回详细
+      </Button>
 
-      <Button class="mr-2" type="success" @click="update" v-if="!kind">更新</Button>
-      <Button type="error" ghost @click="remove" v-if="!kind">删除</Button>
+      <Button
+        v-show="$authres(['view_firetoolmanager_backlist'])"
+        class="mr-2"
+        to="/ToolManager"
+      >
+        返回列表
+      </Button>
+      <Button
+        v-show="kind && $authres(['view_firetoolmanager_firebutton'])"
+        type="success"
+        @click="onSubmit"
+      >
+        创建
+      </Button>
+      <Button
+        v-show="!kind && $authres(['view_firetoolmanager_updatebutton'])"
+        class="mr-2"
+        type="success"
+        @click="update"
+      >
+        更新
+      </Button>
+      <Button
+        v-show="!kind && $authres(['view_firetoolmanager_deletebutton'])"
+        type="error"
+        ghost
+        @click="remove"
+      >
+        删除
+      </Button>
     </template>
-
     <template #loading>
       <Icon
         type="ios-loading"
@@ -18,7 +49,6 @@
       ></Icon>
       <div class="font-weight-bold small">上传中{{ time }}%</div>
     </template>
-
     <input
       v-model.trim="title"
       type="text"
@@ -31,15 +61,21 @@
       class="w-100 h5 py-3 border-0"
       placeholder="请输入副标题(100字)"
     />
-    <EnterTool ref="enterTool" @input="inputFile" />
-    <div class="py-3">
-      <p class="small mr-2">添加标签:</p>
+    <FormItemBlock
+      class="mt-0"
+      title="上传工具源码压缩包"
+      subtitle="vue项目打包源码zip压缩包"
+    >
+      <EnterTool ref="enterTool" @input="inputFile" />
+    </FormItemBlock>
+
+    <FormItemBlock title="添加标签">
       <EnterTags v-model="tags" :tagmax="tagsMax" />
-    </div>
-    <div class="pb-3">
-      <p class="small mr-2">添加封面:</p>
+    </FormItemBlock>
+
+    <FormItemBlock title="添加封面">
       <EnterImage v-model="icon" :imagemax="1" />
-    </div>
+    </FormItemBlock>
   </Content>
 </template>
 
@@ -183,5 +219,3 @@ export default {
   },
 };
 </script>
-
-<style lang="less"></style>

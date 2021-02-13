@@ -2,6 +2,7 @@
   <Content :loading="loading">
     <template #head>
       <Input
+        v-show="$authres(['view_adminusermanager_searchgroup'])"
         @keydown.enter.native="selectChange"
         @on-clear="selectChange"
         v-model.trim="selectWorld"
@@ -11,16 +12,29 @@
         class="mr-2"
         clearable
       />
-      <Button class="mr-2" @click="selectChange">搜索</Button>
-      <!-- <AuthorityBlock class="d-inline-block" :roles="['role_admin']"> -->
-      <Button type="success" ghost to="/FireAdminUserManager">新建账号</Button>
-      <!-- </AuthorityBlock> -->
+      <Button
+        v-show="$authres(['view_adminusermanager_searchgroup'])"
+        class="mr-2"
+        @click="selectChange"
+      >
+        搜索
+      </Button>
+      <Button
+        v-show="$authres(['view_adminusermanager_firebutton'])"
+        type="success"
+        ghost
+        to="/FireAdminUserManager"
+      >
+        新建账号
+      </Button>
     </template>
     <Page
       :page-size="pageSteep"
       :total="contextSum"
       :current="page"
       @on-change="pageChange"
+      show-total
+      show-elevator
     />
     <Null v-show="contexts.length == 0" />
     <AdminUserItem v-for="(item, index) in contexts" :key="index" :user="item" />

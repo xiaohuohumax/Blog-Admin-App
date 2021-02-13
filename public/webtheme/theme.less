@@ -1,0 +1,46 @@
+/*
+  前端主题设置模板
+
+  使用方法:
+  1. 下载此模板
+  2. 修改颜色配置
+  3. 自行将[less格式]转换为[css格式]文件
+  4. 上传到服务器
+  5. 配置网站设置即可
+*/
+// 背景颜色
+@theme-background: rgba(0, 0, 0, 0.705);
+// 卡片颜色
+@theme-card-background: rgba(0, 0, 0, 0.616);
+//链接颜色
+@theme-link: white;
+// 链接鼠标悬浮颜色
+@theme-link-hover: #37FF8B;
+// 字的颜色
+@theme-color: white;
+
+// 之后的代码不需要操作
+.theme-background {
+  background-color: @theme-background  !important;
+}
+
+.theme-card-background,
+.ivu-collapse,
+.ivu-page-prev,
+.ivu-page-item,
+.ivu-page-next {
+  background-color: @theme-card-background  !important;
+}
+
+.theme-color,
+.ivu-collapse-content {
+  color: @theme-color  !important;
+}
+
+a {
+  color: @theme-link  !important;
+}
+
+a:hover {
+  color: @theme-link-hover  !important;
+}

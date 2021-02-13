@@ -2,6 +2,7 @@
   <Content :loading="loading">
     <template #head>
       <Input
+        v-show="$authres(['view_musicvideomanager_searchgroup'])"
         @keydown.enter.native="selectChange"
         @on-clear="selectChange"
         v-model.trim="selectWorld"
@@ -11,13 +12,20 @@
         class="mr-2"
         clearable
       />
-      <Button @click="selectChange">搜索</Button>
+      <Button
+        v-show="$authres(['view_musicvideomanager_searchgroup'])"
+        @click="selectChange"
+      >
+        搜索
+      </Button>
     </template>
     <Page
       :page-size="pageSteep"
       :total="contextSum"
       :current="page"
       @on-change="pageChange"
+      show-total
+      show-elevator
     />
     <Null v-show="contexts.length == 0" />
     <MusicVideoItem v-for="(item, index) in contexts" :key="index" :article="item" />
@@ -67,5 +75,3 @@ export default {
   },
 };
 </script>
-
-<style></style>

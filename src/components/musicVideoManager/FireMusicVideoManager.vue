@@ -1,12 +1,43 @@
 <template>
   <Content :loading="loading">
     <template #head>
-      <Button class="mr-2" :to="`/MusicVideoMore/${$route.query.id}`">返回详细</Button>
-      <Button class="mr-2" to="/MusicVideoManager">返回列表</Button>
-      <Button type="success" @click="onSubmit" v-if="kind">发布</Button>
-
-      <Button class="mr-2" type="success" @click="update" v-if="!kind">更新</Button>
-      <Button type="error" ghost @click="remove" v-if="!kind">删除</Button>
+      <Button
+        v-show="$authres(['view_firemusicvidemanager_backinf'])"
+        class="mr-2"
+        :to="`/MusicVideoMore/${$route.query.id}`"
+      >
+        返回详细
+      </Button>
+      <Button
+        v-show="$authres(['view_firemusicvidemanager_backlist'])"
+        class="mr-2"
+        to="/MusicVideoManager"
+      >
+        返回列表
+      </Button>
+      <Button
+        v-show="kind && $authres(['view_firemusicvideomanager_firebutton'])"
+        type="success"
+        @click="onSubmit"
+      >
+        发布
+      </Button>
+      <Button
+        v-show="!kind && $authres(['view_firemusicvideomanager_updatebutton'])"
+        class="mr-2"
+        type="success"
+        @click="update"
+      >
+        更新
+      </Button>
+      <Button
+        v-show="!kind && $authres(['view_firemusicvideomanager_deletebutton'])"
+        type="error"
+        ghost
+        @click="remove"
+      >
+        删除
+      </Button>
     </template>
 
     <input
@@ -21,18 +52,17 @@
       class="w-100 h5 py-3 border-0"
       placeholder="请输入副标题(100字)"
     />
-    <div class="py-3">
-      <p class="small mr-2">添加标签<span class="text-success">回车Enter添加</span></p>
+    <FormItemBlock class="mt-0" title="添加标签">
       <EnterTags v-model="context.tags" :tagmax="tagsMax" />
-    </div>
-    <div class="pb-3">
-      <p class="small mr-2">添加音视频<span class="text-success">回车Enter添加</span>:</p>
-      <EnterVideo v-model="context.videoMusicUrl" />
-    </div>
-    <div class="pb-3">
-      <p class="small mr-2">添加封面<span class="text-success">回车Enter添加</span></p>
+    </FormItemBlock>
+
+    <FormItemBlock title="添加封面">
       <EnterImage v-model="context.icon" :imagemax="1" />
-    </div>
+    </FormItemBlock>
+
+    <FormItemBlock title="添加音视频">
+      <EnterVideo v-model.trim="context.videoMusicUrl" />
+    </FormItemBlock>
   </Content>
 </template>
 
@@ -88,7 +118,6 @@ export default {
       if (this.isRight) {
         return this.$Message.error("文章不完整!");
       }
-      // adminId, title, subTitle, videoMusicUrl, icon, tags
       this.$request
         .videomusicinsert({
           adminId: this.userInf._id,
@@ -156,5 +185,3 @@ export default {
   },
 };
 </script>
-
-<style lang="less"></style>

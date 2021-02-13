@@ -21,15 +21,17 @@
               type="primary"
               ghost
               @click="removeButton"
-              >移动</Button
             >
+              移动
+            </Button>
             <Button
               v-show="model == 1 && chooseList.length > 0"
               type="success"
               @click="copyUrl"
               ghost
-              >复制链接</Button
             >
+              复制链接
+            </Button>
             <Button type="success" ghost @click="refSelectDirFiles">刷新</Button>
           </ButtonGroup>
           <ButtonGroup class="ml-2 mb-0" v-show="model == 2">
@@ -88,9 +90,9 @@
           <Checkbox :disabled="checkCanChange" v-model="chooseAllInput"></Checkbox>
           <div class="mr-2 px-3 d-inline-block"></div>
           文件/文件夹
-          <span v-show="chooseList.length > 0"
-            >[已选择:{{ chooseList.length }}个文件]</span
-          >
+          <span v-show="chooseList.length > 0">
+            [已选择:{{ chooseList.length }}个文件]
+          </span>
         </div>
         <div class="d-flex align-items-center virtual-file-tool">操作</div>
         <div class="d-flex align-items-center virtual-file-size">大小</div>
@@ -122,8 +124,6 @@
       <VirtualFileLoading v-if="selectMore" />
       <!-- 全部查完了 -->
       <VirtualFileSelectOver v-if="selectOver" />
-      <!-- 选择新路径 -->
-      <!-- <template #center> <VirtualFileNewPath /></template> -->
     </div>
   </toolItemModel>
 </template>
@@ -495,7 +495,6 @@ export default {
     .virtual-file-body {
       word-wrap: break-word;
       white-space: normal;
-      // overflow-y: auto;
     }
   }
 }

@@ -1,13 +1,9 @@
 <template>
-<Content>内容</Content>
+  <Content>内容</Content>
 </template>
 
 <script>
-export default {
-
-}
+export default {};
 </script>
 
-<style>
-
-</style>
+<style></style>

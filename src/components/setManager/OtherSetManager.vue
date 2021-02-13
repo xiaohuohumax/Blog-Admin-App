@@ -1,17 +1,21 @@
 <template>
   <Content :loading="loading">
     <template #head>
-      <Button type="success" @click="updated">保存设置</Button>
+      <Button
+        v-show="$authres(['view_othersetmanager_savebutton'])"
+        type="success"
+        @click="updated"
+      >
+        保存设置
+      </Button>
     </template>
-
-    <div class="pt-3">
-      <div class="mb-2">用户头像:</div>
+    <FormItemBlock class="mt-0" title="用户头像">
       <EnterImage v-model="content.userDefIcon" :imagemax="imageIconMax" />
-    </div>
-    <div class="pt-3">
-      <div class="mb-2">网站横幅:</div>
+    </FormItemBlock>
+
+    <FormItemBlock title="网站横幅">
       <EnterImage v-model="content.bannerIcon" :imagemax="imageBannerMax" />
-    </div>
+    </FormItemBlock>
   </Content>
 </template>
 
@@ -73,5 +77,3 @@ export default {
   },
 };
 </script>
-
-<style></style>

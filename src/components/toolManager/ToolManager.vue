@@ -2,6 +2,7 @@
   <Content :loading="loading">
     <template #head>
       <Input
+        v-show="$authres(['view_toolmanager_searchgroup'])"
         @keydown.enter.native="selectChange"
         @on-clear="selectChange"
         v-model.trim="selectWorld"
@@ -11,13 +12,17 @@
         class="mr-2"
         clearable
       />
-      <Button @click="selectChange">搜索</Button>
+      <Button v-show="$authres(['view_toolmanager_searchgroup'])" @click="selectChange">
+        搜索
+      </Button>
     </template>
     <Page
       :page-size="pageSteep"
       :total="contextSum"
       :current="page"
       @on-change="pageChange"
+      show-total
+      show-elevator
     />
     <ToolItem v-for="(item, index) in contexts" :key="index" :tool="item" />
   </Content>
@@ -33,7 +38,6 @@ export default {
       selectWorld: "", // 搜索关键词
 
       page: 1,
-
       loading: 1, // 1 加载中 2 成功 3 失败
     };
   },
@@ -66,5 +70,3 @@ export default {
   },
 };
 </script>
-
-<style></style>
