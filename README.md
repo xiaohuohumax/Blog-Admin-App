@@ -8,7 +8,7 @@
 + [Blog-Background-Api 后台管理API](https://github.com/xiaohuohumax/Blog-Background-Api)
 + [Blog-Admin-App 后台管理APP(PC端)](https://github.com/xiaohuohumax/Blog-Admin-App)
 
-## `大致功能`
+## 大致功能
 
 ### 前端网站:
 
@@ -40,24 +40,24 @@
 
 1. `下载依赖`
 
-cnpm install
+    cnpm install
 
 2. `修改配置文件 后台url地址配置`
 
-在 /src/config.js 中
+    在 /src/config.js 中
 
 3. `执行命令`
 
-npm run serve
+    npm run serve
 
 4. `初始账号登录`
 
-+ 超级管理员
-    admin
-    123456
-+ 普通管理员
-    xiaohuohu
-    123456
+    + 超级管理员
+        admin
+        123456
+    + 普通管理员
+        xiaohuohu
+        123456
 
 ## 配置
 
