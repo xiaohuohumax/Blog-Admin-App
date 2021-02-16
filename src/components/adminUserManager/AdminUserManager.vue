@@ -51,7 +51,6 @@ export default {
       selectWorld: "", // 搜索关键词
 
       page: 1,
-
       loading: 1, // 1 加载中 2 成功 3 失败
     };
   },

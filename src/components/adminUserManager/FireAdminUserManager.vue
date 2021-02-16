@@ -64,6 +64,14 @@
       </RadioGroup>
     </FormItemBlock>
 
+     <FormItemBlock title="性别">
+      <RadioGroup v-model="content.genger">
+        <Radio label="男"></Radio>
+        <Radio label="女"></Radio>
+        <Radio label="其他"></Radio>
+      </RadioGroup>
+    </FormItemBlock>
+
     <FormItemBlock title="头像">
       <EnterImage v-model="content.icon" :imagemax="1" />
     </FormItemBlock>
@@ -92,14 +100,6 @@
         <span slot="open">允许</span>
         <span slot="close">禁止</span>
       </i-switch>
-    </FormItemBlock>
-
-    <FormItemBlock title="性别">
-      <RadioGroup v-model="content.genger">
-        <Radio label="男"></Radio>
-        <Radio label="女"></Radio>
-        <Radio label="其他"></Radio>
-      </RadioGroup>
     </FormItemBlock>
   </Content>
 </template>

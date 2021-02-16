@@ -138,7 +138,7 @@ export default {
         xlsx: "xlsx.png",
         xml: "xml.png",
       },
-      imageRule: ["png", "jpg", "jpeg", "jif"],
+      imageRule: ["png", "jpg", "jpeg", "jif", "svg"],
     };
   },
   created() {

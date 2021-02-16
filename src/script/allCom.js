@@ -93,6 +93,7 @@ export default {
     EnterColor: () => import('../components/mode/EnterColor'),
     EnterStyle: () => import('../components/mode/EnterStyle'),
     EnterTool: () => import('../components/mode/EnterTool'),
+    EnterKind: () => import('../components/mode/EnterKind'),
     StatCard: () => import('../components/mode/StatCard'),
     Null: () => import('../components/mode/Null'),
     AuthorityBlock: () => import('../components/mode/AuthorityBlock'),

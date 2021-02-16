@@ -35,27 +35,32 @@
       <div class="flex-grow-1 h6 font-weight-bold">
         {{ content.name }}
         <span class="ml-2 small font-weight-bold">
-          lv{{ content.level }} {{ content.genger }}
+          {{ content.genger }}
         </span>
         <div class="small my-1">{{ content.signature }}</div>
       </div>
     </div>
-    <div class="small mt-2">
-      <Row>
-        <Col class="mb-1" :xs="{ span: 12 }" :lg="{ span: 6 }"
-          >登录IP:{{ content.loginIp }}</Col
-        >
-        <Col class="mb-1" :xs="{ span: 12 }" :lg="{ span: 6 }">
-          登录时间:<Time :time="content.loginTime" type="datetime" />
-        </Col>
-        <Col class="mb-1" :xs="{ span: 12 }" :lg="{ span: 6 }">
-          允许登录: <i-switch v-model="content.allowLogin" size="small" />
-        </Col>
-        <Col class="mb-1" :xs="{ span: 12 }" :lg="{ span: 6 }">
-          允许评论: <i-switch v-model="content.allowTalk" size="small" />
-        </Col>
-      </Row>
-    </div>
+
+    <FormItemBlock title="等级">
+      <RadioGroup v-model="content.level">
+        <Radio :label="item" v-for="(item, index) in level" :key="index"></Radio>
+      </RadioGroup>
+    </FormItemBlock>
+
+    <FormItemBlock title="登录IP">
+      {{ content.loginIp }}
+    </FormItemBlock>
+
+    <FormItemBlock title="登录时间">
+      <Time :time="content.loginTime" type="datetime" />
+    </FormItemBlock>
+
+    <FormItemBlock title="允许登录">
+      <i-switch v-model="content.allowLogin" size="small" />
+    </FormItemBlock>
+    <FormItemBlock title="允许评论">
+      <i-switch v-model="content.allowTalk" size="small" />
+    </FormItemBlock>
   </Content>
 </template>
 
@@ -73,6 +78,13 @@ export default {
   computed: {
     cardIconStyle() {
       return `backgrond:url('${this.content.icon}') center / cover;`;
+    },
+    level() {
+      let levelNumber = [];
+      for (let x = 0; x < 7; x++) {
+        levelNumber.push(x);
+      }
+      return levelNumber;
     },
   },
   methods: {

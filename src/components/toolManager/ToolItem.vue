@@ -6,7 +6,10 @@
         class="card-icon rounded-circle mr-2 shadow-sm flex-shrink-0"
       />
       <div>
-        <router-link :to="`/ToolMore/${tool._id}`">{{ tool.title }}</router-link>
+        <router-link :to="`/ToolMore/${tool._id}`">
+          <span class="text-success">[{{ tool.kind }}]</span>
+          {{ tool.title }}
+        </router-link>
         <div class="small my-1">{{ tool.subTitle }}</div>
         <div class="small mt-2">
           <Icon class="mr-1" type="md-eye" />{{ tool.watch }}

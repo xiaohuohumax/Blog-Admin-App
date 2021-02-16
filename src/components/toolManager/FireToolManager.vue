@@ -73,6 +73,10 @@
       <EnterTags v-model="tags" :tagmax="tagsMax" />
     </FormItemBlock>
 
+    <FormItemBlock title="分类">
+      <EnterKind v-model="kindInf" :kindlist="kindList" />
+    </FormItemBlock>
+
     <FormItemBlock title="添加封面">
       <EnterImage v-model="icon" :imagemax="1" />
     </FormItemBlock>
@@ -87,6 +91,8 @@ export default {
   data() {
     return {
       tags: [],
+      kindInf: "", // 类型
+      kindList: [], // 类型待选队列
       tagsMax: 10,
       title: "",
       subTitle: "",
@@ -102,6 +108,7 @@ export default {
     this.kind = this.$route.query.id == "" || this.$route.query.id == undefined;
 
     !this.kind ? this.select() : "";
+    this.selectAllKind();
   },
   computed: {
     ...mapState(["userInf"]),
@@ -110,12 +117,23 @@ export default {
         this.tags.length == 0 ||
         this.title == "" ||
         this.subTitle == "" ||
+        this.kindInf == "" ||
         (this.kind && this.content == undefined) ||
         this.icon.length == 0
       );
     },
   },
   methods: {
+    selectAllKind() {
+      this.$request
+        .toolFindKind()
+        .then((result) => {
+          if (result.flag) {
+            this.kindList = result.data;
+          }
+        })
+        .catch((err) => {});
+    },
     inputFile(file) {
       this.content = file;
     },
@@ -134,6 +152,7 @@ export default {
           this.subTitle,
           this.icon[0],
           this.tags,
+          this.kindInf,
           this.content,
           (progressEvent) => {
             this.time = ((progressEvent.loaded / progressEvent.total) * 100) | 0;
@@ -144,6 +163,7 @@ export default {
             this.tags = [];
             this.title = "";
             this.subTitle = "";
+            this.kindInf = "";
             this.icon = [];
             this.$Message.success("工具发表成功!");
           } else {
@@ -170,6 +190,7 @@ export default {
             this.tags = content.tags;
             this.title = content.title;
             this.subTitle = content.subTitle;
+            this.kindInf = content.kind;
             this.icon = [content.icon];
           } else {
             this.loading = 3;

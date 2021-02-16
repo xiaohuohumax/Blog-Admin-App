@@ -210,14 +210,15 @@ export default {
             }
         })
     },
-    noticeInsert: (adminId, notice, icon) => {
+    noticeInsert: (adminId, notice, icon,color) => {
         return https({
             method: "post",
             url: '/admin/api/noticeInsert',
             data: {
                 adminId,
                 notice,
-                icon
+                icon,
+                color
             }
         })
     },
@@ -420,12 +421,13 @@ export default {
             }
         })
     },
-    uploadTool: (adminId, title, subTitle, icon, tags, file, onUploadProgress = () => {}) => {
+    uploadTool: (adminId, title, subTitle, icon, tags, kind, file, onUploadProgress = () => {}) => {
 
         let data = new FormData();
         data.append("adminId", adminId);
         data.append("title", title);
         data.append("subTitle", subTitle);
+        data.append("kind", kind);
         data.append("icon", icon);
         tags.forEach(val => data.append("tags[]", val));
         data.append("file", file);
@@ -681,6 +683,12 @@ export default {
                 id,
                 params
             }
+        })
+    },
+    toolFindKind: () => {
+        return https({
+            method: "post",
+            url: '/admin/api/toolFindKind',
         })
     },
 }

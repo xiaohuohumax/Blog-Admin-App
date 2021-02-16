@@ -25,8 +25,10 @@
         :key="index"
         :notice="item"
       />
+      <TimelineItem v-if="contexts.length == 0">
+        <Null />
+      </TimelineItem>
     </Timeline>
-    <Null v-show="contexts.length == 0" />
     <Page
       :page-size="pageSteep"
       :total="contextSum"

@@ -9,7 +9,7 @@
   5. 配置网站设置即可
 */
 .defult-background {
-  background: url("/image/snow_games.svg") no-repeat fixed right bottom / 30%;
+  background: url("http://localhost:8888/virtualFile/875da1ad04e838e48d1c3bd35fdddc39.svg") no-repeat fixed right bottom / 30%;
 }
 .theme-background {
   background-color: rgba(0, 0, 0, 0.705) !important;

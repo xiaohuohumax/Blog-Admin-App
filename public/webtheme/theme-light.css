@@ -8,25 +8,22 @@
   4. 上传到服务器
   5. 配置网站设置即可
 */
-.defult-background {
-  background: url("/image/snow_games.svg") no-repeat fixed right bottom / 30%;
-}
 .theme-background {
-  background-color: rgba(0, 0, 0, 0.705) !important;
+  background-color: #BBE1C3 !important;
 }
 .theme-card-background,
 .ivu-collapse,
 .ivu-page-prev,
 .ivu-page-item,
 .ivu-page-next {
-  background-color: rgba(0, 0, 0, 0.616) !important;
+  background-color: rgba(255, 255, 255, 0.911) !important;
 }
 .theme-color,
 .ivu-collapse-content {
-  color: white !important;
+  color: #204B57 !important;
 }
 a {
-  color: white !important;
+  color: #204B57 !important;
 }
 a:hover {
   color: #37FF8B !important;

@@ -51,7 +51,7 @@ export default {
       }
       let icon = this.icon.length > 0 ? this.icon[0] : "";
       this.$request
-        .noticeInsert(this.userInf._id, this.notice, icon)
+        .noticeInsert(this.userInf._id, this.notice, icon, this.color)
         .then((result) => {
           if (result.flag) {
             this.$Message.success("发布成功!");
