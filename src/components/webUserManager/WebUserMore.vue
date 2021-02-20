@@ -4,7 +4,7 @@
       <Button
         v-show="$authres(['view_webusermore_backlist'])"
         class="mr-2"
-        to="/ArticleManager"
+        to="/WebUserManager"
       >
         返回列表
       </Button>
@@ -28,10 +28,10 @@
       </Button>
     </template>
     <div class="d-flex">
-      <div
+      <img
+        :src="content.icon"
         class="card-icon rounded-circle mr-2 shadow-sm flex-shrink-0"
-        :style="cardIconStyle"
-      ></div>
+      />
       <div class="flex-grow-1 h6 font-weight-bold">
         {{ content.name }}
         <span class="ml-2 small font-weight-bold">
@@ -76,9 +76,6 @@ export default {
     this.select();
   },
   computed: {
-    cardIconStyle() {
-      return `backgrond:url('${this.content.icon}') center / cover;`;
-    },
     level() {
       let levelNumber = [];
       for (let x = 0; x < 7; x++) {

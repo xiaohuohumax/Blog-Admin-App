@@ -56,10 +56,11 @@ export default {
     return {
       imageInput: "",
       images: [],
+      timout: null,
     };
   },
-  created() {
-    this.images = this.value;
+  mounted() {
+    this.init();
   },
   computed: {
     isOver() {
@@ -67,6 +68,16 @@ export default {
     },
   },
   methods: {
+    init() {
+      this.images = [];
+      let index = 0;
+      this.timout = window.setInterval(() => {
+        if (index >= this.value.length) {
+          return window.clearInterval(this.timout);
+        }
+        this.images.push(this.value[index++]);
+      }, 100);
+    },
     imgStyle(item) {
       return `background:url('${item}') center / cover;`;
     },

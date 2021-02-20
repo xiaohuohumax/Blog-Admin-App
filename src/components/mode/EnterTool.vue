@@ -1,6 +1,6 @@
 <template>
   <Card class="text-center">
-    <label>
+    <label class="cursor-pointer">
       <Icon type="md-cloud-upload" color="tomato" size="60" />
       <div class="">选择文件[限制:{{ maxSize }}]</div>
       <input

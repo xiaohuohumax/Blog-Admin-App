@@ -179,14 +179,15 @@ export default {
         // 未知
         return `${this.iconBaseUrl}${this.iconRule.unknow}`;
       }
+      if (this.viewmodel && this.isImage(suffix)) {
+        return url;
+      }
       let address = this.iconRule[suffix];
       if (!address) {
         // 未找到图标库
         return `${this.iconBaseUrl}${this.iconRule.unknow}`;
       }
-      if (this.viewmodel && this.isImage(suffix)) {
-        return url;
-      }
+      
       return `${this.iconBaseUrl}${address}`;
     },
     intoDir() {
@@ -244,7 +245,7 @@ export default {
         this.file.name,
         this.file.kind,
         this.file.virtualUrl
-      )}') center / cover;`;
+      )}') no-repeat center / contain;`;
     },
   },
 };
@@ -281,8 +282,8 @@ export default {
     width: auto !important;
   }
   .virtual-file-item-icon {
-    width: 6rem;
-    height: 6rem;
+    width: 8rem;
+    height: 8rem;
     margin: 0 0.5rem !important;
   }
   .virtual-file-check {

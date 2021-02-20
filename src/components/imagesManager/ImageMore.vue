@@ -53,11 +53,12 @@
 
     <div class="text-center">
       <img
-        class="w-75 rounded mt-3"
-        :src="item"
-        v-for="(item, index) in content.icons"
-        :key="index"
-      />
+          :src="item"
+          class="mx-auto d-block rounded my-2 shadow-sm"
+          style="max-height: 20rem; max-width: 100%"
+          v-for="(item, index) in content.icons"
+          :key="index"
+        />
     </div>
   </Content>
 </template>
