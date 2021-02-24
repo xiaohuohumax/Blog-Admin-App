@@ -64,6 +64,7 @@ axios.interceptors.response.use(
         router.push("/");
       },
       403() { // 未授权
+        alert("403")
         router.push("/Error403");
       },
       500() { // 服务器抽风

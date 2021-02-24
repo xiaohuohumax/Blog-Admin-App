@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="fire-role-item d-flex align-items-center mb-2">
+    <div class="fire-playlist-item d-flex align-items-center mb-2">
       <Input
         @keydown.enter.native="selectChange"
         @on-clear="selectChange"
@@ -22,44 +22,33 @@
       @on-change="pageChange"
       show-total
     />
-
-    <div class="role-table d-flex font-weight-bold pb-2">
-      <div class="role-table-checkbox">
+    <div class="playlist-table d-flex font-weight-bold pb-2">
+      <div class="playlist-table-checkbox">
         <input type="checkbox" v-model="checkAll" />
       </div>
-      <div class="role-table-icon">图标</div>
-      <div class="role-table-name">名称</div>
-      <div class="role-table-code">授权码</div>
-      <div class="role-table-kind">类型</div>
-      <div class="role-table-index">菜单顺序</div>
-      <div class="role-table-path">路径</div>
+      <div class="playlist-table-name">歌名</div>
+      <div class="playlist-table-subTitle">说明</div>
     </div>
 
     <div
-      class="role-table d-flex py-2 border-top"
+      class="playlist-table d-flex py-2 border-top"
       v-for="(item, index) in contexts"
       :key="index"
     >
-      <div class="role-table-checkbox">
+      <div class="playlist-table-checkbox">
         <input
           type="checkbox"
-          v-model="role.resources"
-          name="resources"
+          v-model="playlist.songs"
+          name="songs"
           :value="item._id"
         />
       </div>
-      <div class="role-table-icon">
-        <Icon size="20" :type="item.icon" v-if="item.icon" />
-      </div>
-      <div class="role-table-name" :title="item.name">
-        <router-link :to="`FireResourceManager?id=${item._id}`">
+      <div class="playlist-table-name">
+        <router-link :to="`FireSongManager?id=${item._id}`">
           {{ item.name }}
         </router-link>
       </div>
-      <div class="role-table-code" :title="item.code">{{ item.code }}</div>
-      <div class="role-table-kind" :title="item.kind">{{ getKind(item.kind) }}({{item.kind}})</div>
-      <div class="role-table-index">{{ item.index }}</div>
-      <div class="role-table-path" :title="item.path">{{ item.path }}</div>
+      <div class="playlist-table-subTitle">{{ item.subTitle }}</div>
     </div>
 
     <Null v-show="contexts.length == 0" />
@@ -70,7 +59,7 @@
 import authorityEnum from "../../script/authorityEnum";
 export default {
   props: {
-    role: Object,
+    playlist: Object,
   },
   data() {
     return {
@@ -94,14 +83,14 @@ export default {
   },
 
   created() {
-    this.selectResourceByPage();
+    this.selectSongByPage();
   },
   computed: {
     // 是否全在队列中
     isAllInRoleResources() {
-      const resourcesIds = this.contexts.map((val) => val._id);
-      for (const item of resourcesIds) {
-        if (!this.role.resources.includes(item)) {
+      const playlistIds = this.contexts.map((val) => val._id);
+      for (const item of playlistIds) {
+        if (!this.playlist.songs.includes(item)) {
           return false;
         }
       }
@@ -121,53 +110,51 @@ export default {
     // 全选与全部选切换
     checkAllChange() {
       let checkAll = this.checkAll;
-      const resourcesIds = this.contexts.map((val) => val._id);
+      const playlistIds = this.contexts.map((val) => val._id);
       // 全选
       if (checkAll) {
-        let newResources = this.role.resources.concat(resourcesIds);
-        this.role.resources = Array.from(new Set(newResources));
+        let newResources = this.playlist.songs.concat(playlistIds);
+        this.playlist.songs = Array.from(new Set(newResources));
       } else if (this.isAllInRoleResources) {
         // 全不选
-        for (const item of resourcesIds) {
-          let index = this.role.resources.lastIndexOf(item);
+        for (const item of playlistIds) {
+          let index = this.playlist.songs.lastIndexOf(item);
           if (index != -1) {
-            this.role.resources.splice(index, 1);
+            this.playlist.songs.splice(index, 1);
           }
         }
       }
     },
-    selectResourceByPage() {
+    selectSongByPage() {
       this.$request
-        .authorityFindResourceByPage(this.page, this.pageSteep, this.selectWorld)
+        .songFindPage(this.page, this.pageSteep, this.selectWorld)
         .then((result) => {
           if (result.flag) {
-            this.contexts = result.data.resources;
-            this.contextSum = result.data.resourceSum;
+            this.contexts = result.data.songs;
+            this.contextSum = result.data.songSum;
           }
         })
         .catch((err) => {});
     },
-    selectResourceByPageAndIds() {
+    selectSongByPageAndIds() {
       this.$request
-        .authorityFindResourceByPageAndIds(
+        .songFindByPageAndIds(
           this.page,
           this.pageSteep,
           this.selectWorld,
-          this.role.resources
+          this.playlist.songs
         )
         .then((result) => {
           if (result.flag) {
-            this.contexts = result.data.resources;
-            this.contextSum = result.data.resourceSum;
+            this.contexts = result.data.songs;
+            this.contextSum = result.data.songSum;
           }
         })
         .catch((err) => {});
     },
     pageChange(num) {
       this.page = num;
-      this.selectYourself
-        ? this.selectResourceByPageAndIds()
-        : this.selectResourceByPage();
+      this.selectYourself ? this.selectSongByPageAndIds() : this.selectSongByPage();
     },
     selectChange() {
       this.pageChange(1);
@@ -177,32 +164,20 @@ export default {
 </script>
 
 <style lang="less">
-.role-table {
+.playlist-table {
   & > * {
     overflow: hidden;
     white-space: nowrap;
     text-overflow: ellipsis;
   }
-  .role-table-checkbox {
+  .playlist-table-checkbox {
     width: 5%;
   }
-  .role-table-code {
-    width: 25%;
-  }
-  .role-table-kind {
-    width: 10%;
-  }
-  .role-table-index {
-    width: 10%;
-  }
-  .role-table-path {
-    width: 10%;
-  }
-  .role-table-icon {
-    width: 5%;
-  }
-  .role-table-name {
+  .playlist-table-name {
     width: 35%;
+  }
+  .playlist-table-subTitle {
+    width: 60%;
   }
 }
 </style>

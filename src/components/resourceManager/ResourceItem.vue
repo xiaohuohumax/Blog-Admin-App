@@ -10,7 +10,7 @@
     <div>
       <div class="my-1"></div>
       <div class="my-1">授权码: {{ resource.code }}</div>
-      <div class="my-1">类型: {{ getKind(resource.kind) }}</div>
+      <div class="my-1">类型: {{ getKind(resource.kind) }}({{resource.kind}})</div>
     </div>
   </Card>
 </template>

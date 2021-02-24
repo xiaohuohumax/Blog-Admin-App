@@ -175,6 +175,7 @@ export default {
     },
     filePath() {
       this.chooseAllInput = false;
+      this.chooseList = [];
     },
   },
   mounted() {
@@ -200,7 +201,11 @@ export default {
     },
     // 文件排序
     fileSort() {
-      return this.contexts.sort((a, b) => a.kind.length - b.kind.length);
+      return this.contexts
+        .sort((a, b) => a.kind.length - b.kind.length)
+        .sort((a, b) =>
+          this.getSuffix(a.virtualUrl) > this.getSuffix(b.virtualUrl) ? 1 : -1
+        );
     },
     // 能否点击checkbox
     checkCanChange() {
@@ -213,7 +218,11 @@ export default {
   },
   methods: {
     ...mapMutations(["addUploadFile", "clearUploadFile"]),
-
+    // 获取后缀名
+    getSuffix(str) {
+      if (typeof str != "string") return "";
+      return str.split(".").pop().toLowerCase();
+    },
     // 确认移动
     removeSure() {
       if (!this.isRemoved) {

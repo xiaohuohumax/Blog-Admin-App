@@ -120,11 +120,11 @@ export default {
       this.resource = {
         parentId: "",
         index: "",
-        name: "",
+        name: "[路由]",
         code: "",
         icon: "",
         path: "",
-        kind: authorityEnum.api.code,
+        kind: authorityEnum.router.code,
       };
     },
     findRootMenu() {

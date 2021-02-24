@@ -3,6 +3,7 @@
     <template #head>
       <Button
         type="success"
+        class="mr-2"
         v-show="kind && $authres(['view_firearticlemanager_firebutton'])"
         @click="onSubmit"
       >
@@ -16,7 +17,7 @@
         返回详细
       </Button>
       <Button
-        v-show="!kind && $authres(['view_firearticlemanager_backlist'])"
+        v-show="$authres(['view_firearticlemanager_backlist'])"
         class="mr-2"
         to="/ArticleManager"
         >返回列表</Button

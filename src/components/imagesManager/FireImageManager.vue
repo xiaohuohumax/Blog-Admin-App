@@ -2,7 +2,7 @@
   <Content :loading="loading">
     <template #head>
       <Button
-        v-show="$authres(['view_fireimagemanager_backinf'])"
+        v-show="!kind && $authres(['view_fireimagemanager_backinf'])"
         class="mr-2"
         :to="`/ImageMore/${$route.query.id}`"
       >
@@ -10,7 +10,7 @@
       </Button>
 
       <Button
-        v-show="$authres(['view_fireimagemanager_backlist'])"
+        v-show=" $authres(['view_fireimagemanager_backlist'])"
         class="mr-2"
         to="/ImageManager"
       >

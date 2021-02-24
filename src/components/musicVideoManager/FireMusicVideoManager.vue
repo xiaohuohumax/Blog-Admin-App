@@ -2,7 +2,7 @@
   <Content :loading="loading">
     <template #head>
       <Button
-        v-show="$authres(['view_firemusicvidemanager_backinf'])"
+        v-show="!kind &&$authres(['view_firemusicvidemanager_backinf'])"
         class="mr-2"
         :to="`/MusicVideoMore/${$route.query.id}`"
       >
@@ -155,7 +155,7 @@ export default {
         .then((result) => {
           if (result.flag) {
             this.$Message.success("删除成功!");
-            this.$router.push("/ArticleManager");
+            this.$router.push("/MusicVideoManager");
           } else {
             this.$Message.error(result.msg);
           }

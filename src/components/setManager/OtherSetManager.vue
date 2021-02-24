@@ -25,7 +25,7 @@ export default {
     return {
       loading: 1,
       imageIconMax: 100,
-      imageBannerMax: 10,
+      imageBannerMax: 20,
       content: {},
 
       options3: {

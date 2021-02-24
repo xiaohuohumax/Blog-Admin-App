@@ -96,7 +96,7 @@ export default {
         return this.$Message.error("消息不能为空!");
       }
       this.$request
-        .adminMessageInsert(this.userInf._id, this.message)
+        .adminMessageInsert({adminId:this.userInf._id, message:this.message})
         .then((result) => {
           if (result.flag) {
             this.selectChange();

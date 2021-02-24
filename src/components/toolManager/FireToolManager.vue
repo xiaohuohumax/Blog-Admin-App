@@ -2,7 +2,7 @@
   <Content :loading="loading">
     <template #head>
       <Button
-        v-show="$authres(['view_firetoolmanager_backinf'])"
+        v-show="!kind && $authres(['view_firetoolmanager_backinf'])"
         class="mr-2"
         :to="`/ToolMore/${$route.query.id}`"
       >

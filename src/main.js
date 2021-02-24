@@ -25,32 +25,42 @@ for (const key in allCom) {
 
 Vue.config.productionTip = false
 
+// 工具类
 import tools from './script/tools';
-
 Vue.prototype.$tools = tools;
 
+// axios 封装请求
 import request from './script/request';
-
 Vue.prototype.$request = request;
 
-// 登录检查
+// 权限检查
+import authority from './script/authority';
+for (const key in authority) {
+  Vue.prototype[`$${key}`] = authority[key];
+}
+
 router.beforeEach((to, from, next) => {
+  // 登录检查
   if (to.path != "/") {
     let userLogined = store.state.userLogined;
     if (!userLogined) {
       return next("/");
     }
   };
+  // 添加历史
   !to.meta.unHistory ? store.commit('addHistory', to) : "";
+  // 检查权限
+  // 检查资源
+  if (to.meta.resources && to.meta.resources.length > 0) {
+    return authority.authres(to.meta.resources) ? next() : next("/Error403");
+  }
+  // 检查角色
+  if (to.meta.roles && to.meta.roles.length > 0) {
+    return authority.authrol(to.meta.roles) ? next() : next("/Error403");
+  }
   next();
 })
 
-// 权限检查
-import authority from './script/authority';
-
-for (const key in authority) {
-  Vue.prototype[`$${key}`] = authority[key];
-}
 
 new Vue({
   router,

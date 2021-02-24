@@ -153,13 +153,12 @@ export default {
             }
         })
     },
-    adminMessageInsert: (adminId, message) => {
+    adminMessageInsert: (params) => {
         return https({
             method: "post",
             url: '/admin/api/adminMessageInsert',
             data: {
-                adminId,
-                message
+                params
             }
         })
     },
@@ -210,7 +209,7 @@ export default {
             }
         })
     },
-    noticeInsert: (adminId, notice, icon,color) => {
+    noticeInsert: (adminId, notice, icon, color) => {
         return https({
             method: "post",
             url: '/admin/api/noticeInsert',
@@ -691,4 +690,117 @@ export default {
             url: '/admin/api/toolFindKind',
         })
     },
+
+    songInsert: (params) => {
+        return https({
+            method: "post",
+            url: '/admin/api/songInsert',
+            data: {
+                params
+            }
+        })
+    },
+    songFindPage: (page, pageSteep, select) => {
+        return https({
+            method: "post",
+            url: '/admin/api/songFindPage',
+            data: {
+                page,
+                pageSteep,
+                select
+            }
+        })
+    },
+    songFindById: (id) => {
+        return https({
+            method: "post",
+            url: '/admin/api/songFindById',
+            data: {
+                id
+            }
+        })
+    },
+    songUpdate: (id, newdata) => {
+        return https({
+            method: "post",
+            url: '/admin/api/songUpdate',
+            data: {
+                id,
+                newdata
+            }
+        })
+    },
+    songDeleteById: (id) => {
+        return https({
+            method: "post",
+            url: '/admin/api/songDeleteById',
+            data: {
+                id
+            }
+        })
+    },
+
+    songFindByPageAndIds: (page, pageSteep, select, ids) => {
+        return https({
+            method: "post",
+            url: '/admin/api/songFindByPageAndIds',
+            data: {
+                page,
+                pageSteep,
+                select,
+                ids
+            }
+        })
+    },
+
+    playListInsert: (params) => {
+        return https({
+            method: "post",
+            url: '/admin/api/playListInsert',
+            data: {
+                params
+            }
+        })
+    },
+    playListFindPage: (page, pageSteep, select) => {
+        return https({
+            method: "post",
+            url: '/admin/api/playListFindPage',
+            data: {
+                page,
+                pageSteep,
+                select
+            }
+        })
+    },
+    playListFindById: (id) => {
+        return https({
+            method: "post",
+            url: '/admin/api/playListFindById',
+            data: {
+                id
+            }
+        })
+    },
+    playListUpdate: (id, newdata) => {
+        return https({
+            method: "post",
+            url: '/admin/api/playListUpdate',
+            data: {
+                id,
+                newdata
+            }
+        })
+    },
+    playListDeleteById: (id) => {
+        return https({
+            method: "post",
+            url: '/admin/api/playListDeleteById',
+            data: {
+                id
+            }
+        })
+    },
+
+
 }

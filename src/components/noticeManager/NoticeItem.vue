@@ -14,7 +14,7 @@
         <Icon class="mr-1" type="ios-clock-outline" />
         <Time :time="notice.uploadTime" type="datetime" />
       </div>
-      <img v-if="imgRight" :src="notice.icon[0]" class="w-50 border rounded" />
+      <img v-if="imgRight" :src="notice.icon" class="w-50 border rounded" />
     </Card>
   </TimelineItem>
 </template>

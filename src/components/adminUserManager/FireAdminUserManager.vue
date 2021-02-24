@@ -64,7 +64,7 @@
       </RadioGroup>
     </FormItemBlock>
 
-     <FormItemBlock title="性别">
+    <FormItemBlock title="性别">
       <RadioGroup v-model="content.genger">
         <Radio label="男"></Radio>
         <Radio label="女"></Radio>

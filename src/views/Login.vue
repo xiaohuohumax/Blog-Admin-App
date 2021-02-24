@@ -167,8 +167,8 @@ export default {
           if (result.flag) {
             // 登录成功
             this.userLogin(result.data); // 添加信息
-            this.$router.push("/Welcome");
             this.$Message.success(`[${result.data.inf.name}]欢迎回来!`);
+            this.$router.push("/Welcome");
           } else {
             this.$Message.error(result.msg);
           }
@@ -186,6 +186,7 @@ export default {
       this.$request
         .adminByNameFindIcon(this.formInline.user)
         .then((result) => {
+          console.log(result)
           if (result.flag) {
             this.icon = result.data;
           } else {
