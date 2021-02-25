@@ -9,11 +9,11 @@
         保存设置
       </Button>
     </template>
-    <FormItemBlock class="mt-0" title="设置字体">
+    <FormItemBlock class="mt-0" title="设置字体" subtitle="逗号隔开">
       <Input placeholder="标签" v-model.trim="content.webFontFamily" />
     </FormItemBlock>
 
-    <FormItemBlock title="网站主题">
+    <FormItemBlock title="网站主题" subtitle="URL为CSS">
       <a slot="help" class="small" href="/webtheme/theme.less" download="主题模板.less">
         下载主题模板(LESS)
       </a>

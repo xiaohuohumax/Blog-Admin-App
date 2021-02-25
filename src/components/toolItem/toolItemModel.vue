@@ -1,6 +1,6 @@
 <template>
   <Poptip trigger="hover" placement="left-end">
-    <Button class="mt-1" :icon="icon" shape="circle"></Button>
+    <Button class="mt-1" :icon="icon" shape="circle" @click="buttonClick"></Button>
     <div style="overflow-y: auto" slot="content" ref="toolItemModelBody">
       <slot></slot>
     </div>
@@ -29,6 +29,9 @@ export default {
           this.$emit("scrollend");
         }
       });
+    },
+    buttonClick() {
+      this.$emit("iconclick");
     },
   },
 };

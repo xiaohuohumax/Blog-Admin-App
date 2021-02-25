@@ -25,6 +25,9 @@ const routes = [{
       path: 'Welcome',
       name: '欢迎',
       component: allCom.Welcome,
+      // meta: {
+      //   resources: ["router_welcome"]
+      // }
     }, {
       path: 'FireArticleManager',
       name: '发布/修改文章',
@@ -291,6 +294,12 @@ const router = new VueRouter({
   base: process.env.BASE_URL,
   routes,
 })
+
+const VueRouterPush = VueRouter.prototype.push
+VueRouter.prototype.push = function push(to) {
+  return VueRouterPush.call(this, to).catch(err => err)
+}
+
 
 
 export default router

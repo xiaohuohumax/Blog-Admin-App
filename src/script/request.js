@@ -555,16 +555,16 @@ export default {
             }
         })
     },
-    authorityFindAllRole: () => {
+    roleFindAll: () => {
         return https({
             method: "post",
-            url: '/admin/api/authorityFindAllRole',
+            url: '/admin/api/roleFindAll',
         })
     },
-    authorityFindRoleByPage: (page, pageSteep, select) => {
+    roleFindByPage: (page, pageSteep, select) => {
         return https({
             method: "post",
-            url: '/admin/api/authorityFindRoleByPage',
+            url: '/admin/api/roleFindByPage',
             data: {
                 page,
                 pageSteep,
@@ -572,28 +572,28 @@ export default {
             }
         })
     },
-    authorityFindRoleById: (id) => {
+    roleFindById: (id) => {
         return https({
             method: "post",
-            url: '/admin/api/authorityFindRoleById',
+            url: '/admin/api/roleFindById',
             data: {
                 id
             }
         })
     },
-    authorityFindResourceByIds: (ids) => {
+    resourceFindByIds: (ids) => {
         return https({
             method: "post",
-            url: '/admin/api/authorityFindResourceByIds',
+            url: '/admin/api/resourceFindByIds',
             data: {
                 ids
             }
         })
     },
-    authorityFindResourceByPage: (page, pageSteep, select) => {
+    resourceFindByPage: (page, pageSteep, select) => {
         return https({
             method: "post",
-            url: '/admin/api/authorityFindResourceByPage',
+            url: '/admin/api/resourceFindByPage',
             data: {
                 page,
                 pageSteep,
@@ -601,10 +601,10 @@ export default {
             }
         })
     },
-    authorityFindResourceByPageAndIds: (page, pageSteep, select, ids) => {
+    resourceFindByPageAndIds: (page, pageSteep, select, ids) => {
         return https({
             method: "post",
-            url: '/admin/api/authorityFindResourceByPageAndIds',
+            url: '/admin/api/resourceFindByPageAndIds',
             data: {
                 page,
                 pageSteep,
@@ -613,71 +613,71 @@ export default {
             }
         })
     },
-    authorityRoleUpdateById: (id, params) => {
+    roleUpdateById: (id, params) => {
         return https({
             method: "post",
-            url: '/admin/api/authorityRoleUpdateById',
+            url: '/admin/api/roleUpdateById',
             data: {
                 id,
                 params
             }
         })
     },
-    authorityRoleInsert: (params) => {
+    roleInsert: (params) => {
         return https({
             method: "post",
-            url: '/admin/api/authorityRoleInsert',
+            url: '/admin/api/roleInsert',
             data: {
                 params
             }
         })
     },
-    authorityRoleDeleteById: (id) => {
+    roleDeleteById: (id) => {
         return https({
             method: "post",
-            url: '/admin/api/authorityRoleDeleteById',
+            url: '/admin/api/roleDeleteById',
             data: {
                 id
             }
         })
     },
-    authorityFindResourceById: (id) => {
+    resourceFindById: (id) => {
         return https({
             method: "post",
-            url: '/admin/api/authorityFindResourceById',
+            url: '/admin/api/resourceFindById',
             data: {
                 id
             }
         })
     },
-    authorityFindRootMenu: () => {
+    resourceFindRootMenu: () => {
         return https({
             method: "post",
-            url: '/admin/api/authorityFindRootMenu',
+            url: '/admin/api/resourceFindRootMenu',
         })
     },
-    authorityResourceInsert: (params) => {
+    resourceInsert: (params) => {
         return https({
             method: "post",
-            url: '/admin/api/authorityResourceInsert',
+            url: '/admin/api/resourceInsert',
             data: {
                 params
             }
         })
     },
-    authorityResourceDeleteById: (id) => {
+    resourceDeleteById: (id) => {
         return https({
             method: "post",
-            url: '/admin/api/authorityResourceDeleteById',
+            url: '/admin/api/resourceDeleteById',
             data: {
                 id
             }
         })
     },
-    authorityResourceUpdateById: (id, params) => {
+    resourceUpdateById: (id, params) => {
         return https({
             method: "post",
-            url: '/admin/api/authorityResourceUpdateById',
+            url: '/admin/api/resourceUpdateById',
             data: {
                 id,
                 params

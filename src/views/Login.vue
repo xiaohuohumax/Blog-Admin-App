@@ -186,7 +186,6 @@ export default {
       this.$request
         .adminByNameFindIcon(this.formInline.user)
         .then((result) => {
-          console.log(result)
           if (result.flag) {
             this.icon = result.data;
           } else {

@@ -20,7 +20,7 @@
     </div>
     <div class="home-nav-body flex-grow-1 mb-2">
       <div class="small" v-if="menu.length == 0">没有菜单╮(╯▽╰)╭</div>
-      <Menu :open-names="['0']" class="w-100 text-left">
+      <Menu :open-names="['0']" class="w-100 text-left" accordion >
         <Submenu :name="listIndex" v-for="(list, listIndex) in menu" :key="listIndex">
           <template slot="title">
             <Icon :type="list.icon" />

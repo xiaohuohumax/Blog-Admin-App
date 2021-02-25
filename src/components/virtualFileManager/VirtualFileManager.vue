@@ -304,14 +304,11 @@ export default {
       let failSum = 0;
       this.deleteFileLimit("virtualFileDeleteById", fileIdList, 3)
         .then((result) => {
-          if (result.flag) {
-            result.data.forEach((val) => {
-              val.flag ? (successSum += val.sum) : failSum++;
-            });
-          }
+          result.forEach((val) => {
+            val.flag ? (successSum += val.data.sum) : failSum++;
+          });
         })
         .catch((error) => {
-          console.log(error);
           this.$Message.error("发生错误!");
         })
         .finally(() => {

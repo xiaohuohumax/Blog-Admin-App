@@ -9,7 +9,7 @@
         保存设置
       </Button>
     </template>
-    <FormItemBlock class="mt-0" title="博客名称">
+    <FormItemBlock class="mt-0" title="博客名称" subtitle="页眉显示文字">
       <Input placeholder="标签" v-model.trim="content.webName" />
     </FormItemBlock>
 
@@ -21,7 +21,7 @@
       <EnterTags v-model="content.webKeyWords" :tagmax="tagsMax" />
     </FormItemBlock>
 
-    <FormItemBlock title="网站状态">
+    <FormItemBlock title="网站状态" subtitle="维修时需选择维修时间">
       <i-switch v-model="content.webState" size="large">
         <span slot="open">开启</span>
         <span slot="close">维修</span>

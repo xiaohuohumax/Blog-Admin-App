@@ -9,11 +9,11 @@
         保存设置
       </Button>
     </template>
-    <FormItemBlock class="mt-0" title="用户头像">
+    <FormItemBlock class="mt-0" title="用户头像" subtitle="前端用户可选头像">
       <EnterImage v-model="content.userDefIcon" :imagemax="imageIconMax" />
     </FormItemBlock>
 
-    <FormItemBlock title="网站横幅">
+    <FormItemBlock title="网站横幅" subtitle="轮播图">
       <EnterImage v-model="content.bannerIcon" :imagemax="imageBannerMax" />
     </FormItemBlock>
   </Content>

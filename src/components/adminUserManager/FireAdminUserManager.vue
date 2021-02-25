@@ -40,7 +40,7 @@
       <Input type="password" password v-model="content.pass" />
     </FormItemBlock>
 
-    <FormItemBlock title="角色">
+    <FormItemBlock title="角色" subtitle="可多选">
       <CheckboxGroup v-model="content.roles">
         <Checkbox
           :disabled="!$authres(['form_fireresourcemanager_roleundisabled'])"
@@ -154,10 +154,8 @@ export default {
       if (this.isRight) {
         return this.$Message.error("信息不完整!");
       }
-      let params = this.content;
-      params.icon = params.icon[0];
       this.$request
-        .adminUserInsert(params)
+        .adminUserInsert({ ...this.content, icon: this.content.icon[0] })
         .then((result) => {
           if (result.flag) {
             this.$Message.success("用户已创建!");
@@ -171,7 +169,7 @@ export default {
     // 查询全部角色
     selectAllRoles() {
       this.$request
-        .authorityFindAllRole()
+        .roleFindAll()
         .then((result) => {
           if (result.flag) {
             this.allRoles = result.data;
@@ -185,8 +183,9 @@ export default {
         .adminUserFindbyid(this.$route.query.id)
         .then((result) => {
           if (result.flag) {
-            this.content = result.data[0];
-            this.content.icon = [this.content.icon];
+            let data = result.data[0];
+            this.content = data;
+            this.content.icon = [data.icon];
             this.loading = 2;
           } else {
             this.loading = 3;

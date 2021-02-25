@@ -61,7 +61,7 @@ export default {
     select() {
       this.loading = 1;
       this.$request
-        .authorityFindRoleByPage(this.page, this.pageSteep, this.selectWorld)
+        .roleFindByPage(this.page, this.pageSteep, this.selectWorld)
         .then((result) => {
           if (result.flag) {
             this.contexts = result.data.roles;

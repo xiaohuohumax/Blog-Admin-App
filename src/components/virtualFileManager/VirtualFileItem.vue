@@ -75,6 +75,7 @@
 
 <script>
 import tools from "@/script/tools";
+import fileIconMap from "@/script/fileIconMap";
 export default {
   props: {
     file: { type: Object, default: () => ({}) },
@@ -94,50 +95,7 @@ export default {
       renameOpen: false,
       renameName: "", // 新名字
       iconBaseUrl: "/image/fileIcon/",
-      iconRule: {
-        unknow: "unknow.png",
-        dir: "dir.png",
-
-        acc: "acc.png",
-        avi: "avi.png",
-        cdr: "cdr.png",
-        css: "css.png",
-        csv: "csv.png",
-        dbf: "dbf.png",
-        ddl: "ddl.png",
-        dfd: "dfd.png",
-        doc: "doc.png",
-        docx: "docx.png",
-        dra: "dra.png",
-        eps: "eps.png",
-        file: "file.png",
-        flv: "flv.png",
-        gif: "gif.png",
-        html: "html.png",
-        iso: "iso.png",
-        jar: "jar.png",
-        jpg: "jpg.png",
-        js: "js.png",
-        json: "json.png",
-        mdb: "mdb.png",
-        mov: "mov.png",
-        mp3: "mp3.png",
-        name: "name.txt",
-        pdf: "pdf.png",
-        php: "php.png",
-        png: "png.png",
-        ppt: "ppt.png",
-        psd: "psd.png",
-        ptf: "ptf.png",
-        sql: "sql.png",
-        svg: "svg.png",
-        tiff: "tiff.png",
-        ttf: "ttf.png",
-        txt: "txt.png",
-        xls: "xls.png",
-        xlsx: "xlsx.png",
-        xml: "xml.png",
-      },
+      iconRule: fileIconMap,
       imageRule: ["png", "jpg", "jpeg", "jif", "svg"],
     };
   },
@@ -187,7 +145,7 @@ export default {
         // 未找到图标库
         return `${this.iconBaseUrl}${this.iconRule.unknow}`;
       }
-      
+
       return `${this.iconBaseUrl}${address}`;
     },
     intoDir() {

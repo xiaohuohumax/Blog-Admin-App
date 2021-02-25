@@ -138,7 +138,7 @@ export default {
     },
     selectResourceByPage() {
       this.$request
-        .authorityFindResourceByPage(this.page, this.pageSteep, this.selectWorld)
+        .resourceFindByPage(this.page, this.pageSteep, this.selectWorld)
         .then((result) => {
           if (result.flag) {
             this.contexts = result.data.resources;
@@ -149,7 +149,7 @@ export default {
     },
     selectResourceByPageAndIds() {
       this.$request
-        .authorityFindResourceByPageAndIds(
+        .resourceFindByPageAndIds(
           this.page,
           this.pageSteep,
           this.selectWorld,

@@ -41,7 +41,7 @@
       <Input v-model.trim="resource.code" />
     </FormItemBlock>
 
-    <FormItemBlock title="路径">
+    <FormItemBlock title="路径" subtitle="菜单时表示路由路径">
       <Input v-model.trim="resource.path" />
     </FormItemBlock>
 
@@ -62,7 +62,7 @@
       </Select>
     </FormItemBlock>
 
-    <FormItemBlock title="图标">
+    <FormItemBlock title="菜单图标" subtitle="菜单时显示图标">
       <Input :prefix="resource.icon" v-model.trim="resource.icon" />
     </FormItemBlock>
 
@@ -120,7 +120,7 @@ export default {
       this.resource = {
         parentId: "",
         index: "",
-        name: "[路由]",
+        name: "",
         code: "",
         icon: "",
         path: "",
@@ -129,7 +129,7 @@ export default {
     },
     findRootMenu() {
       this.$request
-        .authorityFindRootMenu()
+        .resourceFindRootMenu()
         .then((result) => {
           if (result.flag) {
             this.rootMenu = result.data.filter((val) => val._id != this.resource._id);
@@ -142,7 +142,7 @@ export default {
         return this.$Message.error("信息不完整!");
       }
       this.$request
-        .authorityResourceInsert(this.resource)
+        .resourceInsert(this.resource)
         .then((result) => {
           if (result.flag) {
             this.$Message.success("资源已创建!");
@@ -157,7 +157,7 @@ export default {
     select() {
       this.loading = 1;
       this.$request
-        .authorityFindResourceById(this.$route.query.id)
+        .resourceFindById(this.$route.query.id)
         .then((result) => {
           if (result.flag) {
             this.loading = 2;
@@ -170,7 +170,7 @@ export default {
     },
     remove() {
       this.$request
-        .authorityResourceDeleteById(this.$route.query.id)
+        .resourceDeleteById(this.$route.query.id)
         .then((result) => {
           if (result.flag) {
             this.$Message.success("删除成功!");
@@ -183,7 +183,7 @@ export default {
     },
     update() {
       this.$request
-        .authorityResourceUpdateById(this.$route.query.id, this.resource)
+        .resourceUpdateById(this.$route.query.id, this.resource)
         .then((result) => {
           if (result.flag) {
             this.$Message.success("修改成功!");

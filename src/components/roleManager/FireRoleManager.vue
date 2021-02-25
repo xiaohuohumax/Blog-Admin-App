@@ -78,7 +78,7 @@ export default {
         return this.$Message.error("信息不完整!");
       }
       this.$request
-        .authorityRoleInsert(this.role)
+        .roleInsert(this.role)
         .then((result) => {
           if (result.flag) {
             this.$Message.success("角色已创建!");
@@ -96,7 +96,7 @@ export default {
     select() {
       this.loading = 1;
       this.$request
-        .authorityFindRoleById(this.$route.query.id)
+        .roleFindById(this.$route.query.id)
         .then((result) => {
           if (result.flag) {
             this.loading = 2;
@@ -109,7 +109,7 @@ export default {
     },
     remove() {
       this.$request
-        .authorityRoleDeleteById(this.$route.query.id)
+        .roleDeleteById(this.$route.query.id)
         .then((result) => {
           if (result.flag) {
             this.$Message.success("删除成功!");
@@ -122,7 +122,7 @@ export default {
     },
     update() {
       this.$request
-        .authorityRoleUpdateById(this.$route.query.id, this.role)
+        .roleUpdateById(this.$route.query.id, this.role)
         .then((result) => {
           if (result.flag) {
             this.$Message.success("修改成功!");

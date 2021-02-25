@@ -299,9 +299,8 @@ export default {
       let failSum = 0;
       this.deleteFileLimit("virtualFileDeleteById", fileIdList, 3)
         .then((result) => {
-          console.log(result);
           result.forEach((val) => {
-            val.flag ? (successSum += val.sum) : failSum++;
+            val.flag ? (successSum += val.data.sum) : failSum++;
           });
         })
         .catch((error) => {

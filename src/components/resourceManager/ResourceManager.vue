@@ -62,7 +62,7 @@ export default {
     select() {
       this.loading = 1;
       this.$request
-        .authorityFindResourceByPage(this.page, this.pageSteep, this.selectWorld)
+        .resourceFindByPage(this.page, this.pageSteep, this.selectWorld)
         .then((result) => {
           if (result.flag) {
             this.contexts = result.data.resources;
