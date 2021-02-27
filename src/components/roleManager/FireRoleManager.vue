@@ -47,7 +47,7 @@
 </template>
 
 <script>
-import { mapState } from "vuex";
+import { mapState, mapMutations } from "vuex";
 export default {
   data() {
     return {
@@ -67,12 +67,13 @@ export default {
     !this.kind ? this.select() : "";
   },
   computed: {
-    ...mapState(["userInf"]),
+    ...mapState(["userInf", "roles"]),
     isRight() {
       return this.role.name == "" || this.role.code == "";
     },
   },
   methods: {
+    ...mapMutations(["userLogout", "userLogin"]),
     onSubmit() {
       if (this.isRight) {
         return this.$Message.error("信息不完整!");
@@ -125,6 +126,10 @@ export default {
         .roleUpdateById(this.$route.query.id, this.role)
         .then((result) => {
           if (result.flag) {
+            // 修改有关登陆者的角色
+            if (this.roles.map(val=>val._id).includes(this.role._id)) {
+              this.selectYourself();
+            }
             this.$Message.success("修改成功!");
             this.select();
           } else {
@@ -132,6 +137,21 @@ export default {
           }
         })
         .catch((err) => this.$Message.error("修改失败!"));
+    },
+
+    selectYourself() {
+      this.$request
+        .adminUserFindBySession()
+        .then((result) => {
+          if (result.flag) {
+            this.userLogin(result.data);
+          } else {
+            this.$Message.error(result.msg);
+            this.userLogout();
+            return this.$router.push("/");
+          }
+        })
+        .catch((err) => {});
     },
   },
 };

@@ -3,7 +3,7 @@
     <Card>
       <Input
         type="textarea"
-        :rows="8"
+        :rows="4"
         v-model.trim="notice"
         placeholder="请输入公告"
         clearable

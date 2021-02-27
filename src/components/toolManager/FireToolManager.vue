@@ -66,6 +66,9 @@
       title="上传工具源码压缩包"
       subtitle="vue项目打包源码zip压缩包"
     >
+      <a slot="help" class="small" href="/tool/tool-template.zip" download="主题模板.zip">
+        下载工具模板
+      </a>
       <EnterTool ref="enterTool" @input="inputFile" />
     </FormItemBlock>
 

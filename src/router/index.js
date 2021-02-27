@@ -259,6 +259,13 @@ const routes = [{
       meta: {
         resources: ["router_fireplaylistmanager"]
       }
+    },{
+      path: 'FireInformManager',
+      name: '发送通知',
+      component: allCom.FireInformManager,
+      meta: {
+        resources: ["router_fireinformmanager"]
+      }
     }, {
       path: '/Error404',
       name: '错误 404',

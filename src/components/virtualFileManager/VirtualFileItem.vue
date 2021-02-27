@@ -10,11 +10,7 @@
         :disabled="checkcanchange"
         class="virtual-file-check"
       ></Checkbox>
-      <div
-        class="virtual-file-item-icon mr-2 cursor-pointer rounded d-inline-block"
-        :style="iconStyle"
-        @click="intoDir"
-      ></div>
+      <FileIcon @intodir="intoDir" class="virtual-file-item-icon mr-2" :kind="file.kind" :name="file.name" :url="file.virtualUrl"/>
       <div class="d-flex align-items-center flex-grow-1" v-if="renameOpen">
         <Input
           v-model.trim="renameName"
@@ -125,29 +121,7 @@ export default {
     fileSize(size) {
       return tools.byteFormat(size);
     },
-    getFileIcon(name, kind, url) {
-      if (kind == "dir") {
-        // 文件夹
-        return `${this.iconBaseUrl}${this.iconRule.dir}`;
-      }
-
-      let suffix = name.substring(name.lastIndexOf(".") + 1);
-
-      if (suffix == "") {
-        // 未知
-        return `${this.iconBaseUrl}${this.iconRule.unknow}`;
-      }
-      if (this.viewmodel && this.isImage(suffix)) {
-        return url;
-      }
-      let address = this.iconRule[suffix];
-      if (!address) {
-        // 未找到图标库
-        return `${this.iconBaseUrl}${this.iconRule.unknow}`;
-      }
-
-      return `${this.iconBaseUrl}${address}`;
-    },
+   
     intoDir() {
       if (this.file.kind == "dir") {
         this.$emit("intodir", this.file);
@@ -198,13 +172,6 @@ export default {
     isChoose() {
       return this.chooselist.map((val) => val._id).includes(this.file._id);
     },
-    iconStyle() {
-      return `background:url('${this.getFileIcon(
-        this.file.name,
-        this.file.kind,
-        this.file.virtualUrl
-      )}') no-repeat center / contain;`;
-    },
   },
 };
 </script>
@@ -219,8 +186,8 @@ export default {
   }
 }
 .virtual-file-item-icon {
-  width: 2rem;
-  height: 2rem;
+  width: 3rem;
+  height: 3rem;
 }
 
 .virtiual-file-view-block {
@@ -242,7 +209,7 @@ export default {
   .virtual-file-item-icon {
     width: 8rem;
     height: 8rem;
-    margin: 0 0.5rem !important;
+    padding: 0 0.5rem !important;
   }
   .virtual-file-check {
     position: absolute;

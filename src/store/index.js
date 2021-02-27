@@ -28,8 +28,15 @@ export default new Vuex.Store({
       // }
     ], // 文件上传列表
     fileRefsh: 0, // 文件刷新
+
+
+    informArr: [], // 通知
   },
   mutations: {
+    // 添加通知
+    addInform(state, inform) {
+      state.informArr.unshift(inform)
+    },
     // 添加角色已校验队列
     addRolesChecked(state, item) {
       state.rolesChecked.push(item);
@@ -66,6 +73,9 @@ export default new Vuex.Store({
     },
     // 添加用户登录信息
     userLogin(state, data) {
+      if (data.inf && !data.inf.allowLogin) {
+        return state.userLogined = false;
+      }
       state.userKey = data.key;
       state.userInf = data.inf;
       state.roles = data.roles;

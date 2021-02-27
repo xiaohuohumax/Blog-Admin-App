@@ -52,9 +52,8 @@
         </Option>
       </Select>
     </FormItemBlock>
-
     <FormItemBlock title="菜单父节点">
-      <Select v-model="resource.parentId">
+      <Select v-model.trim="resource.parentId" clearable>
         <Option value="-1">根目录</Option>
         <Option v-for="(item, index) in rootMenu" :key="index" :value="item._id">
           {{ item.name }}| {{ item.code }}
@@ -73,7 +72,7 @@
 </template>
 
 <script>
-import { mapState } from "vuex";
+import { mapState ,mapMutations} from "vuex";
 import authorityEnum from "../../script/authorityEnum";
 export default {
   data() {
@@ -86,6 +85,11 @@ export default {
       rootMenu: [],
     };
   },
+  watch: {
+    "resource.parentId"() {
+      this.resource.parentId == undefined ? (this.resource.parentId = "") : "";
+    },
+  },
 
   created() {
     this.resourceInit();
@@ -94,7 +98,7 @@ export default {
     this.findRootMenu();
   },
   computed: {
-    ...mapState(["userInf"]),
+    ...mapState(["userInf","resources"]),
     isRight() {
       return this.resource.name == "" || this.resource.code == "";
     },
@@ -116,6 +120,7 @@ export default {
     },
   },
   methods: {
+      ...mapMutations(["userLogout", "userLogin"]),
     resourceInit() {
       this.resource = {
         parentId: "",
@@ -186,6 +191,10 @@ export default {
         .resourceUpdateById(this.$route.query.id, this.resource)
         .then((result) => {
           if (result.flag) {
+            // 修改有关登陆者的角色
+            if (this.resources.map(val=>val._id).includes(this.resource._id)) {
+              this.selectYourself();
+            }
             this.$Message.success("修改成功!");
             this.select();
           } else {
@@ -193,6 +202,20 @@ export default {
           }
         })
         .catch((err) => this.$Message.error("修改失败!"));
+    },
+    selectYourself() {
+      this.$request
+        .adminUserFindBySession()
+        .then((result) => {
+          if (result.flag) {
+            this.userLogin(result.data);
+          } else {
+            this.$Message.error(result.msg);
+            this.userLogout();
+            return this.$router.push("/");
+          }
+        })
+        .catch((err) => {});
     },
   },
 };

@@ -801,6 +801,22 @@ export default {
             }
         })
     },
+    informSendMessage: (params) => {
+        return https({
+            method: "post",
+            url: '/admin/api/informSendMessage',
+            data: {
+                params
+            }
+        })
+    },
+    adminUserFindBySession: () => {
+        return https({
+            method: "post",
+            url: '/admin/api/adminUserFindBySession',
+        })
+    },
+
 
 
 }

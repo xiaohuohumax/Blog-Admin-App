@@ -101,6 +101,10 @@ export default {
     AuthorityBlock: () => import('../components/mode/AuthorityBlock'),
     AuthorityButton: () => import('../components/mode/AuthorityButton'),
     FormItemBlock: () => import('../components/mode/FormItemBlock'),
+    FileIcon: () => import('../components/mode/FileIcon'),
+    // 通知
+    FireInformManager: () => import('../components/informManager/FireInformManager'),
+    FireInformItem: () => import('../components/informManager/FireInformItem'),
     // 布局
     LeftNav: () => import('../components/layout/LeftNav'),
     History: () => import('../components/layout/History'),

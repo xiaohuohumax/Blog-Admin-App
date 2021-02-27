@@ -84,7 +84,7 @@ export default {
                 g = 1;
                 b = 1;
         }
-        return `RGB(${parseInt(r * 255)},${parseInt(g * 255)},${parseInt(b * 255)})`;
+        return `rgb(${parseInt(r * 255)},${parseInt(g * 255)},${parseInt(b * 255)})`;
     },
     // HSV 列表
     colorHSVList({

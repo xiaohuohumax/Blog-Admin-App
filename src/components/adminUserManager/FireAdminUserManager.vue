@@ -137,7 +137,7 @@ export default {
     },
   },
   methods: {
-    ...mapMutations(["userLogout"]),
+    ...mapMutations(["userLogout", "userLogin"]),
     userInit() {
       this.content = {
         name: "",
@@ -214,18 +214,30 @@ export default {
         })
         .then((result) => {
           if (result.flag) {
-            this.$Message.success("修改成功!");
-
             if (this.$route.query.id == this.userInf._id) {
-              this.userLogout();
-              return this.$router.push("/");
+              this.selectYourself();
             }
+            this.$Message.success("修改成功!");
             this.select();
           } else {
             this.$Message.error(result.msg);
           }
         })
         .catch((err) => this.$Message.error("修改失败!"));
+    },
+    selectYourself() {
+      this.$request
+        .adminUserFindBySession()
+        .then((result) => {
+          if (result.flag) {
+            this.userLogin(result.data);
+          } else {
+            this.$Message.error(result.msg);
+            this.userLogout();
+            return this.$router.push("/");
+          }
+        })
+        .catch((err) => {});
     },
   },
 };

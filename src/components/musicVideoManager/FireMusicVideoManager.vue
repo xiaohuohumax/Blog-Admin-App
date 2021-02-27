@@ -67,10 +67,8 @@
 </template>
 
 <script>
-import EnterTags from "../mode/EnterTags.vue";
 import { mapState } from "vuex";
 export default {
-  components: { EnterTags },
   data() {
     return {
       tagsMax: 10,
