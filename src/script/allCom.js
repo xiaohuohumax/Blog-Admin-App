@@ -102,6 +102,7 @@ export default {
     AuthorityButton: () => import('../components/mode/AuthorityButton'),
     FormItemBlock: () => import('../components/mode/FormItemBlock'),
     FileIcon: () => import('../components/mode/FileIcon'),
+    LoadingCard: () => import('../components/mode/LoadingCard'),
     // 通知
     FireInformManager: () => import('../components/informManager/FireInformManager'),
     FireInformItem: () => import('../components/informManager/FireInformItem'),
@@ -111,4 +112,6 @@ export default {
     Content: () => import('../components/layout/Content'),
     Header: () => import('../components/layout/Header'),
     Tools: () => import('../components/layout/Tools'),
+    // 第三方应用
+    Weather: () => import('../components/thirdPartyMode/Weather'),
 }

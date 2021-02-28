@@ -817,6 +817,16 @@ export default {
         })
     },
 
+    weather: (extensions) => {
+        return https({
+            method: "post",
+            url: '/admin/api/weather',
+            data: {
+                extensions
+            }
+        })
+    },
+
 
 
 }

@@ -1,5 +1,7 @@
 <template>
-  <Content>内容</Content>
+  <Content>
+    <Weather />
+  </Content>
 </template>
 
 <script>
