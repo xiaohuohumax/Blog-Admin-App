@@ -2,22 +2,21 @@
   <Content :loading="loading">
     <template #head>
       <Button
-        v-show="$authres(['view_fireplaylistmanager_backlist'])"
+        v-show="$authres(['view_firewebrolemanager_backlist'])"
         class="mr-2"
-        to="/PlayListManager"
+        to="/WebRoleManager"
       >
         返回列表
       </Button>
-
       <Button
-        v-show="kind && $authres(['view_fireplaylistmanager_firebutton'])"
+        v-show="kind && $authres(['view_firewebrolemanager_firebutton'])"
         type="success"
         @click="onSubmit"
       >
         创建
       </Button>
       <Button
-        v-show="!kind && $authres(['view_fireplaylistmanager_updatebutton'])"
+        v-show="!kind && $authres(['view_firewebrolemanager_updatebutton'])"
         class="mr-2"
         type="success"
         @click="update"
@@ -25,7 +24,7 @@
         更新
       </Button>
       <Button
-        v-show="!kind && $authres(['view_fireplaylistmanager_deletebutton'])"
+        v-show="!kind && $authres(['view_firewebrolemanager_deletebutton'])"
         type="error"
         ghost
         @click="remove"
@@ -33,75 +32,62 @@
         删除
       </Button>
     </template>
-    <input
-      v-model.trim="playlist.title"
-      type="text"
-      class="w-100 h3 py-3 border-0"
-      placeholder="请输入歌单名称(30字)"
-    />
-    <input
-      v-model.trim="playlist.subTitle"
-      type="text"
-      class="w-100 h5 py-3 border-0"
-      placeholder="请输入歌单说明(100字)"
-    />
-
-    <FormItemBlock title="添加封面">
-      <EnterImage v-model="playlist.icon" :imagemax="1" />
+    <FormItemBlock title="角色名称">
+      <Input placeholder="标签" v-model.trim="role.name" />
     </FormItemBlock>
 
-    <FormItemBlock :title="`包含歌曲(${playlist.songs.length})`">
-      <FirePlayListItem :playlist="playlist" />
+    <FormItemBlock title="角色授权码">
+      <Input placeholder="标签" v-model.trim="role.code" />
+    </FormItemBlock>
+
+    <FormItemBlock :title="`拥有资源(${role.resources.length})`">
+      <FireWebRoleItem :role="role" />
     </FormItemBlock>
   </Content>
 </template>
 
 <script>
+import { mapState, mapMutations } from "vuex";
 export default {
   data() {
     return {
-      playlist: {},
+      role: {
+        resources: [],
+        name: "",
+        code: "",
+      },
 
       kind: true, // true 发表文章 false 修改文章
       loading: 0,
-      rootMenu: [],
     };
   },
 
   created() {
-    this.playlistInit();
     this.kind = this.$route.query.id == "" || this.$route.query.id == undefined;
     !this.kind ? this.select() : "";
   },
   computed: {
+    ...mapState(["userInf", "roles"]),
     isRight() {
-      return (
-        this.playlist.title == "" ||
-        this.playlist.subTitle == "" ||
-        this.playlist.icon.length == 0
-      );
+      return this.role.name == "" || this.role.code == "";
     },
   },
   methods: {
-    playlistInit() {
-      this.playlist = {
-        title: "",
-        subTitle: "",
-        icon: [],
-        songs: [],
-      };
-    },
-
+    ...mapMutations(["userLogout", "userLogin"]),
     onSubmit() {
       if (this.isRight) {
         return this.$Message.error("信息不完整!");
       }
       this.$request
-        .playListInsert({ ...this.playlist, icon: this.playlist.icon[0] })
+        .webRoleInsert(this.role)
         .then((result) => {
           if (result.flag) {
-            this.$Message.success("歌单已创建!");
-            this.playlistInit();
+            this.$Message.success("角色已创建!");
+            this.role = {
+              resources: [],
+              name: "",
+              code: "",
+            };
           } else {
             this.$Message.error(result.msg);
           }
@@ -111,13 +97,11 @@ export default {
     select() {
       this.loading = 1;
       this.$request
-        .playListFindById(this.$route.query.id)
+        .webRoleFindById(this.$route.query.id)
         .then((result) => {
           if (result.flag) {
             this.loading = 2;
-            const data = result.data[0];
-            this.playlist = data;
-            this.playlist.icon = [data.icon];
+            this.role = result.data[0];
           } else {
             this.loading = 3;
           }
@@ -126,11 +110,11 @@ export default {
     },
     remove() {
       this.$request
-        .playListDeleteById(this.$route.query.id)
+        .webRoleDeleteById(this.$route.query.id)
         .then((result) => {
           if (result.flag) {
             this.$Message.success("删除成功!");
-            this.$router.push("/PlayListManager");
+            this.$router.push("/WebRoleManager");
           } else {
             this.$Message.error(flag.msg);
           }
@@ -139,10 +123,7 @@ export default {
     },
     update() {
       this.$request
-        .playListUpdate(this.$route.query.id, {
-          ...this.playlist,
-          icon: this.playlist.icon[0],
-        })
+        .webRoleUpdateById(this.$route.query.id, this.role)
         .then((result) => {
           if (result.flag) {
             this.$Message.success("修改成功!");

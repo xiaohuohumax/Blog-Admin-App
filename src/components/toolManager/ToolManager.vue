@@ -12,8 +12,21 @@
         class="mr-2"
         clearable
       />
-      <Button v-show="$authres(['view_toolmanager_searchgroup'])" @click="selectChange">
+      <Button
+        class="mr-2"
+        v-show="$authres(['view_toolmanager_searchgroup'])"
+        @click="selectChange"
+      >
         搜索
+      </Button>
+      <Button
+        class="mr-2"
+        type="success"
+        ghost
+        to="/FireToolManager"
+        v-show="$authres(['view_toolmanager_firebutton'])"
+      >
+        创建工具
       </Button>
     </template>
     <Page
@@ -58,7 +71,7 @@ export default {
             this.loading = 3;
           }
         })
-        .catch((err) => (this.loading = 3));
+        .catch(() => (this.loading = 3));
     },
     pageChange(num) {
       this.page = num;

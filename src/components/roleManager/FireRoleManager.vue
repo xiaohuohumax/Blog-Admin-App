@@ -16,7 +16,7 @@
         创建
       </Button>
       <Button
-        v-show="!kind && $authres(['view_fireadminusermanager_updatebutton'])"
+        v-show="!kind && $authres(['view_firerolemanager_updatebutton'])"
         class="mr-2"
         type="success"
         @click="update"
@@ -24,7 +24,7 @@
         更新
       </Button>
       <Button
-        v-show="!kind && $authres(['view_fireadminusermanager_deletebutton'])"
+        v-show="!kind && $authres(['view_firerolemanager_deletebutton'])"
         type="error"
         ghost
         @click="remove"
@@ -92,7 +92,7 @@ export default {
             this.$Message.error(result.msg);
           }
         })
-        .catch((err) => this.$Message.error(error));
+        .catch(() => this.$Message.error("创建失败!"));
     },
     select() {
       this.loading = 1;
@@ -106,7 +106,7 @@ export default {
             this.loading = 3;
           }
         })
-        .catch((err) => (this.loading = 3));
+        .catch(() => (this.loading = 3));
     },
     remove() {
       this.$request
@@ -119,7 +119,7 @@ export default {
             this.$Message.error(flag.msg);
           }
         })
-        .catch((err) => this.$Message.error("删除失败!"));
+        .catch(() => this.$Message.error("删除失败!"));
     },
     update() {
       this.$request
@@ -127,7 +127,7 @@ export default {
         .then((result) => {
           if (result.flag) {
             // 修改有关登陆者的角色
-            if (this.roles.map(val=>val._id).includes(this.role._id)) {
+            if (this.roles.map((val) => val._id).includes(this.role._id)) {
               this.selectYourself();
             }
             this.$Message.success("修改成功!");
@@ -136,7 +136,7 @@ export default {
             this.$Message.error(result.msg);
           }
         })
-        .catch((err) => this.$Message.error("修改失败!"));
+        .catch(() => this.$Message.error("修改失败!"));
     },
 
     selectYourself() {
@@ -151,7 +151,7 @@ export default {
             return this.$router.push("/");
           }
         })
-        .catch((err) => {});
+        .catch(() => {});
     },
   },
 };

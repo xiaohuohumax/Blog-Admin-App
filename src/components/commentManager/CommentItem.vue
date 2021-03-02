@@ -57,7 +57,7 @@ export default {
             this.article = result.data[0];
           }
         })
-        .catch((err) => {});
+        .catch(() => {});
     },
     deleteComment() {
       this.$request
@@ -67,10 +67,10 @@ export default {
             this.$Message.success("删除成功!");
             this.$emit("change");
           } else {
-            this.$Message.success(result.msg);
+            this.$Message.error(result.msg);
           }
         })
-        .catch((err) => this.$Message.error("删除失败!"));
+        .catch(() => this.$Message.error("删除失败!"));
     },
   },
   computed: {

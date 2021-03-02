@@ -1,10 +1,13 @@
 <template>
   <div class="history d-flex align-items-center px-2 pb-2">
     <ButtonGroup size="small" class="flex-shrink-0 flex-grow-0 mr-2">
-      <Button @click="$router.go(-1)">
+      <Button @click="$router.go(-1)" title="上一步">
         <Icon type="ios-arrow-back" />
       </Button>
-      <Button @click="$router.go(1)">
+      <Button @click="removeAllHistory" title="删除全部">
+        <Icon type="md-close" />
+      </Button>
+      <Button @click="$router.go(1)" title="下一步">
         <Icon type="ios-arrow-forward" />
       </Button>
     </ButtonGroup>
@@ -25,7 +28,7 @@
 import { mapState, mapMutations } from "vuex";
 export default {
   methods: {
-    ...mapMutations(["removeHistory"]),
+    ...mapMutations(["removeHistory", "removeAllHistory"]),
   },
   computed: {
     ...mapState(["history"]),

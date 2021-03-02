@@ -52,7 +52,7 @@
         <Icon size="20" :type="item.icon" v-if="item.icon" />
       </div>
       <div class="role-table-name" :title="item.name">
-        <router-link :to="`FireResourceManager?id=${item._id}`">
+        <router-link :to="`FireWebResourceManager?id=${item._id}`">
           {{ item.name }}
         </router-link>
       </div>
@@ -67,7 +67,7 @@
 </template>
 
 <script>
-import authorityEnum from "../../script/authorityEnum";
+import authorityWebEnum from "../../script/authorityWebEnum";
 export default {
   props: {
     role: Object,
@@ -80,7 +80,7 @@ export default {
       pageSteep: 10, // 每页条数
       selectWorld: "", // 搜索关键词
       page: 1,
-      authorityEnum,
+      authorityWebEnum,
 
       selectYourself: false, // 只查看自己的资源
     };
@@ -111,9 +111,9 @@ export default {
   methods: {
     // 获取类型
     getKind(kind) {
-      for (const key in this.authorityEnum) {
-        if (kind == this.authorityEnum[key].code) {
-          return this.authorityEnum[key].name;
+      for (const key in this.authorityWebEnum) {
+        if (kind == this.authorityWebEnum[key].code) {
+          return this.authorityWebEnum[key].name;
         }
       }
       return "";
@@ -138,7 +138,7 @@ export default {
     },
     selectResourceByPage() {
       this.$request
-        .resourceFindByPage(this.page, this.pageSteep, this.selectWorld)
+        .webResourceFindByPage(this.page, this.pageSteep, this.selectWorld)
         .then((result) => {
           if (result.flag) {
             this.contexts = result.data.resources;
@@ -149,7 +149,7 @@ export default {
     },
     selectResourceByPageAndIds() {
       this.$request
-        .resourceFindByPageAndIds(
+        .webResourceFindByPageAndIds(
           this.page,
           this.pageSteep,
           this.selectWorld,

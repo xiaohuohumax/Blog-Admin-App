@@ -47,6 +47,19 @@
       </RadioGroup>
     </FormItemBlock>
 
+    <FormItemBlock title="角色" subtitle="可多选">
+      <CheckboxGroup v-model="content.roles">
+        <Checkbox
+          :disabled="!$authres(['form_fireresourcemanager_roleundisabled'])"
+          :label="item._id"
+          v-for="(item, index) in allRoles"
+          :key="index"
+        >
+          {{ item.name }}[{{ item.resources.length }}]
+        </Checkbox>
+      </CheckboxGroup>
+    </FormItemBlock>
+
     <FormItemBlock title="登录IP">
       {{ content.loginIp }}
     </FormItemBlock>
@@ -70,10 +83,12 @@ export default {
     return {
       loading: 1,
       content: {},
+      allRoles: [],
     };
   },
   mounted() {
     this.select();
+    this.selectAllWebRoles();
   },
   computed: {
     level() {
@@ -97,7 +112,7 @@ export default {
             this.loading = 3;
           }
         })
-        .catch((err) => (this.loading = 3));
+        .catch(() => (this.loading = 3));
     },
     remove() {
       this.$request
@@ -110,7 +125,7 @@ export default {
             this.$Message.error(flag.msg);
           }
         })
-        .catch((err) => this.$Message.error("删除失败!"));
+        .catch(() => this.$Message.error("删除失败!"));
     },
     update() {
       this.$request
@@ -123,7 +138,18 @@ export default {
             this.$Message.error(result.msg);
           }
         })
-        .catch((err) => this.$Message.error("修改失败!"));
+        .catch(() => this.$Message.error("修改失败!"));
+    },
+    // 查询全部角色
+    selectAllWebRoles() {
+      this.$request
+        .webRoleFindAll()
+        .then((result) => {
+          if (result.flag) {
+            this.allRoles = result.data;
+          }
+        })
+        .catch(() => {});
     },
   },
 };

@@ -30,10 +30,23 @@
         class="d-block mt-3"
         v-if="!content.webState"
         type="datetime"
-        :options="options3"
+        :options="opentimeOptions"
         placeholder="选择时间"
         v-model="content.opentime"
       ></DatePicker>
+    </FormItemBlock>
+
+    <FormItemBlock title="游客默认角色" subtitle="可多选">
+      <CheckboxGroup v-model="content.touristDefRoles">
+        <Checkbox
+          :disabled="!$authres(['form_fireresourcemanager_roleundisabled'])"
+          :label="item._id"
+          v-for="(item, index) in allRoles"
+          :key="index"
+        >
+          {{ item.name }}[{{ item.resources.length }}]
+        </Checkbox>
+      </CheckboxGroup>
     </FormItemBlock>
 
     <FormItemBlock title="版权信息">
@@ -49,8 +62,9 @@ export default {
       loading: 1,
       tagsMax: 10,
       content: {},
+      allRoles: [],
 
-      options3: {
+      opentimeOptions: {
         disabledDate(date) {
           return date && date.valueOf() < Date.now();
         },
@@ -59,6 +73,7 @@ export default {
   },
   mounted() {
     this.select();
+    this.selectAllWebRoles();
   },
   computed: {
     isRight() {
@@ -84,7 +99,7 @@ export default {
             this.loading = 3;
           }
         })
-        .catch((err) => (this.loading = 3));
+        .catch(() => (this.loading = 3));
     },
     updated() {
       if (this.isRight) {
@@ -100,7 +115,19 @@ export default {
             this.$Message.error(result.msg);
           }
         })
-        .catch((err) => this.$Message.error("修改失败!"));
+        .catch(() => this.$Message.error("修改失败!"));
+    },
+
+    // 查询全部角色
+    selectAllWebRoles() {
+      this.$request
+        .webRoleFindAll()
+        .then((result) => {
+          if (result.flag) {
+            this.allRoles = result.data;
+          }
+        })
+        .catch(() => {});
     },
   },
 };

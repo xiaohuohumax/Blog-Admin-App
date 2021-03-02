@@ -10,7 +10,13 @@
         :disabled="checkcanchange"
         class="virtual-file-check"
       ></Checkbox>
-      <FileIcon @intodir="intoDir" class="virtual-file-item-icon mr-2" :kind="file.kind" :name="file.name" :url="file.virtualUrl"/>
+      <FileIcon
+        @intodir="intoDir"
+        class="virtual-file-item-icon mr-2"
+        :kind="file.kind"
+        :name="file.name"
+        :url="file.virtualUrl"
+      />
       <div class="d-flex align-items-center flex-grow-1" v-if="renameOpen">
         <Input
           v-model.trim="renameName"
@@ -71,7 +77,6 @@
 
 <script>
 import tools from "@/script/tools";
-import fileIconMap from "@/script/fileIconMap";
 export default {
   props: {
     file: { type: Object, default: () => ({}) },
@@ -91,7 +96,6 @@ export default {
       renameOpen: false,
       renameName: "", // 新名字
       iconBaseUrl: "/image/fileIcon/",
-      iconRule: fileIconMap,
       imageRule: ["png", "jpg", "jpeg", "jif", "svg"],
     };
   },
@@ -121,7 +125,7 @@ export default {
     fileSize(size) {
       return tools.byteFormat(size);
     },
-   
+
     intoDir() {
       if (this.file.kind == "dir") {
         this.$emit("intodir", this.file);
@@ -146,7 +150,7 @@ export default {
           }
           this.renameOpen = false;
         })
-        .catch((err) => {
+        .catch(() => {
           this.$Message.error("文件夹改名失败!");
           this.renameOpen = false;
         });
@@ -162,9 +166,7 @@ export default {
             this.$Message.error(result.msg);
           }
         })
-        .catch((err) => {
-          this.$Message.error("文件夹删除失败!");
-        });
+        .catch(() => this.$Message.error("文件夹删除失败!"));
     },
   },
   computed: {

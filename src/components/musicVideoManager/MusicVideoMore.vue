@@ -85,7 +85,7 @@ export default {
             this.loading = 3;
           }
         })
-        .catch((err) => (this.loading = 3));
+        .catch(() => (this.loading = 3));
     },
     remove() {
       this.$request
@@ -98,7 +98,7 @@ export default {
             this.$Message.error(result.msg);
           }
         })
-        .catch((err) => this.$Message.error("删除失败!"));
+        .catch(() => this.$Message.error("删除失败!"));
     },
   },
 };

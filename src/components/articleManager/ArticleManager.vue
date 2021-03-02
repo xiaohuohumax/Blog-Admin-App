@@ -12,9 +12,12 @@
         class="mr-2"
         clearable
       />
-      <Button v-show="$authres(['view_articlemanager_searchgroup'])" @click="selectChange"
-        >搜索</Button
+      <Button
+        v-show="$authres(['view_articlemanager_searchgroup'])"
+        @click="selectChange"
       >
+        搜索
+      </Button>
     </template>
     <Page
       :page-size="pageSteep"
@@ -59,7 +62,7 @@ export default {
             this.loading = 3;
           }
         })
-        .catch((err) => (this.loading = 3));
+        .catch(() => (this.loading = 3));
     },
     pageChange(num) {
       this.page = num;

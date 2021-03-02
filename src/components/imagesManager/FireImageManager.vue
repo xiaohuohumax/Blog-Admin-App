@@ -10,7 +10,7 @@
       </Button>
 
       <Button
-        v-show=" $authres(['view_fireimagemanager_backlist'])"
+        v-show="$authres(['view_fireimagemanager_backlist'])"
         class="mr-2"
         to="/ImageManager"
       >
@@ -133,7 +133,7 @@ export default {
             this.$Message.error(result.msg);
           }
         })
-        .catch((err) => console.log(err));
+        .catch(() => this.$Message.error("发布失败!"));
     },
     select() {
       this.loading = 1;
@@ -148,7 +148,7 @@ export default {
             this.loading = 3;
           }
         })
-        .catch((err) => (this.loading = 3));
+        .catch(() => (this.loading = 3));
     },
     remove() {
       this.$request
@@ -161,7 +161,7 @@ export default {
             this.$Message.error(result.msg);
           }
         })
-        .catch((err) => this.$Message.error("删除失败!"));
+        .catch(() => this.$Message.error("删除失败!"));
     },
     update() {
       if (this.isRight) {
@@ -180,7 +180,7 @@ export default {
             this.$Message.error(result.msg);
           }
         })
-        .catch((err) => console.log(err));
+        .catch(() => this.$Message.error("修改失败!"));
     },
   },
 };

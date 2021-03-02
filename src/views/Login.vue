@@ -57,6 +57,7 @@ let win = remote.getCurrentWindow();
 let fs = window.require("fs");
 
 import enumData from "../script/enumData";
+import config from "../config";
 
 import { mapMutations } from "vuex";
 export default {
@@ -98,6 +99,8 @@ export default {
       autoLogioTimeOut: null,
       autoLogioWaitTime: 5, // 等待时间
       autoIsShow: false, // 是否显示倒计时
+
+      loginSize: config.appSize.login,
     };
   },
   watch: {
@@ -148,8 +151,8 @@ export default {
     ...mapMutations(["userLogin"]),
     changeSize() {
       win.setResizable(true);
-      win.setMinimumSize(300, 360);
-      win.setSize(300, 360);
+      win.setMinimumSize(this.loginSize.minWidth, this.loginSize.minHeight);
+      win.setSize(this.loginSize.width, this.loginSize.height);
       win.center();
       win.setResizable(false);
     },

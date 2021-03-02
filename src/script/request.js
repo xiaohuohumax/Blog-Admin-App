@@ -55,7 +55,6 @@ export default {
             method: "post",
             url: '/admin/api/statsWebUserLevel',
         })
-
     },
     statsWebUserGender: () => {
         return https({
@@ -421,7 +420,6 @@ export default {
         })
     },
     uploadTool: (adminId, title, subTitle, icon, tags, kind, file, onUploadProgress = () => {}) => {
-
         let data = new FormData();
         data.append("adminId", adminId);
         data.append("title", title);
@@ -441,12 +439,13 @@ export default {
             data
         })
     },
-    toolUpdate: (id, title, subTitle, icon, tags, file, onUploadProgress = () => {}) => {
+    toolUpdate: (id, title, subTitle, icon, tags, kind, file, onUploadProgress = () => {}) => {
         let data = new FormData();
         data.append("id", id);
         data.append("title", title);
         data.append("subTitle", subTitle);
         data.append("icon", icon);
+        data.append("kind", kind);
         tags.forEach(val => data.append("tags[]", val));
         file ? data.append("file", file) : "";
         return https({
@@ -690,7 +689,6 @@ export default {
             url: '/admin/api/toolFindKind',
         })
     },
-
     songInsert: (params) => {
         return https({
             method: "post",
@@ -739,7 +737,6 @@ export default {
             }
         })
     },
-
     songFindByPageAndIds: (page, pageSteep, select, ids) => {
         return https({
             method: "post",
@@ -752,7 +749,6 @@ export default {
             }
         })
     },
-
     playListInsert: (params) => {
         return https({
             method: "post",
@@ -816,7 +812,6 @@ export default {
             url: '/admin/api/adminUserFindBySession',
         })
     },
-
     weather: (extensions) => {
         return https({
             method: "post",
@@ -826,7 +821,134 @@ export default {
             }
         })
     },
-
-
-
+    webRoleFindByPage: (page, pageSteep, select) => {
+        return https({
+            method: "post",
+            url: '/admin/api/webRoleFindByPage',
+            data: {
+                page,
+                pageSteep,
+                select
+            }
+        })
+    },
+    webRoleFindById: (id) => {
+        return https({
+            method: "post",
+            url: '/admin/api/webRoleFindById',
+            data: {
+                id
+            }
+        })
+    },
+    webRoleInsert: (params) => {
+        return https({
+            method: "post",
+            url: '/admin/api/webRoleInsert',
+            data: {
+                params
+            }
+        })
+    },
+    webRoleDeleteById: (id) => {
+        return https({
+            method: "post",
+            url: '/admin/api/webRoleDeleteById',
+            data: {
+                id
+            }
+        })
+    },
+    webRoleFindAll: () => {
+        return https({
+            method: "post",
+            url: '/admin/api/webRoleFindAll',
+        })
+    },
+    webRoleUpdateById: (id, params) => {
+        return https({
+            method: "post",
+            url: '/admin/api/webRoleUpdateById',
+            data: {
+                id,
+                params
+            }
+        })
+    },
+    webResourceFindByPage: (page, pageSteep, select) => {
+        return https({
+            method: "post",
+            url: '/admin/api/webResourceFindByPage',
+            data: {
+                page,
+                pageSteep,
+                select
+            }
+        })
+    },
+    webResourceFindByPageAndIds: (page, pageSteep, select, ids) => {
+        return https({
+            method: "post",
+            url: '/admin/api/webResourceFindByPageAndIds',
+            data: {
+                page,
+                pageSteep,
+                select,
+                ids
+            }
+        })
+    },
+    webResourceFindById: (id) => {
+        return https({
+            method: "post",
+            url: '/admin/api/webResourceFindById',
+            data: {
+                id
+            }
+        })
+    },
+    webResourceFindRootMenu: () => {
+        return https({
+            method: "post",
+            url: '/admin/api/webResourceFindRootMenu',
+        })
+    },
+    webResourceInsert: (params) => {
+        return https({
+            method: "post",
+            url: '/admin/api/webResourceInsert',
+            data: {
+                params
+            }
+        })
+    },
+    webResourceDeleteById: (id) => {
+        return https({
+            method: "post",
+            url: '/admin/api/webResourceDeleteById',
+            data: {
+                id
+            }
+        })
+    },
+    webResourceUpdateById: (id, params) => {
+        return https({
+            method: "post",
+            url: '/admin/api/webResourceUpdateById',
+            data: {
+                id,
+                params
+            }
+        })
+    },
+    baseControl: (code, params) => {
+        return https({
+            method: "post",
+            url: '/admin/api/baseControl',
+            data: {
+                code,
+                params
+            }
+        })
+    },
 }

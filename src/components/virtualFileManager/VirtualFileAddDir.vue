@@ -54,9 +54,9 @@ export default {
             this.$Message.error(result.msg);
           }
         })
-        .catch((err) => {
+        .catch(() => {
           this.$emit("fail");
-          this.$Message.error("文件夹创建成失败!");
+          this.$Message.error("新建文件夹失败!");
         });
     },
     // 确认

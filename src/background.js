@@ -17,11 +17,12 @@ import enumData from './script/enumData'
 
 import path from 'path';
 
+import config from "./config";
+
 const isDevelopment = process.env.NODE_ENV !== 'production'
 
-let win
+let win;
 
-// Scheme must be registered before the app is ready
 protocol.registerSchemesAsPrivileged([{
   scheme: 'app',
   privileges: {
@@ -30,12 +31,14 @@ protocol.registerSchemesAsPrivileged([{
   }
 }])
 
+
 function createWindow() {
+  let loginSize = config.appSize.login;
   win = new BrowserWindow({
-    width: 300,
-    height: 360,
-    minWidth: 300,
-    minHeight: 360,
+    width: loginSize.width,
+    height: loginSize.height,
+    minWidth: loginSize.minWidth,
+    minHeight: loginSize.minHeight,
     center: true,
     frame: false,
     webPreferences: {
@@ -68,7 +71,6 @@ function createWindow() {
   ipcMain.on(enumData.AppPath, function (event, arg) {
     event.returnValue = path.dirname(app.getPath('exe'))
   })
-
 }
 
 app.on('window-all-closed', () => {
@@ -77,9 +79,7 @@ app.on('window-all-closed', () => {
   }
 })
 
-// app.on('')
 // app.on('resize', (e) => {
-//   alert('奥术大师多')
 //   win.webContents.send('ping', 'whoooooooh!')
 // })
 

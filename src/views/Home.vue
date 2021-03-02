@@ -17,11 +17,14 @@
 <script>
 let { remote } = window.require("electron");
 
+import config from "../config";
+
 let win = remote.getCurrentWindow();
 export default {
   data() {
     return {
       file: "",
+      homeSize: config.appSize.home,
     };
   },
   created() {
@@ -30,8 +33,8 @@ export default {
   methods: {
     changeSize() {
       win.setResizable(true);
-      win.setMinimumSize(800, 500);
-      win.setSize(1000, 600);
+      win.setMinimumSize(this.homeSize.minWidth, this.homeSize.minHeight);
+      win.setSize(this.homeSize.width, this.homeSize.height);
       win.center();
     },
   },

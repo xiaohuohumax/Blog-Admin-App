@@ -12,7 +12,10 @@
         placeholder="日期"
         style="width: 10rem"
       ></DatePicker>
-      <Button v-show="$authres(['view_messagemanager_searchgroup'])" @click="selectChange">
+      <Button
+        v-show="$authres(['view_messagemanager_searchgroup'])"
+        @click="selectChange"
+      >
         搜索
       </Button>
     </template>
@@ -82,7 +85,7 @@ export default {
             this.contextSum = result.data.webMessageSum;
           }
         })
-        .catch((err) => {});
+        .catch(() => {});
     },
     pageChange(num) {
       this.page = num;
@@ -96,7 +99,7 @@ export default {
         return this.$Message.error("消息不能为空!");
       }
       this.$request
-        .adminMessageInsert({adminId:this.userInf._id, message:this.message})
+        .adminMessageInsert({ adminId: this.userInf._id, message: this.message })
         .then((result) => {
           if (result.flag) {
             this.selectChange();
@@ -106,9 +109,7 @@ export default {
             this.$Message.success(result.msg);
           }
         })
-        .catch((err) => {
-          this.$Message.error("发送失败!");
-        });
+        .catch(() => this.$Message.error("发送失败!"));
     },
   },
 };

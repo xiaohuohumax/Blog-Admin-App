@@ -1,5 +1,4 @@
 // 通用辅助工具类
-
 export default {
     pFunction: function (probably, callback) { // 概率调用函数 0-100% callback
         this.randomNumber(0, 100) < probably ? callback() : "";
@@ -105,6 +104,7 @@ export default {
         }
         return res;
     },
+    // 字节数转换
     byteFormat(size) {
         if (!size)
             return "";

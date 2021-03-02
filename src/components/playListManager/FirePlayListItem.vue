@@ -134,7 +134,7 @@ export default {
             this.contextSum = result.data.songSum;
           }
         })
-        .catch((err) => {});
+        .catch(() => {});
     },
     selectSongByPageAndIds() {
       this.$request
@@ -150,7 +150,7 @@ export default {
             this.contextSum = result.data.songSum;
           }
         })
-        .catch((err) => {});
+        .catch(() => {});
     },
     pageChange(num) {
       this.page = num;

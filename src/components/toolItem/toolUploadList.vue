@@ -16,10 +16,16 @@
       <div class="tool-upload-list-body flex-grow-1 small font-weight-bold">
         <div class="text-center" v-if="uploadFileList.length == 0">啥也没有呦~~~</div>
         <div class="d-flex" v-for="(item, index) in uploadFileList" :key="index">
-          <div class="w-25">{{ item.file.name }}</div>
-          <div class="w-25">{{ item.path.name }}</div>
-          <div class="w-25">{{ fileSize(item.file.size) }}</div>
-          <div class="w-25"><Progress :percent="item.steep" /></div>
+          <div class="w-25 tool-upload-item" :title="item.file.name">
+            {{ item.file.name }}
+          </div>
+          <div class="w-25 tool-upload-item" :title="item.path.name">
+            {{ item.path.name }}
+          </div>
+          <div class="w-25 tool-upload-item" :title="fileSize(item.file.size)">
+            {{ fileSize(item.file.size) }}
+          </div>
+          <div class="w-25 tool-upload-item"><Progress :percent="item.steep" /></div>
         </div>
       </div>
     </div>
@@ -104,6 +110,10 @@ export default {
   max-height: 13rem;
   .tool-upload-list-body {
     overflow-y: auto;
+    .tool-upload-item {
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
   }
 }
 </style>

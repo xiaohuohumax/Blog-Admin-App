@@ -2,7 +2,7 @@
   <Content :loading="loading">
     <template #head>
       <Input
-        v-show="$authres(['view_musicvideomanager_searchgroup'])"
+        v-show="$authres(['view_webrolemanager_searchgroup'])"
         @keydown.enter.native="selectChange"
         @on-clear="selectChange"
         v-model.trim="selectWorld"
@@ -13,20 +13,19 @@
         clearable
       />
       <Button
+        v-show="$authres(['view_webrolemanager_searchgroup'])"
         class="mr-2"
-        v-show="$authres(['view_musicvideomanager_searchgroup'])"
         @click="selectChange"
       >
         搜索
       </Button>
       <Button
-        class="mr-2"
+        v-show="$authres(['view_webrolemanager_firebutton'])"
         type="success"
         ghost
-        to="/FireMusicVideoManager"
-        v-show="$authres(['view_musicvideomanager_firebutton'])"
+        to="/FireWebRoleManager"
       >
-        创建视频
+        新建角色
       </Button>
     </template>
     <Page
@@ -38,7 +37,7 @@
       show-elevator
     />
     <Null v-show="contexts.length == 0" />
-    <MusicVideoItem v-for="(item, index) in contexts" :key="index" :article="item" />
+    <WebRoleItem v-for="(item, index) in contexts" :key="index" :role="item" />
   </Content>
 </template>
 
@@ -52,7 +51,6 @@ export default {
       selectWorld: "", // 搜索关键词
 
       page: 1,
-
       loading: 1, // 1 加载中 2 成功 3 失败
     };
   },
@@ -63,11 +61,11 @@ export default {
     select() {
       this.loading = 1;
       this.$request
-        .videomusicFindByPage(this.page, this.pageSteep, this.selectWorld)
+        .webRoleFindByPage(this.page, this.pageSteep, this.selectWorld)
         .then((result) => {
           if (result.flag) {
-            this.contexts = result.data.videoMusics;
-            this.contextSum = result.data.videoMusicSum;
+            this.contexts = result.data.roles;
+            this.contextSum = result.data.roleSum;
             this.loading = 2;
           } else {
             this.loading = 3;

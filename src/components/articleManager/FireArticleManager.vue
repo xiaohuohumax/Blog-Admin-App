@@ -127,10 +127,10 @@ export default {
             this.$Message.success("文章已发表!");
             this.articleInit();
           } else {
-            this.$Message.success(result.msg);
+            this.$Message.error("文章发布失败!")
           }
         })
-        .catch((err) => console.log(err));
+        .catch(() => this.$Message.error("文章发布失败!"));
     },
     select() {
       this.loading = 1;
@@ -145,7 +145,7 @@ export default {
             this.loading = 3;
           }
         })
-        .catch((err) => (this.loading = 3));
+        .catch(() => (this.loading = 3));
     },
     remove() {
       this.$request
@@ -155,10 +155,10 @@ export default {
             this.$Message.success("删除成功!");
             this.$router.push("/ArticleManager");
           } else {
-            this.$Message.success(result.msg);
+            this.$Message.error(result.msg);
           }
         })
-        .catch((err) => this.$Message.error("删除失败!"));
+        .catch(() => this.$Message.error("删除失败!"));
     },
     update() {
       if (this.isRight) {
@@ -174,10 +174,10 @@ export default {
             this.$Message.success("文章已修改!");
             this.select();
           } else {
-            this.$Message.success(result.msg);
+            this.$Message.error("修改失败!");
           }
         })
-        .catch((err) => console.log(err));
+        .catch(() => this.$Message.error("修改失败!"));
     },
   },
 };

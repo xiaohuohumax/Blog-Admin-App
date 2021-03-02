@@ -7,12 +7,9 @@ export default new Vuex.Store({
   state: {
     history: [],
 
-
     userLogined: false, // 是否登录
     userKey: "", // token
     userInf: {}, // 用户信息
-
-
 
     roles: [], // 角色
     resources: [], // 资源
@@ -28,7 +25,6 @@ export default new Vuex.Store({
       // }
     ], // 文件上传列表
     fileRefsh: 0, // 文件刷新
-
 
     informArr: [], // 通知
   },
@@ -82,6 +78,8 @@ export default new Vuex.Store({
       state.menu = data.menu;
       state.resources = data.resources;
       state.userLogined = true;
+      state.rolesChecked = [];
+      state.resourcessChecked = [];
     },
     // 用户注销
     userLogout(state) {
@@ -108,6 +106,10 @@ export default new Vuex.Store({
     // 删除记录
     removeHistory(state, index) {
       state.history.splice(index, 1);
+    },
+    // 删除所有记录
+    removeAllHistory(state) {
+      state.history = []
     }
   },
   getters: {
@@ -128,6 +130,4 @@ export default new Vuex.Store({
       return state.roles.filter(val => val.code != "").map((val) => val.code.trim());
     }
   },
-  actions: {},
-  modules: {}
 })

@@ -25,7 +25,7 @@
           </RadioGroup>
         </div>
         <div class="d-flex justify-content-between align-items-center">
-          <Select class="mr-2" v-model.number="content.duration" style="width:7rem">
+          <Select class="mr-2" v-model.number="content.duration" style="width: 7rem">
             <Option :value="item.value" v-for="(item, index) in informTime" :key="index">
               {{ item.name }}
             </Option>
@@ -97,14 +97,14 @@ export default {
         .informSendMessage(context)
         .then((result) => {
           if (result.flag) {
-            this.$Message.success("通知已发表!");
+            this.$Message.success(`${result.data}个用户已收到信息`);
             this.addInform(context);
             this.init();
           } else {
             this.$Message.error(result.msg);
           }
         })
-        .catch((err) => console.log(err));
+        .catch(() => this.$Message.error("通知发送失败!"));
     },
   },
 };

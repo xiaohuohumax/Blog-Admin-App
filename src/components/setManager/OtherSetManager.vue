@@ -56,7 +56,7 @@ export default {
             this.loading = 3;
           }
         })
-        .catch((err) => (this.loading = 3));
+        .catch(() => (this.loading = 3));
     },
     updated() {
       if (this.isRight) {
@@ -72,7 +72,7 @@ export default {
             this.$Meserrorerror(result.msg);
           }
         })
-        .catch((err) => this.$Message.error("修改失败!"));
+        .catch(() => this.$Message.error("修改失败!"));
     },
   },
 };

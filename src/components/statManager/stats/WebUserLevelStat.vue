@@ -4,6 +4,13 @@
 
 <script>
 export default {
+  props: {
+    delay: {
+      // 延时
+      type: Number,
+      default: 0,
+    },
+  },
   data() {
     return {
       loading: 0, // 0 加载中 1 记载成功 2 加载失败
@@ -11,7 +18,7 @@ export default {
     };
   },
   mounted() {
-    this.select();
+    setTimeout(() => this.select(), this.delay);
   },
   methods: {
     select() {
@@ -42,7 +49,7 @@ export default {
             this.loading = 2;
           }
         })
-        .catch((err) => (this.loading = 2));
+        .catch(() => (this.loading = 2));
     },
   },
 };

@@ -51,7 +51,6 @@ export default {
     VirtualFileLoading: () => import('../components/virtualFileManager/VirtualFileLoading'),
     VirtualFileAddDir: () => import('../components/virtualFileManager/VirtualFileAddDir'),
     VirtualFileSelectOver: () => import('../components/virtualFileManager/VirtualFileSelectOver'),
-    // VirtualFileNewPath: () => import('../components/virtualFileManager/VirtualFileNewPath'),
     // 统计
     WebStatManager: () => import('../components/statManager/WebStatManager'),
     WebUserLevelStat: () => import('../components/statManager/stats/WebUserLevelStat'),
@@ -60,7 +59,6 @@ export default {
     AdminUserGenderStat: () => import('../components/statManager/stats/AdminUserGenderStat'),
     AdminUserLevelStat: () => import('../components/statManager/stats/AdminUserLevelStat'),
     AdminStatManager: () => import('../components/statManager/AdminStatManager'),
-    // UserAgeStat: () => import('../components/statManager/stats/UserAgeStat'),
     // 网站设置
     BasicSetManager: () => import('../components/setManager/BasicSetManager'),
     StyleSetManager: () => import('../components/setManager/StyleSetManager'),
@@ -74,10 +72,19 @@ export default {
     RoleItem: () => import('../components/roleManager/RoleItem'),
     FireRoleItem: () => import('../components/roleManager/FireRoleItem'),
     FireRoleManager: () => import('../components/roleManager/FireRoleManager'),
+    // 前端角色管理
+    WebRoleManager: () => import('../components/webRoleManager/WebRoleManager'),
+    WebRoleItem: () => import('../components/webRoleManager/WebRoleItem'),
+    FireWebRoleItem: () => import('../components/webRoleManager/FireWebRoleItem'),
+    FireWebRoleManager: () => import('../components/webRoleManager/FireWebRoleManager'),
     // 资源管理
     ResourceManager: () => import('../components/resourceManager/ResourceManager'),
     ResourceItem: () => import('../components/resourceManager/ResourceItem'),
     FireResourceManager: () => import('../components/resourceManager/FireResourceManager'),
+    // 前端资源管理
+    WebResourceManager: () => import('../components/webResourceManager/WebResourceManager'),
+    WebResourceItem: () => import('../components/webResourceManager/WebResourceItem'),
+    FireWebResourceManager: () => import('../components/webResourceManager/FireWebResourceManager'),
     // 歌曲管理
     FireSongManager: () => import('../components/songManager/FireSongManager'),
     SongItem: () => import('../components/songManager/SongItem'),
@@ -87,6 +94,10 @@ export default {
     PlayListItem: () => import('../components/playListManager/PlayListItem'),
     PlayListManager: () => import('../components/playListManager/PlayListManager'),
     FirePlayListItem: () => import('../components/playListManager/FirePlayListItem'),
+    // 操控
+    BaseControl: () => import('../components/controlManager/BaseControl'),
+    FireInformManager: () => import('../components/informManager/FireInformManager'), // 通知
+    FireInformItem: () => import('../components/informManager/FireInformItem'),
     // 模块
     Editor: () => import('../components/mode/Editor'),
     EnterImage: () => import('../components/mode/EnterImage'),
@@ -103,9 +114,6 @@ export default {
     FormItemBlock: () => import('../components/mode/FormItemBlock'),
     FileIcon: () => import('../components/mode/FileIcon'),
     LoadingCard: () => import('../components/mode/LoadingCard'),
-    // 通知
-    FireInformManager: () => import('../components/informManager/FireInformManager'),
-    FireInformItem: () => import('../components/informManager/FireInformItem'),
     // 布局
     LeftNav: () => import('../components/layout/LeftNav'),
     History: () => import('../components/layout/History'),

@@ -135,7 +135,7 @@ export default {
             this.kindList = result.data;
           }
         })
-        .catch((err) => {});
+        .catch(() => {});
     },
     inputFile(file) {
       this.content = file;
@@ -175,9 +175,8 @@ export default {
           this.clearFile();
           this.loading = 2;
         })
-        .catch((err) => {
-          console.log(err);
-          this.$Message.error("工具发表失败!");
+        .catch(() => {
+          this.$Message.error("发表失败!");
           this.loading = 3;
         });
     },
@@ -199,7 +198,7 @@ export default {
             this.loading = 3;
           }
         })
-        .catch((err) => (this.loading = 3));
+        .catch(() => (this.loading = 3));
     },
     remove() {
       this.$request
@@ -212,7 +211,7 @@ export default {
             this.$Message.error(result.msg);
           }
         })
-        .catch((err) => this.$Message.error("删除失败!"));
+        .catch(() => this.$Message.error("删除失败!"));
     },
     update() {
       if (this.isRight) {
@@ -225,6 +224,7 @@ export default {
           this.subTitle,
           this.icon[0],
           this.tags,
+          this.kindInf,
           this.content,
           (progressEvent) => {
             this.time = ((progressEvent.loaded / progressEvent.total) * 100) | 0;
@@ -238,7 +238,7 @@ export default {
             this.$Message.error(result.msg);
           }
         })
-        .catch((err) => this.$Message.error("工具更新失败!"));
+        .catch(() => this.$Message.error("工具更新失败!"));
     },
   },
 };

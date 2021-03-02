@@ -1,5 +1,5 @@
 <template>
-  <div v-if="weatherInf" class="mt-5">
+  <div v-if="weatherInf">
     <LoadingCard :loading="loading" @reload="select">
       <div class="d-flex align-items-center justify-content-between">
         <div>
@@ -132,7 +132,7 @@ export default {
             this.loading = 2;
           }
         })
-        .catch((err) => (this.loading = 2));
+        .catch(() => (this.loading = 2));
     },
   },
 };

@@ -403,9 +403,7 @@ export default {
             this.selectOver = this.contexts.length == this.contextSum;
           }
         })
-        .catch((err) => {
-          this.selectMore = false;
-        });
+        .catch(() => (this.selectMore = false));
     },
     addFile(file) {
       for (const val of this.contexts) {

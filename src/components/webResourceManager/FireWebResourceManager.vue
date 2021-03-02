@@ -2,22 +2,22 @@
   <Content :loading="loading">
     <template #head>
       <Button
-        v-show="$authres(['view_fireresourcemanager_searchgroup'])"
+        v-show="$authres(['view_firewebresourcemanager_backbutton'])"
         class="mr-2"
-        to="/ResourceManager"
+        to="/WebResourceManager"
       >
         返回列表
       </Button>
 
       <Button
-        v-show="kind && $authres(['view_fireresourcemanager_firebutton'])"
+        v-show="kind && $authres(['view_firewebresourcemanager_firebutton'])"
         type="success"
         @click="onSubmit"
       >
         创建
       </Button>
       <Button
-        v-show="!kind && $authres(['view_fireresourcemanager_updatebutton'])"
+        v-show="!kind && $authres(['view_firewebresourcemanager_updatebutton'])"
         class="mr-2"
         type="success"
         @click="update"
@@ -25,7 +25,7 @@
         更新
       </Button>
       <Button
-        v-show="!kind && $authres(['view_fireresourcemanager_deletebutton'])"
+        v-show="!kind && $authres(['view_firewebresourcemanager_deletebutton'])"
         type="error"
         ghost
         @click="remove"
@@ -72,13 +72,13 @@
 </template>
 
 <script>
-import { mapState ,mapMutations} from "vuex";
-import authorityEnum from "../../script/authorityEnum";
+import { mapState, mapMutations } from "vuex";
+import authorityWebEnum from "../../script/authorityWebEnum";
 export default {
   data() {
     return {
       resource: {},
-      authorityEnum,
+      authorityWebEnum,
 
       kind: true, // true 发表文章 false 修改文章
       loading: 0,
@@ -98,7 +98,7 @@ export default {
     this.findRootMenu();
   },
   computed: {
-    ...mapState(["userInf","resources"]),
+    ...mapState(["userInf", "resources"]),
     isRight() {
       return this.resource.name == "" || this.resource.code == "";
     },
@@ -106,21 +106,21 @@ export default {
       return this.resource.parentId == "-1";
     },
     isMenu() {
-      return this.resource.kind == this.authorityEnum.menu.code;
+      return this.resource.kind == this.authorityWebEnum.menu.code;
     },
     kindArray() {
       let arr = [];
-      for (const key in this.authorityEnum) {
+      for (const key in this.authorityWebEnum) {
         arr.push({
           kind: key,
-          ...this.authorityEnum[key],
+          ...this.authorityWebEnum[key],
         });
       }
       return arr;
     },
   },
   methods: {
-      ...mapMutations(["userLogout", "userLogin"]),
+    ...mapMutations(["userLogout", "userLogin"]),
     resourceInit() {
       this.resource = {
         parentId: "",
@@ -129,12 +129,12 @@ export default {
         code: "",
         icon: "",
         path: "",
-        kind: authorityEnum.api.code,
+        kind: authorityWebEnum.api.code,
       };
     },
     findRootMenu() {
       this.$request
-        .resourceFindRootMenu()
+        .webResourceFindRootMenu()
         .then((result) => {
           if (result.flag) {
             this.rootMenu = result.data.filter((val) => val._id != this.resource._id);
@@ -147,7 +147,7 @@ export default {
         return this.$Message.error("信息不完整!");
       }
       this.$request
-        .resourceInsert(this.resource)
+        .webResourceInsert(this.resource)
         .then((result) => {
           if (result.flag) {
             this.$Message.success("资源已创建!");
@@ -162,7 +162,7 @@ export default {
     select() {
       this.loading = 1;
       this.$request
-        .resourceFindById(this.$route.query.id)
+        .webResourceFindById(this.$route.query.id)
         .then((result) => {
           if (result.flag) {
             this.loading = 2;
@@ -175,11 +175,11 @@ export default {
     },
     remove() {
       this.$request
-        .resourceDeleteById(this.$route.query.id)
+        .webResourceDeleteById(this.$route.query.id)
         .then((result) => {
           if (result.flag) {
             this.$Message.success("删除成功!");
-            this.$router.push("/ResourceManager");
+            this.$router.push("/WebResourceManager");
           } else {
             this.$Message.error(flag.msg);
           }
@@ -188,13 +188,9 @@ export default {
     },
     update() {
       this.$request
-        .resourceUpdateById(this.$route.query.id, this.resource)
+        .webResourceUpdateById(this.$route.query.id, this.resource)
         .then((result) => {
           if (result.flag) {
-            // 修改有关登陆者的角色
-            if (this.resources.map(val=>val._id).includes(this.resource._id)) {
-              this.selectYourself();
-            }
             this.$Message.success("修改成功!");
             this.select();
           } else {
@@ -202,20 +198,6 @@ export default {
           }
         })
         .catch(() => this.$Message.error("修改失败!"));
-    },
-    selectYourself() {
-      this.$request
-        .adminUserFindBySession()
-        .then((result) => {
-          if (result.flag) {
-            this.userLogin(result.data);
-          } else {
-            this.$Message.error(result.msg);
-            this.userLogout();
-            return this.$router.push("/");
-          }
-        })
-        .catch(() => {});
     },
   },
 };
